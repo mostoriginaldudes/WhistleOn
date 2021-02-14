@@ -36,7 +36,33 @@
 ### 개발 규칙
 
 1. **커밋 메시지**
+
+- 영문만을 사용
+- 동사 사용하여 동작 설명
+- 명사 사용하여 상세정보 설명
   
+ <pre>
+    # 변경사항의 동작을 아래의 <span style="color: red;">동사(Verb)</span>로 설명
+
+    Add 파일, 폴더 또는 소스코드를 추가하는 경우
+    Remove 파일, 폴더 또는 소스코드를 삭제하는 경우
+    Replace 파일 또는 폴더를 교체하는 경우
+    Rename 파일 또는 폴더의 이름을 변경하는 경우
+    Move 파일, 폴더 또는 소스코드를 이동하는 경우
+    Implement 특정한 모듈이나 라이브러리 등을 사용하여 구현하는 경우
+    Update 코드를 수정할 경우
+    Revise 문서를 개정하는 경우
+    Refactor 성능 개선 또는 중복 제거 등의 소스코드 개선이 발생한 경우
+    Simplify 복잡한 코드를 단순화하거나 Refactor보다 약한 수정의 경우
+    Fix 버그, 에러, 오타 등을 수정한 경우
+    Verify 검증 코드를 넣는 경우
+
+    # 변경 내역의 상세정보를 <span style="color: red;">명사(Noun)</span>로 설명
+
+    e.g. 
+      Fix typo 오타 수정
+      Remove unsused variable 사용하지 않는 변수 제거
+ </pre>
 
 2. **브랜치**
 
