@@ -1,5 +1,13 @@
 # WhistleOn
 
+![휘슬온2021_logo_resize](https://user-images.githubusercontent.com/46016511/108075736-0bd41180-70ae-11eb-8c35-e49b26a67ebd.png)
+
+### 팀 노션
+
+* **서비스에 대한 더욱 자세한 내용은 아래 링크를 꼭! 참조해주세요**
+
+* [휘슬온 팀 노션](https://www.notion.so/eff44d91cd91412287078fe8c7b8ec92)
+
 ### 프로젝트 소개
 
 * **팀원 소개**
@@ -16,11 +24,12 @@
 * **기술 스택**
   
   * **Backend**
-    * *language:* Java
-    * *Framework:* Spring
-    * *DB:* MySQL
-    * *Server:* AWS
-    * *Test:* JUnit
+    * *language:* Java11
+    * *Framework:* Spring Boot2.4
+    * *DB:* MariaDB
+    * *Server:* AWS ec2
+    * *Search Engine* Elastic Search
+    * *Test:* JUnit5
   
   <br>
 
@@ -44,18 +53,18 @@
  <pre>
     # 변경사항의 동작을 아래의 <span style="color: red;">동사(Verb)</span>로 설명
 
-    Add 파일, 폴더 또는 소스코드를 추가하는 경우
-    Remove 파일, 폴더 또는 소스코드를 삭제하는 경우
-    Replace 파일 또는 폴더를 교체하는 경우
-    Rename 파일 또는 폴더의 이름을 변경하는 경우
-    Move 파일, 폴더 또는 소스코드를 이동하는 경우
-    Implement 특정한 모듈이나 라이브러리 등을 사용하여 구현하는 경우
-    Update 코드를 수정할 경우
-    Revise 문서를 개정하는 경우
-    Refactor 성능 개선 또는 중복 제거 등의 소스코드 개선이 발생한 경우
-    Simplify 복잡한 코드를 단순화하거나 Refactor보다 약한 수정의 경우
-    Fix 버그, 에러, 오타 등을 수정한 경우
-    Verify 검증 코드를 넣는 경우
+    ⚽️ Add 파일, 폴더 또는 소스코드를 추가하는 경우
+    👋🏻 Remove 파일, 폴더 또는 소스코드를 삭제하는 경우
+    🚗 Replace 파일 또는 폴더를 교체하는 경우
+    🟡 Rename 파일 또는 폴더의 이름을 변경하는 경우
+    🚖 Move 파일, 폴더 또는 소스코드를 이동하는 경우
+    🍀 Implement 특정한 모듈이나 라이브러리 등을 사용하여 구현하는 경우
+    🚥 Update 코드를 수정할 경우
+    📕 Revise 문서를 개정하는 경우
+    ⛑ Refactor 성능 개선 또는 중복 제거 등의 소스코드 개선이 발생한 경우
+    ⭐️ Simplify 복잡한 코드를 단순화하거나 Refactor보다 약한 수정의 경우
+    🚑 Fix 버그, 에러, 오타 등을 수정한 경우
+    🎯 Verify 검증 코드를 넣는 경우
 
     # 변경 내역의 상세정보를 <span style="color: red;">명사(Noun)</span>로 설명
 
@@ -67,15 +76,18 @@
 2. **브랜치**
 
     <pre>
-      main
-        └─develop
-            ├─frontend
-            │ ├─frontend_feature/function1
-            │ └─frontend_fix/function1
-            │
-            └─backend
-              ├─backend_feature/function1
-              └─backend_fix/function2
+        Whistle On
+          ├─main
+          ├─release
+          ├─hotfix
+          └─develop
+              ├─frontend
+              │ ├─frontend_feature/function1
+              │ └─frontend_fix/function1
+              │
+              └─backend
+                ├─backend_feature/function1
+                └─backend_fix/function2
     </pre>
 
 3. **코딩 컨벤션**
