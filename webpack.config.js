@@ -1,20 +1,18 @@
 const path = require('path');
-const webpack = require('webpack');
+const Webpack = require('webpack');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
+  devtool: 'eval',
   resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      '@': './src'
-    }
+    extensions: ['.js', '.jsx', '.scss', '.css'],
   },
-  entry: ['./src/index.js'],
+  entry: {
+    whistle_on: './src/index.js'
+  },
   module: {
     rules: [
       {
@@ -26,7 +24,6 @@ module.exports = {
               targets: {
                 browsers: ['> 5% in KR', 'last 2 chrome versions'],
               },
-              debug: true,
             }],
             '@babel/preset-react'
           ],
@@ -34,23 +31,51 @@ module.exports = {
             'react-refresh/babel'
           ],
         },
-
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          MiniCssExtractPlugin.loader, 
+          'css-loader', 
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass')
+            }
+          }
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/images',
+              publicPath: '/dist/assets/images/',
+              esModule: false,
+              limit: 4000
+            }
+          },
+        ],
       },
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './index.html'
-    }),
-    new MiniCssExtractPlugin(),
-    new RefreshWebpackPlugin()
+    new Webpack.ProgressPlugin(),
+    new Webpack.LoaderOptionsPlugin({ debug: true }),
+    new HtmlWebpackPlugin({ template: './index.html' }),
+    new MiniCssExtractPlugin({ filename: 'css/style.css'}),
+    new RefreshWebpackPlugin(),
   ],
   output: {
-    filename: 'whistle-on.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: 'js/[name].bundle.js',
+    publicPath: '/dist/'
   },
   devServer: {
-    publicPath: './dist/',
-    hot: true
+    contentBase: path.join(__dirname, 'dist'),
+    hot: true,
   }
 };
