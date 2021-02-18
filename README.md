@@ -96,7 +96,7 @@
   
        * `.js`
 
-         * *파일명:* kebab-case
+         * *파일명:* snake_case
 
          * *변수:* camelCase
 
