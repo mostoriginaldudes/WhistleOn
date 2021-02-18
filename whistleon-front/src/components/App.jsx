@@ -6,7 +6,7 @@ const App = () => {
     <>
       <div>App</div>
       <div>new</div>
-      <img src={require('/dist/assets/images/whistleon-logo.png')} alt="whistle-on-logo-image"/>
+      <img src={require('../assets/images/whistleon-logo.png')} alt="whistle-on-logo-image"/>
     </>
   );
 };

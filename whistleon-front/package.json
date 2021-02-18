@@ -2,7 +2,7 @@
   "name": "whistle-on",
   "version": "1.0.0",
   "description": "WhistleOn",
-  "main": "/src/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "build": "webpack --mode none",
