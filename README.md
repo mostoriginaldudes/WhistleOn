@@ -28,7 +28,7 @@
     * *Framework:* Spring Boot2.4
     * *DB:* MariaDB
     * *Server:* AWS ec2
-    * *Search Engine* Elastic Search
+    * *Search Engine:* Elastic Search
     * *Test:* JUnit5
   
   <br>
@@ -142,14 +142,70 @@
 
      * **Backend**
      
-       * `.java`
+       * Function / Variable 네이밍 **camelCase** 로 작성
 
-         * 
+         ```java
+         // ex
+         String userName = "WhistleOn";
+         public void getUserName() {
+           return;
+         } 
+         ```
 
+       * Package 네이밍 소문자 작성
 
-       * `.class`
+         `ex) com.hala.whistleon.controller`
+      
+       * Class 네이밍 **PascalCase** 로 작성
 
-         * 
+         ```java
+         // ex
+         public Class WhistleOn{
+           //..
+         }
+         ```
+
+       * 배열, 리스트 등의 시퀀스 사용 시 복수형 사용
+         
+         ```java
+         List<User> users = new ArrayList<>();
+         ```
+
+       * forEach 사용 시, 원소는 단수형 사용
+
+         ```java
+         for(int user : users){
+           // ...
+         } 
+         ```
+       
+       * 인스턴스 네이밍은, 클래스 이름을 그대로하여 **camelClass** 형태로 작성
+
+         ```java
+         WhistleOn whistleOn = new WhistleOn();
+         ```
+       
+       * Enum(열거형)과 상수 네이밍 **UPPER_CASE_SNAKE_CASE** 로 작성
+
+         ```java
+         // ex
+         public static final String USER_NAME = "WhistleON";
+         ```
    
+       * DB 테이블 **snake_case** 로 작성
+
+         ```SQL
+         CREATE TABLE `whistle_on`(
+           ...
+         )
+         ```
+
+       * 그외 변수 네이밍 규칙 (직관적으로 이해가 되는 변수 이름만 사용)
+
+         ```
+         인덱스 번호 -> idx
+         카운트 변수 -> cnt
+         ```
+
 
 
