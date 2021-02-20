@@ -11,7 +11,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.scss', '.css'],
   },
   entry: {
-    whistle_on: './src/index.js'
+    'whistle-on': './src/index.js'
   },
   module: {
     rules: [
