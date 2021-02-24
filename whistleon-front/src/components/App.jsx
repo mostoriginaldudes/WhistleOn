@@ -1,13 +1,17 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+import Home from './Home.jsx';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 import '../style/style.scss';
 
 const App = () => {
   return (
-    <>
-      <div>App</div>
-      <div>new</div>
-      <img src={require('../assets/images/whistleon-logo.png')} alt="whistle-on-logo-image"/>
-    </>
+    <div>
+      <Route path="/" component={Home} exact />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
+    </div>
   );
 };
 
