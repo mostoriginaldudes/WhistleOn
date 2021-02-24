@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
-import '../style/style.scss';
 
 const App = () => {
   return (

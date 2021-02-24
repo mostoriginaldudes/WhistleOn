@@ -1,0 +1,13 @@
+@import './reset.scss';
+@import './color.scss';
+@import './mixin.scss';
+
+.common {
+  &__btn {
+    @include flex(row, space-between, center);
+    background-color: $pt-yellow;
+    color: $pt-gray;
+    padding: 20px 30px;
+
+  }
+}

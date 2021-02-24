@@ -9,6 +9,9 @@ module.exports = {
   devtool: 'eval',
   resolve: {
     extensions: ['.js', '.jsx', '.scss', '.css'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    }
   },
   entry: {
     'whistle-on': './src/index.js'
