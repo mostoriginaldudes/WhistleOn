@@ -18,7 +18,7 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.header.auth}")
     private String HEADER_AUTH;
 
-    @Value("jwt.salt.value")
+    @Value("${jwt.salt.value}")
     private String SALT;
 
     /**
