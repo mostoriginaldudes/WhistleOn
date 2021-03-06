@@ -1,6 +1,5 @@
-package io.hala.whistleon.user;
+package io.hala.whistleon.domain.user;
 
-import io.hala.whistleon.domain.user.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +15,6 @@ public class UserTest {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private UserStatRepository userStatRepository;
-
 
     @Transactional
     @Test
@@ -43,15 +38,14 @@ public class UserTest {
                 .build();
 
         //When
+        user.addStat(userStat);
         Long userId =  userRepository.save(user).getUserId();
         Optional<User> findUser = userRepository.findById(userId);
 
-        UserStat saveUserStat = userStatRepository.save(userStat);
-        user.addStat(saveUserStat);
 
         //Then
         assertThat(user.getUserStat()).isNotNull();
-        assertThat(saveUserStat.getStatId()).isEqualTo(user.getUserStat().getStatId());
+        assertThat(userStat.getStatId()).isEqualTo(user.getUserStat().getStatId());
 
         assertThat(findUser.isPresent()).isEqualTo(true);
         assertThat(findUser.get()).isEqualTo(user);
