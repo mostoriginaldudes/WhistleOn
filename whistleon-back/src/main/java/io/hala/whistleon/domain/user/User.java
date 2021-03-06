@@ -21,7 +21,7 @@ public class User {
     private Long userId;
 
     @Nullable
-    @OneToOne
+    @OneToOne(cascade={CascadeType.ALL})
     @JoinColumn(name = "stat_id")
     private UserStat userStat; // fk (one to one)
 
