@@ -3,6 +3,7 @@ package io.hala.whistleon.domain.user;
 import io.hala.whistleon.domain.team.Team;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.lang.Nullable;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 
 @DynamicInsert
 @Getter
+@NoArgsConstructor
 @Entity(name = "user")
 public class User {
     @Id

@@ -18,7 +18,7 @@ public class TeamTest {
     @Autowired
     private TeamRepository teamRepository;
 
-    @Rollback(false)
+
     @Transactional
     @Test
     void teamInsert() {
