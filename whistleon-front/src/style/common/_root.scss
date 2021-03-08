@@ -1,0 +1,50 @@
+@font-face {
+  font-family: Poppins, PoppinsLight, PoppinsMedium, PoppinsBold;
+  src: url('@/assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+  src: url('@/assets/fonts/Poppins/Poppins-Light.ttf') format('truetype');
+  src: url('@/assets/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+  src: url('@/assets/fonts/Poppins/Poppins-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: NotoSans, NotoSansThin, NotoSansLight, NotoSansMedium, NotoSansBold;
+  src: url('@/assets/fonts/NotoSans/NotoSansKR-Regular.otf') format('opentype');
+  src: url('@/assets/fonts/NotoSans/NotoSansKR-Light.otf') format('opentype');
+  src: url('@/assets/fonts/NotoSans/NotoSansKR-Medium.otf') format('opentype');
+  src: url('@/assets/fonts/NotoSans/NotoSansKR-Bold.otf') format('opentype');
+}
+
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: NotoSans, NotoSansThin, NotoSansLight, NotoSansMedium, NotoSansBold, sans-serif;
+  font-family: Poppins, PoppinsLight, PoppinsMedium, PoppinsBold, sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  &:link {
+    text-decoration: none;
+  }
+  &:visited {
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+  &:active {
+    text-decoration: none;
+  }
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
