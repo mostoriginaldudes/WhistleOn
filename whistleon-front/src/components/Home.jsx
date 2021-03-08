@@ -23,11 +23,13 @@ const Home = ({ history }) => {
         <img src={require('@/assets/images/whistleon-logo.png')} alt="whistleon" className="home__img--mobile" />
       </aside>
       <section className="home__section">
-        <h2 className="home__title">Whistle On</h2>
-        <h3 className="home__subtitle">Good Play, Good People</h3>
-        <article className="home__description">
-          축구 경기 매칭 플랫폼, 휘슬온 입니다.
-        </article>
+        <div className="home__greeting">
+          <h2 className="home__title">Whistle On</h2>
+          <h3 className="home__subtitle">Good Play, Good People</h3>
+          <article className="home__description">
+            아름다운 축구 문화를 만들기 위해 앞장서는 휘슬온 입니다.
+          </article>
+        </div>
         <div className="home__section__btn-container">
           {btnProps.map(({dir, to, text}, index) => 
             <LinkButton 
