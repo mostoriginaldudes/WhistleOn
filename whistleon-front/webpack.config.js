@@ -9,6 +9,9 @@ module.exports = {
   devtool: 'eval',
   resolve: {
     extensions: ['.js', '.jsx', '.scss', '.css'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    }
   },
   entry: {
     'whistle-on': './src/index.js'
@@ -46,7 +49,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif|ico|svg)$/,
         use: [
           {
             loader: 'url-loader',
@@ -54,12 +57,28 @@ module.exports = {
               name: '[name].[ext]',
               outputPath: 'assets/images',
               publicPath: '/dist/assets/images/',
+              fallback: 'file-loader',
               esModule: false,
-              limit: 4000
+              limit: 10000
             }
           },
         ],
       },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              outputPath: 'assets/fonts',
+              publicPath: '/dist/assets/fonts/',
+              fallback: 'file-loader',
+              esModuls: false,
+              limit: 10000,
+            }
+          }
+        ]
+      }
     ]
   },
   plugins: [
