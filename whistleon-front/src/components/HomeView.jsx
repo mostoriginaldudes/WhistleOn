@@ -2,7 +2,7 @@ import React from 'react';
 import LinkButton from './common/LinkButton.jsx';
 import '@/style/home.scss';
 
-const Home = ({ history }) => {
+const HomeView = ({ history }) => {
   const btnProps = [
     {
       dir: 'right',
@@ -45,4 +45,4 @@ const Home = ({ history }) => {
   );
 };
 
-export default Home;
+export default HomeView;
