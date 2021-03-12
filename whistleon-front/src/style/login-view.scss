@@ -1,0 +1,56 @@
+@import './common/root.scss';
+@import './common/color.scss';
+@import './common/mixin.scss';
+
+.login {
+  &__wrapper {
+    @include card();
+  }
+
+  &__form {
+    
+  }
+
+  &__text {
+    &--title {
+      font-size: 2rem;
+      color: $pt-gray;
+      border-bottom: 3px solid $pt-gray;
+      margin-bottom: 50px;
+    }
+
+    &--guide {
+      font: {
+        size: 1rem;
+        weight: 300;
+      }
+      margin: {
+        bottom: 5px;
+      }
+    }
+  }
+
+  &__info {  
+    padding: 0;
+
+    &__input {
+    }
+    
+    &__btn {
+      
+    }
+
+  }
+
+}
+
+
+@media screen and (max-width: 768px) {
+.login {
+    &__wrapper {
+      box-shadow: none;
+      border-radius: 0;
+      margin: 0;
+    }
+  }
+}
