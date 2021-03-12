@@ -46,5 +46,14 @@ button {
   padding: 0;
   border: none;
   background: none;
+  outline: none;
+  cursor: pointer;
 }
 
+li {
+  list-style: none;
+}
+
+input:focus { 
+  outline:none; 
+}
