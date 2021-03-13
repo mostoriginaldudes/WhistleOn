@@ -1,6 +1,9 @@
 package io.hala.whistleon.domain.team;
 
 
+import io.hala.whistleon.domain.user.User;
+import io.hala.whistleon.domain.user.UserRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +21,8 @@ public class TeamTest {
     @Autowired
     private TeamRepository teamRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
     @Transactional
     @Test
@@ -43,5 +48,18 @@ public class TeamTest {
 
         assertThat(findTeam.isPresent()).isEqualTo(true);
         assertThat(findTeam.get()).isEqualTo(team);
+    }
+
+    /**
+     * mock data test
+     */
+    @Transactional
+    @Test
+    void userTeamTest() throws Exception {
+        User user = userRepository.findById((long) 30).orElseThrow(() -> new Exception());
+        Team team = teamRepository.findById((long) 41).orElseThrow(() -> new Exception());
+
+        assertThat(user.getTeam()).isEqualTo(team);
+
     }
 }
