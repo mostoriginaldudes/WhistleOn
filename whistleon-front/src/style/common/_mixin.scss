@@ -9,3 +9,12 @@
   width: $w;
   height: $h;
 }
+
+@mixin card ($w: 500px, $h: 700px, $padding: 50px, $margin: 10vh auto 0) {
+  box-shadow: 2px 2px 20px 10px rgb(0 0 0 / 40%);
+  width: $w;
+  height: $h;
+  margin: $margin;
+  padding: $padding;
+  border-radius: 5px;
+}
