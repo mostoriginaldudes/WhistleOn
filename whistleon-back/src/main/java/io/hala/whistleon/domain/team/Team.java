@@ -2,6 +2,7 @@ package io.hala.whistleon.domain.team;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.lang.Nullable;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @DynamicInsert
+@NoArgsConstructor
 @Getter
 @Entity(name = "team")
 public class Team {

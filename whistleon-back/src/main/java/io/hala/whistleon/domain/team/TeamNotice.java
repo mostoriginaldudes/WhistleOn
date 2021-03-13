@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -24,6 +26,9 @@ public class TeamNotice {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "author")
     private User author;
+
+    @OneToMany(mappedBy = "teamNotice")
+    private List<TeamNoticeReply> teamNoticeReplies = new ArrayList<>();
 
     @Column(name = "title")
     private String title;
