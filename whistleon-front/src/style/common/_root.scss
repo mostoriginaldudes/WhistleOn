@@ -1,24 +1,19 @@
 @font-face {
-  font-family: Poppins, PoppinsLight, PoppinsMedium, PoppinsBold;
-  src: url('@/assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
-  src: url('@/assets/fonts/Poppins/Poppins-Light.ttf') format('truetype');
-  src: url('@/assets/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
-  src: url('@/assets/fonts/Poppins/Poppins-ExtraBold.ttf') format('truetype');
+  font-family: 'D2 Coding';
+  font-style: normal;
+  src: url('@/assets/fonts/D2Coding/D2Coding.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: NotoSans, NotoSansThin, NotoSansLight, NotoSansMedium, NotoSansBold;
-  src: url('@/assets/fonts/NotoSans/NotoSansKR-Regular.otf') format('opentype');
-  src: url('@/assets/fonts/NotoSans/NotoSansKR-Light.otf') format('opentype');
-  src: url('@/assets/fonts/NotoSans/NotoSansKR-Medium.otf') format('opentype');
-  src: url('@/assets/fonts/NotoSans/NotoSansKR-Bold.otf') format('opentype');
+  font-family: 'D2 Coding Bold';
+  font-style: normal;
+  src: url('@/assets/fonts/D2Coding/D2Coding-Bold.ttf') format('truetype');
 }
 
 * {
   box-sizing: border-box;
   font-size: 16px;
-  font-family: NotoSans, NotoSansThin, NotoSansLight, NotoSansMedium, NotoSansBold, sans-serif;
-  font-family: Poppins, PoppinsLight, PoppinsMedium, PoppinsBold, sans-serif;
+  font-family: 'D2 Coding Bold', 'D2 Coding', monospace;
 }
 
 body {
