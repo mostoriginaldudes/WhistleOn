@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @DynamicInsert
 @Getter
@@ -27,8 +28,9 @@ public class Match {
     private User momUser;
 
     @Column(name = "kickoff_time")
-    private LocalDate kickoffTime;
+    private LocalDateTime kickoffTime;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     @ColumnDefault("BEFORE")
     private MatchStatus status;
@@ -48,7 +50,7 @@ public class Match {
     private Integer awayScore;
 
     @Builder
-    public Match(LocalDate kickoffTime, String location, String stadium) {
+    public Match(LocalDateTime kickoffTime, String location, String stadium) {
         this.kickoffTime = kickoffTime;
         this.location = location;
         this.stadium = stadium;
