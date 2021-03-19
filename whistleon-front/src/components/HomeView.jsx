@@ -24,7 +24,7 @@ const HomeView = ({ history }) => {
       </aside>
       <section className="home__section">
         <div className="home__greeting">
-          <h2 className="home__title">Whistle On</h2>
+          <h2 className="home__title">WHISTLE ON</h2>
           <h3 className="home__subtitle">Good Play, Good People</h3>
           <article className="home__description">
             아름다운 축구 문화를 만들기 위해 앞장서는 휘슬온 입니다.
