@@ -2,19 +2,25 @@ module.exports = {
   rules: {
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
+    "prettier/prettier": "error",
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off"
   },
-  plugins: [
-    "react"
+  extends: [
+    "prettier"
   ],
-  parser: 'babel-eslint',
+  plugins: [
+    "react",
+    "prettier"
+  ],
+  parser: "babel-eslint",
   parserOptions: {
     ecmaFeatures: {
-        jsx: true
+      jsx: true
     }
   },
   env: {
-    "browser": true,
-    "node": true
+    browser: true,
+    node: true
   },
 };
-
