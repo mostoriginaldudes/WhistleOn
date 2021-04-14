@@ -1,17 +1,11 @@
 module.exports = {
-  rules: {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "prettier/prettier": "error",
-    "arrow-body-style": "off",
-    "prefer-arrow-callback": "off"
-  },
-  extends: [
-    "prettier"
-  ],
-  plugins: [
-    "react",
-    "prettier"
+  extends: [ 
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended",
+    "prettier/flowtype",
+    "prettier/react"
   ],
   parser: "babel-eslint",
   parserOptions: {
@@ -19,8 +13,18 @@ module.exports = {
       jsx: true
     }
   },
+  plugins: [
+    "react",
+    "prettier",
+    "react-hooks"
+  ],
   env: {
     browser: true,
     node: true
   },
+  settings: {
+    react: {
+      version: "detect"
+    }
+  }
 };
