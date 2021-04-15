@@ -7,20 +7,28 @@ const HomeView = ({ history }) => {
     {
       dir: 'right',
       to: '/login',
-      text: '로그인'
+      text: '로그인',
     },
     {
       dir: 'right',
       to: '/signup',
-      text: '회원가입'
+      text: '회원가입',
     },
   ];
 
   return (
     <div className="home__container">
       <aside className="home__aside">
-        <img src={require('@/assets/images/whistleon-home.png')} alt="whistleon" className="home__img" />
-        <img src={require('@/assets/images/whistleon-logo.png')} alt="whistleon" className="home__img--mobile" />
+        <img
+          src={require('@/assets/images/whistleon-home.png')}
+          alt="whistleon"
+          className="home__img"
+        />
+        <img
+          src={require('@/assets/images/whistleon-logo.png')}
+          alt="whistleon"
+          className="home__img--mobile"
+        />
       </aside>
       <section className="home__section">
         <div className="home__greeting">
@@ -31,14 +39,9 @@ const HomeView = ({ history }) => {
           </article>
         </div>
         <div className="home__section__btn-container">
-          {btnProps.map(({dir, to, text}, index) => 
-            <LinkButton 
-              dir={dir}
-              to={to}
-              text={text}
-              key={index}
-            />)
-          }
+          {btnProps.map(({ dir, to, text }, index) => (
+            <LinkButton dir={dir} to={to} text={text} key={index} />
+          ))}
         </div>
       </section>
     </div>

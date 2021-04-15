@@ -5,7 +5,7 @@ const EventButton = (props) => {
   const { eventHandler, text, color } = props;
 
   return (
-    <button 
+    <button
       className={`event_button event_button--${color}`}
       onClick={eventHandler}
     >
