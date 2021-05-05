@@ -10,7 +10,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.scss', '.css'],
     alias: {
-      '@': path.resolve(__dirname, 'src/'),
+      '@': path.resolve(__dirname, 'src/')
     }
   },
   entry: {
@@ -23,30 +23,31 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: [
-            ['@babel/preset-env', {
-              targets: {
-                browsers: ['> 5% in KR', 'last 2 chrome versions'],
-              },
-            }],
+            [
+              '@babel/preset-env',
+              {
+                targets: {
+                  browsers: ['> 5% in KR', 'last 2 chrome versions']
+                }
+              }
+            ],
             '@babel/preset-react'
           ],
-          plugins: [
-            'react-refresh/babel'
-          ],
-        },
+          plugins: ['react-refresh/babel']
+        }
       },
       {
         test: /\.s?css$/,
         use: [
-          MiniCssExtractPlugin.loader, 
-          'css-loader', 
+          MiniCssExtractPlugin.loader,
+          'css-loader',
           {
             loader: 'sass-loader',
             options: {
               implementation: require('sass')
             }
           }
-        ],
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|ico|svg)$/,
@@ -61,8 +62,8 @@ module.exports = {
               esModule: false,
               limit: 10000
             }
-          },
-        ],
+          }
+        ]
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
@@ -74,7 +75,7 @@ module.exports = {
               publicPath: '/dist/assets/fonts/',
               fallback: 'file-loader',
               esModuls: false,
-              limit: 10000,
+              limit: 10000
             }
           }
         ]
@@ -85,8 +86,8 @@ module.exports = {
     new Webpack.ProgressPlugin(),
     new Webpack.LoaderOptionsPlugin({ debug: true }),
     new HtmlWebpackPlugin({ template: './index.html' }),
-    new MiniCssExtractPlugin({ filename: 'css/style.css'}),
-    new RefreshWebpackPlugin(),
+    new MiniCssExtractPlugin({ filename: 'css/style.css' }),
+    new RefreshWebpackPlugin()
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -95,6 +96,6 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    hot: true,
+    hot: true
   }
 };
