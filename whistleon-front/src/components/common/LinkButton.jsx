@@ -20,7 +20,7 @@ const LinkButton = ({ dir, to, text }) => {
 LinkButton.defaultProps = {
   dir: 'right',
   to: '/',
-  text: '',
+  text: ''
 };
 
 export default LinkButton;

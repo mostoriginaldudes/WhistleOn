@@ -17,9 +17,8 @@
     @include flex(column, space-around, center);
     @include size(45%);
     padding: 50px;
-    background-color: #1D1D1D;
-    
-    
+    background-color: #1d1d1d;
+
     &__btn-container {
       @include flex(column, space-between, center);
       @include size(100%, 115px);
@@ -38,7 +37,7 @@
     margin: 0 auto;
     text-shadow: 3px 3px 10px $pt-gray;
   }
-  
+
   &__subtitle {
     font: {
       size: 2rem;
@@ -60,7 +59,6 @@
   }
 }
 
-
 @media screen and (max-width: 768px) {
   .home {
     &__container {
@@ -74,7 +72,7 @@
         &--mobile {
           display: inline-block;
           margin: 0 auto;
-        } 
+        }
       }
     }
 
@@ -92,5 +90,5 @@
         color: $pt-gray;
       }
     }
-  }    
+  }
 }

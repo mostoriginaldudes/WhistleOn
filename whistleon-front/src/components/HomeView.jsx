@@ -7,13 +7,13 @@ const HomeView = ({ history }) => {
     {
       dir: 'right',
       to: '/login',
-      text: '로그인',
+      text: '로그인'
     },
     {
       dir: 'right',
       to: '/signup',
-      text: '회원가입',
-    },
+      text: '회원가입'
+    }
   ];
 
   return (
