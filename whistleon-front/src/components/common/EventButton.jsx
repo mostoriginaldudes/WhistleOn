@@ -15,9 +15,9 @@ const EventButton = (props) => {
 };
 
 EventButton.defaultProps = {
-  eventHander: ({ target }) => conssole.log(target),
+  eventHander: ({ target }) => console.log(target),
   text: 'click',
-  color: 'yellow',
+  color: 'yellow'
 };
 
 export default EventButton;

@@ -8,7 +8,6 @@
   }
 
   &__form {
-    
   }
 
   &__text {
@@ -30,23 +29,19 @@
     }
   }
 
-  &__info {  
+  &__info {
     padding: 0;
 
     &__input {
     }
-    
+
     &__btn {
-      
     }
-
   }
-
 }
 
-
 @media screen and (max-width: 768px) {
-.login {
+  .login {
     &__wrapper {
       box-shadow: none;
       border-radius: 0;

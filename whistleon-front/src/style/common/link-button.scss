@@ -10,8 +10,9 @@
     color: $pt-gray;
     padding: 10px 15px;
     border-radius: 5px;
-    
-    &--left, &--right  {
+
+    &--left,
+    &--right {
       font-size: 18px;
       font-weight: 700;
     }
@@ -29,7 +30,7 @@
     @include size();
     border-right: none;
     border-left: 2px solid $pt-gray;
-    
+
     &--right {
       @include flex(row, flex-start, center);
       border-right: 2px solid $pt-gray;
