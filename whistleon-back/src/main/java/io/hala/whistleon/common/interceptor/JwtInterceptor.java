@@ -1,6 +1,5 @@
 package io.hala.whistleon.common.interceptor;
 
-import io.hala.whistleon.common.exception.UnauthorizedException;
 import io.hala.whistleon.service.login.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

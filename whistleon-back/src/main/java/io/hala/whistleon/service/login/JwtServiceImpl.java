@@ -1,6 +1,5 @@
 package io.hala.whistleon.service.login;
 
-import io.hala.whistleon.common.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
