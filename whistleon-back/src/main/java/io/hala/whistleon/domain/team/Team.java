@@ -35,8 +35,11 @@ public class Team {
     @ColumnDefault("default.jpg")
     private String logo;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "sido")
+    private String sido;
+
+    @Column(name = "sigungu")
+    private String sigungu;
 
     @Column(name = "email")
     private String email;
@@ -51,9 +54,10 @@ public class Team {
     private List<User> users = new ArrayList<>();
 
     @Builder
-    public Team(String name, String location, String email, String description, LocalDate foundDate) {
+    public Team(String name, String sido, String sigungu, String email, String description, LocalDate foundDate) {
         this.name = name;
-        this.location = location;
+        this.sido = sido;
+        this.sigungu = sigungu;
         this.email = email;
         this.description = description;
         this.foundDate = foundDate;
