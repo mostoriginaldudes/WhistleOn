@@ -32,7 +32,8 @@ public class TeamTest {
         Team team = new Team.TeamBuilder()
                 .email("aslan@gmail.com")
                 .name("ASLAN FC")
-                .location("인천광역시 연수구 송도동")
+                .sido("인천광역시")
+                .sigungu("연수구")
                 .foundDate(LocalDate.now())
                 .description("인천 유일 풋살팀!")
                 .build();

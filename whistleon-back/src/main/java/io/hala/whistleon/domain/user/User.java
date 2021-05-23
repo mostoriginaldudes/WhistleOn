@@ -28,7 +28,7 @@ public class User {
     private UserStat userStat; // fk (one to one)
 
     @Nullable
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team; // fk (one to one)
 
@@ -52,8 +52,17 @@ public class User {
     @Column(name = "phone_num")
     private String phoneNum;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "sido")
+    private String sido;
+
+    @Column(name = "sigungu")
+    private String sigungu;
+
+    @Column(name = "zonecode")
+    private String zonecode;
+
+    @Column(name = "road_address")
+    private String roadAddress;
 
     @Column(name = "height")
     private Integer height;
@@ -76,14 +85,17 @@ public class User {
     private String description;
 
     @Builder
-    public User(String email, String name, String password, LocalDate birthday, String phoneNum, String location,
-                Integer height, Integer weight, String nickname, Position position1, Position position2, String description) {
+    public User(String email, String name, String password, LocalDate birthday, String phoneNum, String sido, String sigungu,
+                String zonecode, String roadAddress, Integer height, Integer weight, String nickname, Position position1, Position position2, String description) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.birthday = birthday;
         this.phoneNum = phoneNum;
-        this.location = location;
+        this.sido = sido;
+        this.sigungu = sigungu;
+        this.zonecode = zonecode;
+        this.roadAddress = roadAddress;
         this.height = height;
         this.weight = weight;
         this.nickname = nickname;
