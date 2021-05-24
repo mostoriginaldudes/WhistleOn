@@ -22,11 +22,18 @@ public class UserServiceImpl implements UserService{
     @Override
     public void signup(SignupRequestDto signupRequestDto) {
         User user = signupRequestDto.toUser();
-        Optional<User> findUser = userRepository.findByEmail(user.getEmail());
+        if (checkEmail(user.getEmail())) {
+            user.addStat(new UserStat());
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        Optional<User> findUser = userRepository.findByEmail(email);
         if (findUser.isPresent()) {
             throw new CustomException(ExceptionCode.DUPLICATE_DATA);
         }
-        user.addStat(new UserStat());
-        userRepository.save(user);
+        return true;
     }
 }
