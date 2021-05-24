@@ -36,6 +36,9 @@ dependencies {
     // about validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    // about mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
