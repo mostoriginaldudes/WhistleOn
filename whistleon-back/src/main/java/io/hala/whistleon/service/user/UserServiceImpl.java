@@ -36,4 +36,12 @@ public class UserServiceImpl implements UserService{
         }
         return true;
     }
+
+    @Override
+    public void checkExistNickname(String nickname) {
+        Optional<User> findUser = userRepository.findUsersByNickname(nickname);
+        if (findUser.isPresent()) {
+            throw new CustomException(ExceptionCode.DUPLICATE_DATA);
+        }
+    }
 }

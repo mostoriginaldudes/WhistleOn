@@ -6,4 +6,6 @@ public interface UserService {
     void signup(SignupRequestDto signupRequestDto);
 
     boolean checkEmail(String email);
+
+    void checkExistNickname(String nickname);
 }
