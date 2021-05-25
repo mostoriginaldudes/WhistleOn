@@ -10,8 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class SignupRequestDto {
     @NotNull
     @Email
