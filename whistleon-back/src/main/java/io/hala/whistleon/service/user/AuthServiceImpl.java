@@ -3,19 +3,26 @@ package io.hala.whistleon.service.user;
 import io.hala.whistleon.common.exception.CustomException;
 import io.hala.whistleon.common.exception.ExceptionCode;
 import io.hala.whistleon.common.util.MailSendHelper;
+import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.domain.user.AuthCode;
 import io.hala.whistleon.domain.user.AuthRepository;
+import io.hala.whistleon.domain.user.User;
+import io.hala.whistleon.domain.user.UserRepository;
+import io.hala.whistleon.service.login.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class AuthServiceImpl implements AuthService {
 
     private final MailSendHelper mailSendHelper;
+    private final JwtService jwtService;
     private final AuthRepository authRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     @Override
@@ -59,5 +66,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void deleteCode(long id) {
         authRepository.deleteById(id);
+    }
+
+    @Override
+    public String signin(SigninRequestDto signinRequestDto) {
+        User user = userRepository.findUserByEmailAndPassword(signinRequestDto.getEmail(), signinRequestDto.getPassword())
+                .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER));
+        return jwtService.createToken(user);
     }
 }

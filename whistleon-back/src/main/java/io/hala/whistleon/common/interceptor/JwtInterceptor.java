@@ -36,7 +36,6 @@ public class JwtInterceptor implements HandlerInterceptor{
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        System.out.println(HEADER_AUTH);
         final String token = request.getHeader(HEADER_AUTH);
         if (token != null && jwtService.isUsableToken(token)) {
             return true;
@@ -45,15 +44,5 @@ public class JwtInterceptor implements HandlerInterceptor{
             response.sendRedirect("/");
             return false;
         }
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
     }
 }

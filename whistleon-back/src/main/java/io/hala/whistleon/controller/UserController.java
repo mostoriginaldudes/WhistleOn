@@ -6,10 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,5 +22,12 @@ public class UserController {
     public ResponseEntity<?> registUser(@RequestBody @Valid SignupRequestDto signupRequestDto) {
         userService.signup(signupRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+
+    @ApiOperation("닉네임 중복 여부 확인")
+    @GetMapping("/nickname/{nickname}")
+    public ResponseEntity<?> checkNickname(@PathVariable String nickname) {
+        userService.checkExistNickname(nickname);
+        return ResponseEntity.ok(null);
     }
 }

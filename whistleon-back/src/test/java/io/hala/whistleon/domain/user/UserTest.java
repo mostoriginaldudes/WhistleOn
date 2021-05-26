@@ -1,8 +1,8 @@
 package io.hala.whistleon.domain.user;
 
-import io.hala.whistleon.controller.UserController;
+import io.hala.whistleon.common.exception.CustomException;
 import io.hala.whistleon.service.user.UserService;
-import io.hala.whistleon.service.user.UserServiceImpl;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,8 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest(properties = {"spring.config.location=classpath:application-dev.properties"})
 public class UserTest {
-
+    @Autowired
+    private UserService userService;
     @Autowired
     private UserRepository userRepository;
 
@@ -55,5 +56,16 @@ public class UserTest {
 
         assertThat(findUser.isPresent()).isEqualTo(true);
         assertThat(findUser.get()).isEqualTo(user);
+    }
+
+    @Test
+    void checkNicknameTest() {
+        String existNickname = "강상우";
+        assertThatThrownBy(() -> userService.checkDuplicateNickname(existNickname))
+                .isInstanceOf(CustomException.class);
+
+        String noneExistNickname = "neverEverUseThisNickname";
+        assertThatCode(() -> userService.checkDuplicateNickname(noneExistNickname))
+                .doesNotThrowAnyException();
     }
 }
