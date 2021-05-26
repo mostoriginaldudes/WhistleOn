@@ -1,0 +1,33 @@
+@import './common/mixin';
+
+$address-popup-width: 400px;
+$address-popup-height: 550px;
+
+.post-code {
+  @include size(100vw, 100vh);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  &__mask {
+    @include size;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  &__popup {
+    width: $address-popup-width + 100px;
+    height: $address-popup-height + 100px;
+    position: absolute;
+    top: calc((100% - 500px) / 2);
+    left: calc((100% - 400px) / 2);
+    z-index: 3;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post-code {
+  }
+}
