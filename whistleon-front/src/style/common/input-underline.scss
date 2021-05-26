@@ -11,6 +11,11 @@ input[type='date'] {
 }
 
 .input_underline {
+  margin: 30px auto 0;
+  display: block;
+  background: #fff;
+
+.input_underline {
   margin: auto 0;
   display: block;
   background: #fff;
@@ -66,7 +71,7 @@ input[type='date'] {
   &__bar {
     position: relative;
     display: block;
-    width: 100%;
+    width: 400px;
 
     &::before,
     &::after {
