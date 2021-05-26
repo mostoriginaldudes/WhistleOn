@@ -3,9 +3,10 @@
 @import './mixin.scss';
 
 .event_button {
-  @include size(100%, 50px);
+  @include size(200px, 50px);
   border-radius: 5px;
   font-size: 18px;
+  margin-bottom: 10px;
 
   &--yellow {
     background-color: $pt-yellow;
