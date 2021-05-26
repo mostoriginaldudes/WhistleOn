@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import '@/style/common/input-underline.scss';
 
-const InputUnderline = (props) => {
-  const { type, required, name } = props;
-  const [value, setValue] = useState('');
+const InputUnderline = ({ inputObj }) => {
+  const {
+    type,
+    required,
+    callbacks: { onInput, onFocus, onBlur, onChange },
+    value,
+    name,
+    readOnly,
+    ...args
+  } = inputObj;
 
   return (
     <div className="input_underline">
@@ -12,6 +20,17 @@ const InputUnderline = (props) => {
           className="input_underline__input"
           type={type}
           required={required}
+          onInput={onInput}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
+          readOnly={readOnly}
+          min={args.min}
+          max={args.max}
+          minLength={args.minLength}
+          maxLength={args.maxLength}
+          list={args.list}
         />
         <span className="input_underline__highlight" />
         <span className="input_underline__bar" />
@@ -19,6 +38,10 @@ const InputUnderline = (props) => {
       </div>
     </div>
   );
+};
+
+InputUnderline.propTypes = {
+  inputObj: PropTypes.object.isRequired
 };
 
 export default InputUnderline;
