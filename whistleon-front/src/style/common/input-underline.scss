@@ -16,6 +16,12 @@ input[type='date'] {
   background: #fff;
   width: 100%;
 
+.input_underline {
+  margin: auto 0;
+  display: block;
+  background: #fff;
+  width: 100%;
+  
   &:nth-child(2) {
     margin: {
       left: 30px;
