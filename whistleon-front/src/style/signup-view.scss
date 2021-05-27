@@ -1,0 +1,156 @@
+@import './common/root.scss';
+@import './common/color.scss';
+@import './common/mixin.scss';
+
+.signup {
+  &__wrapper {
+    @include card($margin: null);
+    @include size(60%, 100%);
+    margin: 40px auto;
+  }
+
+  &__text {
+    &--title {
+      font-size: 2rem;
+      color: $pt-gray;
+      border-bottom: 3px solid $pt-gray;
+      margin: {
+        bottom: 50px;
+      }
+    }
+
+    &--guide {
+      font: {
+        size: 1rem;
+        weight: 300;
+      }
+      margin: {
+        bottom: 5px;
+      }
+    }
+  }
+
+  &__info {
+    @include flex(column, space-between);
+    padding: 0;
+
+    &__input {
+      @include flex($jc: space-between);
+      @include size;
+
+      &__wrapper {
+        @include flex;
+        @include size;
+
+        // & > .input
+
+        .input_underline {
+          margin: 0;
+        }
+
+        .event_button {
+          @include size(200px, 45px);
+          margin: {
+            // right: 30px;
+          }
+          padding: 5px;
+          color: #fff;
+        }
+      }
+
+      &--double {
+        .signup__info__input__wrapper {
+          @include size($w: 50%);
+
+          .input_underline {
+            margin: {
+              right: 20px;
+              left: 10px;
+            }
+          }
+        }
+      }
+
+      &--btns {
+        .event_button {
+          @include size(calc(100% / 2.5), 45px);
+        }
+      }
+
+      &__description {
+        @include size(100%, 100px);
+        border: 1px solid $pt-gray;
+        border-radius: 5px;
+        margin: {
+          bottom: 20px;
+        }
+        padding: 10px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      &__guide {
+        @include size($w: 100%);
+        margin-top: 0;
+        color: $pt-gray;
+        padding: {
+          right: 30px;
+        }
+      }
+    }
+
+    &__btn {
+      @include flex($jc: space-between);
+
+      & > button {
+        width: 45%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .signup {
+    &__wrapper {
+      @include size(100vw, 100vh);
+      box-shadow: none;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    &__text {
+      &--title {
+        font: {
+          size: 1rem;
+          weight: 500;
+        }
+        color: $pt-gray;
+        border-bottom: 3px solid $pt-gray;
+        margin-bottom: 50px;
+      }
+
+      &--guide {
+        font: {
+          size: 1rem;
+          weight: 300;
+        }
+        margin: {
+          bottom: 5px;
+        }
+      }
+    }
+
+    &__info {
+      padding: 0;
+
+      &__input {
+        @include flex($dir: column);
+      }
+    }
+  }
+  .event_button {
+    width: 100%;
+  }
+}
