@@ -33,7 +33,7 @@ module.exports = {
             ],
             '@babel/preset-react'
           ],
-          plugins: ['react-refresh/babel']
+          plugins: ['babel-plugin-react-scoped-css', 'react-refresh/babel']
         }
       },
       {
@@ -41,6 +41,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
+          { loader: 'scoped-css-loader' },
           {
             loader: 'sass-loader',
             options: {

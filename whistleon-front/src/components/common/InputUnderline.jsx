@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '@/style/common/input-underline.scss';
+import '@/style/common/input-underline.scoped.scss';
 
 const InputUnderline = ({ inputObj }) => {
   const {

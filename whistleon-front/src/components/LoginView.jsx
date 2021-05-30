@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import InputUnderline from './common/InputUnderline';
 import EventButton from './common/EventButton';
-import '@/style/login-view.scss';
+import '@/style/login.scoped.scss';
 
 const LoginView = () => {
   const [email, setEmail] = useState('');

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import InputUnderline from './common/InputUnderline';
 import EventButton from './common/EventButton';
 import PostCode from './common/PostCode';
-import '@/style/signup-view.scss';
+import '@/style/signup.scoped.scss';
 
 const SignupView = () => {
   const [email, setEmail] = useState('');

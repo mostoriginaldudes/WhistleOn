@@ -1,6 +1,6 @@
 import React from 'react';
 import LinkButton from './common/LinkButton.jsx';
-import '@/style/home.scss';
+import '@/style/home.scoped.scss';
 
 const HomeView = () => {
   const onClick = () => {

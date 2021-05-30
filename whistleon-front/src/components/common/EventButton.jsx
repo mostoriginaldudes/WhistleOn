@@ -1,5 +1,5 @@
 import React from 'react';
-import '@/style/common/event-button.scss';
+import '@/style/common/event-button.scoped.scss';
 import PropTypes from 'prop-types';
 
 const EventButton = (props) => {
