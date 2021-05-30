@@ -1,7 +1,7 @@
 import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import PropTypes from 'prop-types';
-import '@/style/post-code';
+import '@/style/post-code.scoped.scss';
 
 const PostCode = () => {
   const handleComplete = (data) => {
