@@ -33,7 +33,7 @@ module.exports = {
             ],
             '@babel/preset-react'
           ],
-          plugins: ['react-refresh/babel']
+          plugins: ['babel-plugin-react-scoped-css', 'react-refresh/babel']
         }
       },
       {
