@@ -4,7 +4,7 @@ import InputUnderline from '@/components/InputUnderline';
 import EventButton from '@/components/EventButton';
 import './login.scoped.scss';
 
-const LoginView = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -68,4 +68,4 @@ const LoginView = () => {
   );
 };
 
-export default LoginView;
+export default Login;
