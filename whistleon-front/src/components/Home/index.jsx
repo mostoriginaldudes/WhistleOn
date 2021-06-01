@@ -1,5 +1,5 @@
 import React from 'react';
-import LinkButton from '@/components/LinkButton.jsx';
+import LinkButton from '@/components/LinkButton';
 import './home.scoped.scss';
 
 const HomeView = () => {
