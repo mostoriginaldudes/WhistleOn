@@ -4,7 +4,7 @@ import EventButton from '@/components/EventButton';
 import PostCode from '@/components/PostCode';
 import './signup.scoped.scss';
 
-const SignupView = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -289,4 +289,4 @@ const SignupView = () => {
   );
 };
 
-export default SignupView;
+export default Signup;
