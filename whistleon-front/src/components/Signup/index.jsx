@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import InputUnderline from './common/InputUnderline';
-import EventButton from './common/EventButton';
-import PostCode from './common/PostCode';
-import '@/style/signup.scoped.scss';
+import InputUnderline from '@/components/InputUnderline';
+import EventButton from '@/components/EventButton';
+import PostCode from '@/components/PostCode';
+import './signup.scoped.scss';
 
 const SignupView = () => {
   const [email, setEmail] = useState('');

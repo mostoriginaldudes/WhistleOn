@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import '@/style/common/link-button.scoped.scss';
 import PropTypes from 'prop-types';
+import './link-button.scoped.scss';
 
 const LinkButton = ({ buttonAttr }) => {
   const { btnDir, btnLinkTo, btnText } = buttonAttr;

@@ -1,5 +1,5 @@
-@import './root.scss';
-@import './color.scss';
+@import '../../style/root.scss';
+@import '../../style/color.scss';
 
 input[type='date'] {
   &:required:invalid::-webkit-datetime-edit {

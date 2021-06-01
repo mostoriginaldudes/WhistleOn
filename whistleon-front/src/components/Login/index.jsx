@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import InputUnderline from './common/InputUnderline';
-import EventButton from './common/EventButton';
-import '@/style/login.scoped.scss';
+import InputUnderline from '@/components/InputUnderline';
+import EventButton from '@/components/EventButton';
+import './login.scoped.scss';
 
 const LoginView = () => {
   const [email, setEmail] = useState('');
