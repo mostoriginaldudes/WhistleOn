@@ -54,13 +54,13 @@ const Login = () => {
             <EventButton
               text="로그인"
               color="yellow"
-              eventHander={() => {
+              eventHandler={() => {
                 loginForm.current.submit();
               }}
             />
           </li>
           <li className="login__info__input">
-            <EventButton text="회원가입" color="gray" eventHander={history.push('/signup')} />
+            <EventButton text="회원가입" color="gray" eventHandler={() => history.push('/signup')} />
           </li>
         </ul>
       </form>
