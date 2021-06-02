@@ -1,8 +1,8 @@
 import React from 'react';
-import LinkButton from './common/LinkButton.jsx';
-import '@/style/home.scoped.scss';
+import LinkButton from '@/components/LinkButton';
+import './home.scoped.scss';
 
-const HomeView = () => {
+const Home = () => {
   const onClick = () => {
     console.log('onClick');
   };
@@ -40,4 +40,4 @@ const HomeView = () => {
   );
 };
 
-export default HomeView;
+export default Home;

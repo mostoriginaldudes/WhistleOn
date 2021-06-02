@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import InputUnderline from './common/InputUnderline';
-import EventButton from './common/EventButton';
-import '@/style/login.scoped.scss';
+import InputUnderline from '@/components/InputUnderline';
+import EventButton from '@/components/EventButton';
+import './login.scoped.scss';
 
-const LoginView = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -54,13 +54,13 @@ const LoginView = () => {
             <EventButton
               text="로그인"
               color="yellow"
-              eventHander={() => {
+              eventHandler={() => {
                 loginForm.current.submit();
               }}
             />
           </li>
           <li className="login__info__input">
-            <EventButton text="회원가입" color="gray" eventHander={history.push('/signup')} />
+            <EventButton text="회원가입" color="gray" eventHandler={() => history.push('/signup')} />
           </li>
         </ul>
       </form>
@@ -68,4 +68,4 @@ const LoginView = () => {
   );
 };
 
-export default LoginView;
+export default Login;

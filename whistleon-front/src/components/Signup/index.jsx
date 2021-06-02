@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
-import InputUnderline from './common/InputUnderline';
-import EventButton from './common/EventButton';
-import PostCode from './common/PostCode';
-import '@/style/signup.scoped.scss';
+import InputUnderline from '@/components/InputUnderline';
+import EventButton from '@/components/EventButton';
+import PostCode from '@/components/PostCode';
+import './signup.scoped.scss';
 
-const SignupView = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -289,4 +289,4 @@ const SignupView = () => {
   );
 };
 
-export default SignupView;
+export default Signup;
