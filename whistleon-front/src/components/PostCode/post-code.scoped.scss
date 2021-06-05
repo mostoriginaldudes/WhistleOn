@@ -1,4 +1,4 @@
-@import '../../style/mixin';
+@import '../../style/main';
 
 $address-popup-width: 400px;
 $address-popup-height: 550px;
@@ -28,6 +28,4 @@ $address-popup-height: 550px;
 }
 
 @media screen and (max-width: 768px) {
-  .post-code {
-  }
 }

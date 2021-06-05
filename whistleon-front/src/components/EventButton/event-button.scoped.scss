@@ -1,6 +1,4 @@
-@import '../../style/root.scss';
-@import '../../style/color.scss';
-@import '../../style/mixin.scss';
+@import '../../style/main';
 
 .event_button {
   @include size(200px, 50px);
