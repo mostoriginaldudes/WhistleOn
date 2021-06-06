@@ -2,10 +2,7 @@
 
 .login {
   &__wrapper {
-    @include card();
-  }
-
-  &__form {
+    @include card;
   }
 
   &__text {
@@ -29,12 +26,6 @@
 
   &__info {
     padding: 0;
-
-    &__input {
-    }
-
-    &__btn {
-    }
   }
 }
 
