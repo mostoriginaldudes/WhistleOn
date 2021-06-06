@@ -40,8 +40,19 @@ module.exports = {
         test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          { loader: 'scoped-css-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: (resourcePath) => {
+                  if (/scoped\.s?css/i.test(resourcePath)) {
+                    return 'local';
+                  }
+                  return 'global';
+                }
+              }
+            }
+          },
           {
             loader: 'sass-loader',
             options: {
