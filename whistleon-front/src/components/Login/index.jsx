@@ -51,16 +51,16 @@ const Login = () => {
             />
           </li>
           <li className="login__info__input">
-            <EventButton
-              text="로그인"
-              color="yellow"
-              eventHandler={() => {
-                loginForm.current.submit();
-              }}
-            />
-          </li>
-          <li className="login__info__input">
-            <EventButton text="회원가입" color="gray" eventHandler={() => history.push('/signup')} />
+            <div className="login__info__input__wrapper">
+              <EventButton
+                text="로그인"
+                color="yellow"
+                eventHandler={() => {
+                  loginForm.current.submit();
+                }}
+              />
+              <EventButton text="회원가입" color="gray" eventHandler={() => history.push('/signup')} />
+            </div>
           </li>
         </ul>
       </form>
