@@ -18,7 +18,7 @@ const Signup = () => {
   const [mainPosition, setMainPosition] = useState('');
   const [subPosition, setSubPosition] = useState('');
   const [description, setDescription] = useState('');
-  const [isOnAddress, setIsOnAddress] = useState(false);
+  const [onAddress, setOnAddress] = useState(false);
   const signupForm = useRef(null);
 
   const today = () => {
@@ -33,9 +33,8 @@ const Signup = () => {
       <PostCode
         autoClose={true}
         animation={true}
-        addressHandler={(isOn) => {
-          setIsOnAddress(isOn);
-        }}
+        onAddress={onAddress}
+        setOnAddress={setOnAddress}
         inputLocationToForm={(location) => {
           setLocation(location);
         }}
@@ -180,7 +179,7 @@ const Signup = () => {
                   value: location,
                   callbacks: {
                     onFocus: () => {
-                      setIsOnAddress(true);
+                      setOnAddress(true);
                     }
                   }
                 }}
