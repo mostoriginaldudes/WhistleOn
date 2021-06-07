@@ -1,5 +1,13 @@
 @import '../../style/main';
 
+$gap: 10px;
+
+@mixin input-transition() {
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
 input[type='date'] {
   &:required:invalid::-webkit-datetime-edit {
     color: transparent;
@@ -17,7 +25,7 @@ input[type='date'] {
 
   &:nth-child(2) {
     margin: {
-      left: 30px;
+      left: $gap * 3;
     }
   }
   &__wrapper {
@@ -29,7 +37,7 @@ input[type='date'] {
 
   &__input {
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: $gap $gap $gap $gap / 2;
     display: block;
     width: 100%;
     border: none;
@@ -46,17 +54,15 @@ input[type='date'] {
     }
     position: absolute;
     pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
+    left: $gap / 2;
+    top: $gap;
+    @include input-transition;
   }
 
   /* active state */
   &__input:focus ~ &__label,
   &__input:valid ~ &__label {
-    top: -20px;
+    top: -2 * $gap;
     font-size: 14px;
     color: $pt-yellow;
   }
@@ -70,14 +76,11 @@ input[type='date'] {
     &::before,
     &::after {
       content: '';
-      height: 2px;
-      width: 0;
+      @include size(0, 2px);
+      @include input-transition;
       bottom: 1px;
       position: absolute;
       background: $pt-yellow;
-      transition: 0.2s ease all;
-      -moz-transition: 0.2s ease all;
-      -webkit-transition: 0.2s ease all;
     }
     &::before {
       left: 50%;
@@ -96,8 +99,7 @@ input[type='date'] {
   /* HIGHLIGHTER ================================== */
   &__highlight {
     position: absolute;
-    height: 60%;
-    width: 100px;
+    @include size(100px, 60%);
     top: 25%;
     left: 0;
     pointer-events: none;
