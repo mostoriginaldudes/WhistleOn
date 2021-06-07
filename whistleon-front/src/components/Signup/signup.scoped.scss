@@ -134,10 +134,11 @@
     &__info {
       &__input {
         @include flex($dir: column);
+
+        .event_button {
+          width: 100%;
+        }
       }
     }
-  }
-  .event_button {
-    width: 100%;
   }
 }
