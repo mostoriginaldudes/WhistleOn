@@ -150,5 +150,10 @@ input[type='date'] {
         right: 0;
       }
     }
+    &:nth-child(2) {
+      margin: {
+        left: 0;
+      }
+    }
   }
 }

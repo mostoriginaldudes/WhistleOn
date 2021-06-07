@@ -2,7 +2,7 @@
 
 .login {
   &__wrapper {
-    @include card;
+    @include card($margin: null);
   }
 
   &__text {
