@@ -55,3 +55,8 @@ li {
 input:focus {
   outline: none;
 }
+
+#app {
+  height: 100%;
+  @include flex($jc: center, $ai: center);
+}

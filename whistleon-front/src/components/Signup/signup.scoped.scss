@@ -2,8 +2,8 @@
 
 .signup {
   &__wrapper {
-    @include card($margin: null);
-    @include size(60%, 100%);
+    @include card($h: null, $margin: null);
+    @include size(60%, null);
     margin: 40px auto;
   }
 
