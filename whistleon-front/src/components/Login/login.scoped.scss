@@ -2,7 +2,8 @@
 
 .login {
   &__wrapper {
-    @include card($margin: null);
+    @include card($w: 480px, $margin: auto);
+    margin: 40px auto;
   }
 
   &__text {
@@ -35,6 +36,15 @@
       box-shadow: none;
       border-radius: 0;
       margin: 0 auto;
+
+      .event_button {
+        &--yellow {
+          width: 100%;
+        }
+        &--gray {
+          width: 100%;
+        }
+      }
     }
   }
 }
