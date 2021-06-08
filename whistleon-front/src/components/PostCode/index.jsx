@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DaumPostcode from 'react-daum-postcode';
+import { MdClose } from 'react-icons/md';
 import './post-code.scoped.scss';
 
 const PostCode = ({ onAddress, setOnAddress }) => {
@@ -23,7 +24,24 @@ const PostCode = ({ onAddress, setOnAddress }) => {
     setOnAddress(false);
   };
 
-  return <>{onAddress && <DaumPostcode onComplete={handleComplete} width={'100%'} height={'100%'} />}</>;
+  return (
+    onAddress && (
+      <>
+        <div className="post-code">
+          <section className="post-code__mask" />
+          <section className="post-code__popup">
+            <header className="post-code__popup__header">
+              <h3 className="post-code__popup__header__title">주소 검색</h3>
+              <MdClose className="post-code__popup__header__btn" />
+            </header>
+            <article className="post-code__popup__body">
+              <DaumPostcode onComplete={handleComplete} height={'100%'} />
+            </article>
+          </section>
+        </div>
+      </>
+    )
+  );
 };
 
 PostCode.propTypes = {

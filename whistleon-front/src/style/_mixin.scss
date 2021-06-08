@@ -18,3 +18,9 @@
   padding: $padding;
   border-radius: 5px;
 }
+
+@mixin fixed($top: 0, $left: 0) {
+  position: fixed;
+  top: $top;
+  left: $left;
+}
