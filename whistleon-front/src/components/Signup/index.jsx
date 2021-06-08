@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import InputUnderline from '@/components/InputUnderline';
 import EventButton from '@/components/EventButton';
 import PostCode from '@/components/PostCode';
@@ -20,6 +21,7 @@ const Signup = () => {
   const [description, setDescription] = useState('');
   const [onAddress, setOnAddress] = useState(false);
   const signupForm = useRef(null);
+  const history = useHistory();
 
   const today = () => {
     const date = new Date();
@@ -274,8 +276,8 @@ const Signup = () => {
                 <EventButton
                   text={text}
                   color={text === '취소' ? 'gray' : 'yellow'}
-                  eventHandler={(e) => {
-                    console.log(e);
+                  eventHandler={() => {
+                    history.replace('/');
                   }}
                   key={index}
                 />
