@@ -142,6 +142,10 @@
             left: 10px;
           }
         }
+
+        &--double &__wrapper {
+          @include size($w: 100%);
+        }
       }
     }
   }
