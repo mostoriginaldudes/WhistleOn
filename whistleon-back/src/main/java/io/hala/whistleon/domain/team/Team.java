@@ -1,6 +1,17 @@
 package io.hala.whistleon.domain.team;
 
 import io.hala.whistleon.domain.user.User;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,62 +19,59 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 @DynamicInsert
 @NoArgsConstructor
 @Getter
 @Entity(name = "team")
 public class Team {
-    @Id
-    @GeneratedValue
-    @Column(name = "team_id")
-    private Long teamId;
 
-    @Nullable
-    @OneToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name = "stat_id")
-    private TeamStat teamStat;
+  @Id
+  @GeneratedValue
+  @Column(name = "team_id")
+  private Long teamId;
 
-    @Column(name = "name")
-    private String name;
+  @Nullable
+  @OneToOne(cascade = {CascadeType.ALL})
+  @JoinColumn(name = "stat_id")
+  private TeamStat teamStat;
 
-    @Column(name = "logo")
-    @ColumnDefault("default.jpg")
-    private String logo;
+  @Column(name = "name")
+  private String name;
 
-    @Column(name = "sido")
-    private String sido;
+  @Column(name = "logo")
+  @ColumnDefault("default.jpg")
+  private String logo;
 
-    @Column(name = "sigungu")
-    private String sigungu;
+  @Column(name = "sido")
+  private String sido;
 
-    @Column(name = "email")
-    private String email;
+  @Column(name = "sigungu")
+  private String sigungu;
 
-    @Column(name = "description")
-    private String description;
+  @Column(name = "email")
+  private String email;
 
-    @Column(name = "found_date")
-    private LocalDate foundDate;
+  @Column(name = "description")
+  private String description;
 
-    @OneToMany(mappedBy = "team")
-    private List<User> users = new ArrayList<>();
+  @Column(name = "found_date")
+  private LocalDate foundDate;
 
-    @Builder
-    public Team(String name, String sido, String sigungu, String email, String description, LocalDate foundDate) {
-        this.name = name;
-        this.sido = sido;
-        this.sigungu = sigungu;
-        this.email = email;
-        this.description = description;
-        this.foundDate = foundDate;
-    }
+  @OneToMany(mappedBy = "team")
+  private List<User> users = new ArrayList<>();
 
-    public void addTeamStat(TeamStat teamStat) {
-        this.teamStat = teamStat;
-    }
+  @Builder
+  public Team(String name, String sido, String sigungu, String email, String description,
+      LocalDate foundDate) {
+    this.name = name;
+    this.sido = sido;
+    this.sigungu = sigungu;
+    this.email = email;
+    this.description = description;
+    this.foundDate = foundDate;
+  }
+
+  public void addTeamStat(TeamStat teamStat) {
+    this.teamStat = teamStat;
+  }
 }

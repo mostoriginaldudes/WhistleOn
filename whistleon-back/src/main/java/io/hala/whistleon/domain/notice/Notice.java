@@ -2,67 +2,72 @@ package io.hala.whistleon.domain.notice;
 
 import io.hala.whistleon.domain.user.Role;
 import io.hala.whistleon.domain.user.User;
+import java.time.LocalDate;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
 @Entity(name = "notice")
 public class Notice {
-    @Id
-    @GeneratedValue
-    @Column(name = "notice_id")
-    private Long noticeId;
 
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name = "author")
-    private User user;
+  @Id
+  @GeneratedValue
+  @Column(name = "notice_id")
+  private Long noticeId;
 
-    @Column(name = "title")
-    private String title;
+  @ManyToOne(cascade = {CascadeType.ALL})
+  @JoinColumn(name = "author")
+  private User user;
 
-    @Column(name = "content")
-    private String content;
+  @Column(name = "title")
+  private String title;
 
-    @Column(name = "date")
-    private LocalDate date;
+  @Column(name = "content")
+  private String content;
 
-    @Builder
-    public Notice(String title, String content) {
-        this.title = title;
-        this.content = content;
-        this.date = LocalDate.now();
+  @Column(name = "date")
+  private LocalDate date;
+
+  @Builder
+  public Notice(String title, String content) {
+    this.title = title;
+    this.content = content;
+    this.date = LocalDate.now();
+  }
+
+  /**
+   * User instance is set through this method. Notice entity's user is always Admin, so this method
+   * checks user instance using checking method. Otherwise this method throws Exception.
+   *
+   * @param user
+   * @throws Exception
+   */
+  public void addAuthor(User user) throws Exception {
+    if (checking(user)) {
+      this.user = user;
+    } else {
+      throw new Exception();
     }
+  }
 
-    /**
-     * User instance is set through this method.
-     * Notice entity's user is always Admin, so this method checks user instance using checking method.
-     * Otherwise this method throws Exception.
-     *
-     * @param user
-     * @throws Exception
-     */
-    public void addAuthor(User user) throws Exception {
-        if (checking(user)) {
-            this.user = user;
-        } else {
-            throw new Exception();
-        }
-    }
-
-    /**
-     * This method checks whether user is an admin.
-     *
-     * @param user
-     * @return true if user is an admin, else false.
-     */
-    private boolean checking(User user) {
-        return "whistleon92@gmail.com".equals(user.getEmail()) &&
-                "관리자".equals(user.getNickname()) &&
-                Role.ADMIN.equals(user.getRole());
-    }
+  /**
+   * This method checks whether user is an admin.
+   *
+   * @param user
+   * @return true if user is an admin, else false.
+   */
+  private boolean checking(User user) {
+    return "whistleon92@gmail.com".equals(user.getEmail()) &&
+        "관리자".equals(user.getNickname()) &&
+        Role.ADMIN.equals(user.getRole());
+  }
 }

@@ -5,11 +5,12 @@ import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
 
 public interface UserService {
-    void signup(SignupRequestDto signupRequestDto);
 
-    boolean checkEmail(String email);
+  void signup(SignupRequestDto signupRequestDto);
 
-    void checkExistNickname(String nickname);
+  boolean checkEmail(String email);
 
-    LoginResponseDto getLoginUserInfo(SigninRequestDto signinRequestDto);
+  void checkExistNickname(String nickname);
+
+  LoginResponseDto getLoginUserInfo(SigninRequestDto signinRequestDto);
 }
