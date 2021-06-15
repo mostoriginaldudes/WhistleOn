@@ -3,13 +3,14 @@ package io.hala.whistleon.service.user;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
 
 public interface AuthService {
-    void authEmail(String to);
 
-    void authCode(String email, String code);
+  void authEmail(String to);
 
-    long getCodeId(String email);
+  void authCode(String email, String code);
 
-    void deleteCode(long id);
+  long getCodeId(String email);
 
-    String signin(SigninRequestDto signinRequestDto);
+  void deleteCode(long id);
+
+  String signin(SigninRequestDto signinRequestDto);
 }

@@ -1,5 +1,5 @@
 package io.hala.whistleon.domain.match;
 
 public enum TeamStatus {
-    HOME, AWAY
+  HOME, AWAY
 }

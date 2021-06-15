@@ -1,49 +1,58 @@
 package io.hala.whistleon.domain.qna;
 
 import io.hala.whistleon.domain.user.User;
+import java.time.LocalDate;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @Entity(name = "qna")
 public class Qna {
-    @Id @GeneratedValue
-    @Column(name = "qna_id")
-    private Long qnaId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "author")
-    private User user;
+  @Id
+  @GeneratedValue
+  @Column(name = "qna_id")
+  private Long qnaId;
 
-    @Column(name = "title")
-    private String title;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+  @JoinColumn(name = "author")
+  private User user;
 
-    @Column(name = "content")
-    private String content;
+  @Column(name = "title")
+  private String title;
 
-    @Column(name = "date")
-    private LocalDate date;
+  @Column(name = "content")
+  private String content;
 
-    @OneToMany(mappedBy = "qna")
-    private List<QnaReply> qnaReplies;
+  @Column(name = "date")
+  private LocalDate date;
 
-    @Builder
-    public Qna(String title, User user, String content){
-        this.user = user;
-        this.title = title;
-        this.content = content;
-        this.date = LocalDate.now();
-    }
+  @OneToMany(mappedBy = "qna")
+  private List<QnaReply> qnaReplies;
 
-    public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
-        this.date = LocalDate.now();
-    }
+  @Builder
+  public Qna(String title, User user, String content) {
+    this.user = user;
+    this.title = title;
+    this.content = content;
+    this.date = LocalDate.now();
+  }
+
+  public void update(String title, String content) {
+    this.title = title;
+    this.content = content;
+    this.date = LocalDate.now();
+  }
 }
