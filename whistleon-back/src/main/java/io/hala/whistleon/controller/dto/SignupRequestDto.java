@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Builder
@@ -73,7 +74,7 @@ public class SignupRequestDto {
   @Size(min = 10, max = 100)
   private String description;
 
-  public User toUser() {
+  public User makeUser(PasswordEncoder passwordEncoder) {
     return User.builder()
         .email(this.email)
         .name(this.name)
@@ -84,7 +85,7 @@ public class SignupRequestDto {
         .roadAddress(this.roadAddress)
         .height(this.height)
         .weight(this.weight)
-        .password(this.password)
+        .password(passwordEncoder.encode(this.password))
         .birthday(this.birthday)
         .phoneNum(this.phoneNum)
         .position1(this.position1)
