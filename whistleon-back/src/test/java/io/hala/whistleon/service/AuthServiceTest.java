@@ -38,8 +38,6 @@ public class AuthServiceTest {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @Autowired
-  private AuthenticationManager authenticationManager;
 
   private final String email = "test@test.com";
   private final String name = "테스트";
@@ -124,7 +122,6 @@ public class AuthServiceTest {
         .build();
 
     TokenDto tokenDto = authService.signin(signinRequestDto);
-    System.out.println(tokenDto.getToken());
     assertThat(tokenDto.getToken()).isNotNull();
     assertThat(tokenDto.getTokenExpires()).isNotNull();
   }
