@@ -1,5 +1,3 @@
-@import '../../style/main';
-
 .login {
   &__wrapper {
     @include card($w: 480px, $margin: auto);

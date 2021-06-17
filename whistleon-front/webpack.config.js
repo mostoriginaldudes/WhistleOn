@@ -40,14 +40,15 @@ module.exports = {
         }
       },
       {
-        test: /\.s?css$/,
+        test: /\.scoped\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',
             options: {
-              implementation: require('sass')
+              implementation: require('sass'),
+              additionalData:  `@import '../../style/main';`
             }
           }
         ]
