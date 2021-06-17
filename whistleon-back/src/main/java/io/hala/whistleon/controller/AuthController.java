@@ -2,6 +2,7 @@ package io.hala.whistleon.controller;
 
 import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
+import io.hala.whistleon.controller.dto.TokenDto;
 import io.hala.whistleon.service.user.AuthService;
 import io.hala.whistleon.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -40,10 +41,7 @@ public class AuthController {
 
   @ApiOperation("로그인")
   @PostMapping("/login")
-  public ResponseEntity<LoginResponseDto> signin(@RequestBody SigninRequestDto signinRequestDto,
-      HttpServletResponse response) {
-    String token = authService.signin(signinRequestDto);
-    response.setHeader("Authorization", token);
-    return ResponseEntity.ok(userService.getLoginUserInfo(signinRequestDto));
+  public ResponseEntity<TokenDto> signin(@RequestBody SigninRequestDto signinRequestDto) {
+    return ResponseEntity.ok(authService.signin(signinRequestDto));
   }
 }

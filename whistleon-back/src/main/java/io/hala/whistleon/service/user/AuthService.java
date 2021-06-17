@@ -1,6 +1,7 @@
 package io.hala.whistleon.service.user;
 
 import io.hala.whistleon.controller.dto.SigninRequestDto;
+import io.hala.whistleon.controller.dto.TokenDto;
 
 public interface AuthService {
 
@@ -12,5 +13,5 @@ public interface AuthService {
 
   void deleteCode(long id);
 
-  String signin(SigninRequestDto signinRequestDto);
+  TokenDto signin(SigninRequestDto signinRequestDto);
 }
