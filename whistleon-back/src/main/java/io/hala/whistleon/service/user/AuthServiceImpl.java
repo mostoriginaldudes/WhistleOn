@@ -2,15 +2,17 @@ package io.hala.whistleon.service.user;
 
 import io.hala.whistleon.common.exception.CustomException;
 import io.hala.whistleon.common.exception.ExceptionCode;
+import io.hala.whistleon.common.jwt.JwtTokenProvider;
 import io.hala.whistleon.common.util.MailSendHelper;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
+import io.hala.whistleon.controller.dto.TokenDto;
 import io.hala.whistleon.domain.user.AuthCode;
 import io.hala.whistleon.domain.user.AuthRepository;
-import io.hala.whistleon.domain.user.User;
-import io.hala.whistleon.domain.user.UserRepository;
-import io.hala.whistleon.service.login.JwtService;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -18,9 +20,9 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
   private final MailSendHelper mailSendHelper;
-  private final JwtService jwtService;
   private final AuthRepository authRepository;
-  private final UserRepository userRepository;
+  private final AuthenticationManager authenticationManager;
+  private final JwtTokenProvider jwtTokenProvider;
 
   @Transactional
   @Override
@@ -67,10 +69,12 @@ public class AuthServiceImpl implements AuthService {
   }
 
   @Override
-  public String signin(SigninRequestDto signinRequestDto) {
-    User user = userRepository
-        .findUserByEmailAndPassword(signinRequestDto.getEmail(), signinRequestDto.getPassword())
-        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER));
-    return jwtService.createToken(user);
+  public TokenDto signin(SigninRequestDto signinRequestDto) {
+    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+        signinRequestDto.getEmail(), signinRequestDto.getPassword());
+
+    Authentication authentication = authenticationManager.authenticate(authenticationToken);
+
+    return jwtTokenProvider.createToken(authentication);
   }
 }
