@@ -1,5 +1,3 @@
-@import '../../style/main';
-
 .common {
   &__btn {
     @include flex(row, center, center);

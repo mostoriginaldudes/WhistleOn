@@ -1,5 +1,3 @@
-@import '../../style/main';
-
 .signup {
   &__wrapper {
     @include card($h: null, $margin: null);
