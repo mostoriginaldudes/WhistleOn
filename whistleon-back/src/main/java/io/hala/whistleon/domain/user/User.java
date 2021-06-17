@@ -104,6 +104,7 @@ public class User {
     this.birthday = birthday;
     this.phoneNum = phoneNum;
     this.sido = sido;
+    this.role = Role.NONE;
     this.sigungu = sigungu;
     this.zonecode = zonecode;
     this.roadAddress = roadAddress;
