@@ -1,12 +1,10 @@
 package io.hala.whistleon.controller;
 
-import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.controller.dto.TokenDto;
 import io.hala.whistleon.service.user.AuthService;
 import io.hala.whistleon.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

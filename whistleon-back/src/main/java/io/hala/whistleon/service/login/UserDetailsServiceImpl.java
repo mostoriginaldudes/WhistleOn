@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+  private static final String ROLE_PREFIX = "ROLE_";
   private final UserRepository userRepository;
 
   @Override
@@ -22,6 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         .orElseThrow(() -> new UsernameNotFoundException(userEmail));
     return new org.springframework.security.core.userdetails.User(user.getEmail(),
         user.getPassword(),
-        List.of(new SimpleGrantedAuthority(user.getRole().toString())));
+        List.of(new SimpleGrantedAuthority(ROLE_PREFIX + user.getRole().toString())));
   }
 }
