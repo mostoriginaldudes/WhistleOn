@@ -1,5 +1,6 @@
 package io.hala.whistleon.domain.user;
 
+import io.hala.whistleon.controller.dto.UpdateUserInfoRequestDto;
 import io.hala.whistleon.domain.team.Team;
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
@@ -118,5 +119,19 @@ public class User {
 
   public void addStat(UserStat userStat) {
     this.userStat = userStat;
+  }
+
+  public void updateUserUsingUpdateInfo(UpdateUserInfoRequestDto userInfo) {
+    this.nickname = userInfo.getNickname();
+    this.phoneNum = userInfo.getPhoneNum();
+    this.roadAddress = userInfo.getRoadAddress();
+    this.sido = userInfo.getSido();
+    this.sigungu = userInfo.getSigungu();
+    this.zonecode = userInfo.getSigungu();
+    this.height = userInfo.getHeight();
+    this.weight = userInfo.getWeight();
+    this.position1 = userInfo.getPosition1();
+    this.position2 = userInfo.getPosition2();
+    this.description = userInfo.getDescription();
   }
 }
