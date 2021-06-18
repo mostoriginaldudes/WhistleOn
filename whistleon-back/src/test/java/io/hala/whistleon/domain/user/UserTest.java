@@ -3,9 +3,12 @@ package io.hala.whistleon.domain.user;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.hala.whistleon.common.exception.CustomException;
+import io.hala.whistleon.controller.dto.CheckUserRequestDto;
 import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
@@ -17,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +37,9 @@ public class UserTest {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @Autowired
+  private ObjectMapper objectMapper;
 
   private final String email = "test@test.com";
   private final String name = "테스트";
@@ -52,6 +59,8 @@ public class UserTest {
 
   private final String failEmail = "failtest@test.com";
   private final String failNickname = "neverEverUseThisNickname";
+  private final String failPassword = "fail" + this.password;
+
   @BeforeEach
   void signup() {
     SignupRequestDto signupRequestDto = SignupRequestDto.builder()
@@ -109,6 +118,47 @@ public class UserTest {
 
     mockMvc.perform(get("/users/email/" + this.failEmail)
         .header("Authorization", token))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void checkUserInfoSuccessTest() throws Exception {
+    LoginResponseDto loginResponseDto = authService.signIn(SigninRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    String token = loginResponseDto.getToken();
+    String body = objectMapper.writeValueAsString(CheckUserRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    mockMvc.perform(post("/users/checkInfo")
+        .header("Authorization", token)
+        .content(body)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+
+  }
+
+  @Test
+  void checkUserInfoFailTest() throws Exception {
+    LoginResponseDto loginResponseDto = authService.signIn(SigninRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    String token = loginResponseDto.getToken();
+    String body = objectMapper.writeValueAsString(CheckUserRequestDto.builder()
+        .email(this.email)
+        .password(this.failPassword)
+        .build());
+
+    mockMvc.perform(post("/users/checkInfo")
+        .header("Authorization", token)
+        .content(body)
+        .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest());
   }
 }
