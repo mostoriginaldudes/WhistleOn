@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.hala.whistleon.common.exception.CustomException;
+import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
-import io.hala.whistleon.controller.dto.TokenDto;
 import io.hala.whistleon.domain.user.Position;
 import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.domain.user.UserRepository;
@@ -77,7 +77,7 @@ public class AuthServiceTest {
         .description(description)
         .build();
 
-    userService.signup(signupRequestDto);
+    userService.signUp(signupRequestDto);
   }
 
   @Test
@@ -109,7 +109,7 @@ public class AuthServiceTest {
         .description(description)
         .build();
 
-    assertThatThrownBy(() -> userService.signup(signupRequestDto))
+    assertThatThrownBy(() -> userService.signUp(signupRequestDto))
         .isInstanceOf(CustomException.class);
   }
 
@@ -120,9 +120,9 @@ public class AuthServiceTest {
         .password(password)
         .build();
 
-    TokenDto tokenDto = authService.signin(signinRequestDto);
-    assertThat(tokenDto.getToken()).isNotNull();
-    assertThat(tokenDto.getTokenExpires()).isNotNull();
+    LoginResponseDto loginResponseDto = authService.signIn(signinRequestDto);
+    assertThat(loginResponseDto.getToken()).isNotNull();
+    assertThat(loginResponseDto.getTokenExpires()).isNotNull();
   }
 
   @Test
@@ -132,7 +132,7 @@ public class AuthServiceTest {
         .password(password)
         .build();
 
-    assertThatThrownBy(() -> authService.signin(signinRequestDto))
+    assertThatThrownBy(() -> authService.signIn(signinRequestDto))
         .isInstanceOf(RuntimeException.class);
   }
 
@@ -143,7 +143,7 @@ public class AuthServiceTest {
         .password(failPassword)
         .build();
 
-    assertThatThrownBy(() -> authService.signin(signinRequestDto))
+    assertThatThrownBy(() -> authService.signIn(signinRequestDto))
         .isInstanceOf(RuntimeException.class);
   }
 }
