@@ -105,6 +105,17 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Override
+  public void deleteUser(String email) {
+    String userEmail = principalHelper.getName();
+    if (matchesEmail(userEmail, email)) {
+      User user = userRepository.findByEmail(email)
+          .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+
+      userRepository.delete(user);
+    }
+  }
+
   private boolean matchesEmail(String loginEmail, String requestEmail) {
     if (!loginEmail.equals(requestEmail)) {
       throw new CustomException(ExceptionCode.INVALID_FORM_DATA);

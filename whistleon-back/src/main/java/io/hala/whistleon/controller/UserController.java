@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,14 @@ public class UserController {
   public ResponseEntity<?> updateUserInfo(@PathVariable String email, @RequestBody
       UpdateUserInfoRequestDto updateUserInfoRequestDto) {
     userService.updateUserInfo(email, updateUserInfoRequestDto);
+
+    return ResponseEntity.ok(null);
+  }
+
+  @ApiOperation("회원정보 삭제 요청")
+  @DeleteMapping("/email/{email}")
+  public ResponseEntity<?> deleteUser(@PathVariable String email) {
+    userService.deleteUser(email);
 
     return ResponseEntity.ok(null);
   }
