@@ -35,4 +35,11 @@ public class UserController {
     userService.checkExistNickname(nickname);
     return ResponseEntity.ok(null);
   }
+
+  @ApiOperation("마이페이지 조회")
+  @GetMapping("/email/{email}")
+  public ResponseEntity<?> findUserInfo(@PathVariable String email) {
+
+    return ResponseEntity.ok(userService.getUserInfo(email));
+  }
 }
