@@ -10,6 +10,8 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoginResponseDto {
 
-  private Long userId;
+  private String email;
   private String nickname;
+  private String token;
+  private Long tokenExpires;
 }
