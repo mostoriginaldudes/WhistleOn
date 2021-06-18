@@ -1,6 +1,8 @@
 package io.hala.whistleon.service.user;
 
+import io.hala.whistleon.controller.dto.CheckUserRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
+import io.hala.whistleon.controller.dto.UserInfoResponseDto;
 
 public interface UserService {
 
@@ -10,4 +12,7 @@ public interface UserService {
 
   void checkExistNickname(String nickname);
 
+  UserInfoResponseDto getUserInfo(String email);
+
+  void checkUserInfo(CheckUserRequestDto checkUserRequestDto);
 }

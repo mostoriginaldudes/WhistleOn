@@ -1,71 +1,164 @@
 package io.hala.whistleon.domain.user;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.hala.whistleon.common.exception.CustomException;
+import io.hala.whistleon.controller.dto.CheckUserRequestDto;
+import io.hala.whistleon.controller.dto.LoginResponseDto;
+import io.hala.whistleon.controller.dto.SigninRequestDto;
+import io.hala.whistleon.controller.dto.SignupRequestDto;
+import io.hala.whistleon.service.user.AuthService;
 import io.hala.whistleon.service.user.UserService;
 import java.time.LocalDate;
-import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(properties = {"spring.config.location=classpath:application-dev.properties"})
+@AutoConfigureMockMvc
+@Transactional
 public class UserTest {
 
   @Autowired
   private UserService userService;
+
   @Autowired
-  private UserRepository userRepository;
+  private AuthService authService;
 
-  @Transactional
-  @Test
-  void userInsert() {
-    //Given
-    UserStat userStat = new UserStat();
+  @Autowired
+  private MockMvc mockMvc;
 
-    User user = User.builder()
-        .email("kang")
-        .sido("인천광역시")
-        .sigungu("미추홀구")
-        .roadAddress("인천광역시 미추홀구 문학동 519-18")
-        .zonecode("11123")
-        .description("hello")
-        .name("sang")
-        .phoneNum("01012341234")
-        .position1(Position.CAM)
-        .position2(Position.CDM)
-        .height(123)
-        .weight(12)
-        .birthday(LocalDate.now())
-        .nickname("sang")
-        .password("123")
+  @Autowired
+  private ObjectMapper objectMapper;
+
+  private final String email = "test@test.com";
+  private final String name = "테스트";
+  private final LocalDate birthday = LocalDate.now();
+  private final String phoneNum = "01012341234";
+  private final String sido = "인천광역시";
+  private final String sigungu = "인천광역시 미추홀구";
+  private final String zonecode = "12345";
+  private final String roadAddress = "인천광역시 미추홀구 남동대로 111";
+  private final int height = 180;
+  private final int weight = 70;
+  private final String nickname = "테스트닉넴";
+  private final String password = "testpassword123!";
+  private final Position position1 = Position.CB;
+  private final Position position2 = Position.CF;
+  private final String description = "안녕하세요 테스트입니다";
+
+  private final String failEmail = "failtest@test.com";
+  private final String failNickname = "neverEverUseThisNickname";
+  private final String failPassword = "fail" + this.password;
+
+  @BeforeEach
+  void signup() {
+    SignupRequestDto signupRequestDto = SignupRequestDto.builder()
+        .email(email)
+        .name(name)
+        .birthday(birthday)
+        .phoneNum(phoneNum)
+        .sido(sido)
+        .sigungu(sigungu)
+        .zonecode(zonecode)
+        .roadAddress(roadAddress)
+        .height(height)
+        .weight(weight)
+        .nickname(nickname)
+        .password(password)
+        .position1(position1)
+        .position2(position2)
+        .description(description)
         .build();
 
-    //When
-    user.addStat(userStat);
-    Long userId = userRepository.save(user).getUserId();
-    Optional<User> findUser = userRepository.findById(userId);
-
-    //Then
-    assertThat(user.getUserStat()).isNotNull();
-    assertThat(userStat.getStatId()).isEqualTo(user.getUserStat().getStatId());
-
-    assertThat(findUser.isPresent()).isEqualTo(true);
-    assertThat(findUser.get()).isEqualTo(user);
+    userService.signUp(signupRequestDto);
   }
 
   @Test
   void checkNicknameTest() {
-    String existNickname = "강상우";
-    assertThatThrownBy(() -> userService.checkExistNickname(existNickname))
+    assertThatThrownBy(() -> userService.checkExistNickname(this.nickname))
         .isInstanceOf(CustomException.class);
 
-    String noneExistNickname = "neverEverUseThisNickname";
-    assertThatCode(() -> userService.checkExistNickname(noneExistNickname))
+    assertThatCode(() -> userService.checkExistNickname(this.failNickname))
         .doesNotThrowAnyException();
+  }
+
+  @Test
+  void getUserInfoTest() throws Exception {
+    LoginResponseDto loginResponseDto = authService.signIn(SigninRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    String token = loginResponseDto.getToken();
+
+    mockMvc.perform(get("/users/email/" + this.email)
+        .header("Authorization", token))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void getUserInfoFailTest() throws Exception {
+    LoginResponseDto loginResponseDto = authService.signIn(SigninRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    String token = loginResponseDto.getToken();
+
+    mockMvc.perform(get("/users/email/" + this.failEmail)
+        .header("Authorization", token))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void checkUserInfoSuccessTest() throws Exception {
+    LoginResponseDto loginResponseDto = authService.signIn(SigninRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    String token = loginResponseDto.getToken();
+    String body = objectMapper.writeValueAsString(CheckUserRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    mockMvc.perform(post("/users/checkInfo")
+        .header("Authorization", token)
+        .content(body)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+
+  }
+
+  @Test
+  void checkUserInfoFailTest() throws Exception {
+    LoginResponseDto loginResponseDto = authService.signIn(SigninRequestDto.builder()
+        .email(this.email)
+        .password(this.password)
+        .build());
+
+    String token = loginResponseDto.getToken();
+    String body = objectMapper.writeValueAsString(CheckUserRequestDto.builder()
+        .email(this.email)
+        .password(this.failPassword)
+        .build());
+
+    mockMvc.perform(post("/users/checkInfo")
+        .header("Authorization", token)
+        .content(body)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
   }
 }

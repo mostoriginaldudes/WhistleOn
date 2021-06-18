@@ -1,5 +1,6 @@
 package io.hala.whistleon.controller;
 
+import io.hala.whistleon.controller.dto.CheckUserRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
 import io.hala.whistleon.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,20 @@ public class UserController {
   @GetMapping("/nickname/{nickname}")
   public ResponseEntity<?> checkNickname(@PathVariable String nickname) {
     userService.checkExistNickname(nickname);
+    return ResponseEntity.ok(null);
+  }
+
+  @ApiOperation("마이페이지 조회")
+  @GetMapping("/email/{email}")
+  public ResponseEntity<?> findUserInfo(@PathVariable String email) {
+
+    return ResponseEntity.ok(userService.getUserInfo(email));
+  }
+
+  @ApiOperation("회원정보 수정 전 암호 입력")
+  @PostMapping("/checkInfo")
+  public ResponseEntity<?> checkInfo(@RequestBody CheckUserRequestDto checkUserRequestDto) {
+    userService.checkUserInfo(checkUserRequestDto);
     return ResponseEntity.ok(null);
   }
 }
