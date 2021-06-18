@@ -2,8 +2,6 @@ package io.hala.whistleon.service.user;
 
 import io.hala.whistleon.common.exception.CustomException;
 import io.hala.whistleon.common.exception.ExceptionCode;
-import io.hala.whistleon.controller.dto.LoginResponseDto;
-import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
 import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.domain.user.UserRepository;
@@ -23,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
   @Transactional
   @Override
-  public void signup(SignupRequestDto signupRequestDto) {
+  public void signUp(SignupRequestDto signupRequestDto) {
     User user = signupRequestDto.makeUser(passwordEncoder);
     if (checkEmail(user.getEmail())) {
       user.addStat(new UserStat());
@@ -46,16 +44,5 @@ public class UserServiceImpl implements UserService {
     if (findUser.isPresent()) {
       throw new CustomException(ExceptionCode.DUPLICATE_DATA);
     }
-  }
-
-  @Override
-  public LoginResponseDto getLoginUserInfo(SigninRequestDto signinRequestDto) {
-    User user = userRepository
-        .findUserByEmailAndPassword(signinRequestDto.getEmail(), signinRequestDto.getPassword())
-        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER));
-    return LoginResponseDto.builder()
-        .userId(user.getUserId())
-        .nickname(user.getNickname())
-        .build();
   }
 }

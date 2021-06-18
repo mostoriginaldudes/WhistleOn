@@ -4,10 +4,13 @@ import io.hala.whistleon.common.exception.CustomException;
 import io.hala.whistleon.common.exception.ExceptionCode;
 import io.hala.whistleon.common.jwt.JwtTokenProvider;
 import io.hala.whistleon.common.util.MailSendHelper;
+import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.controller.dto.TokenDto;
 import io.hala.whistleon.domain.user.AuthCode;
 import io.hala.whistleon.domain.user.AuthRepository;
+import io.hala.whistleon.domain.user.User;
+import io.hala.whistleon.domain.user.UserRepository;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
   private final AuthRepository authRepository;
   private final AuthenticationManager authenticationManager;
   private final JwtTokenProvider jwtTokenProvider;
+  private final UserRepository userRepository;
 
   @Transactional
   @Override
@@ -69,12 +73,21 @@ public class AuthServiceImpl implements AuthService {
   }
 
   @Override
-  public TokenDto signin(SigninRequestDto signinRequestDto) {
+  public LoginResponseDto signIn(SigninRequestDto signinRequestDto) {
     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
         signinRequestDto.getEmail(), signinRequestDto.getPassword());
 
     Authentication authentication = authenticationManager.authenticate(authenticationToken);
+    TokenDto tokenDto = jwtTokenProvider.createToken(authentication);
 
-    return jwtTokenProvider.createToken(authentication);
+    User user = userRepository.findByEmail(signinRequestDto.getEmail())
+        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER));
+
+    return LoginResponseDto.builder()
+        .email(user.getEmail())
+        .nickname(user.getNickname())
+        .token(tokenDto.getToken())
+        .tokenExpires(tokenDto.getTokenExpires())
+        .build();
   }
 }
