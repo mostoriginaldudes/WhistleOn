@@ -5,6 +5,7 @@ import io.hala.whistleon.common.exception.ExceptionCode;
 import io.hala.whistleon.common.util.PrincipalHelper;
 import io.hala.whistleon.controller.dto.CheckUserRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
+import io.hala.whistleon.controller.dto.UpdateUserInfoRequestDto;
 import io.hala.whistleon.controller.dto.UserInfoResponseDto;
 import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.domain.user.UserRepository;
@@ -53,12 +54,11 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserInfoResponseDto getUserInfo(String email) {
     String loginEmail = principalHelper.getName();
-    if (!loginEmail.equals(email)) {
-      throw new CustomException(ExceptionCode.INVALID_FORM_DATA);
+    User user = null;
+    if (matchesEmail(loginEmail, email)) {
+      user = userRepository.findByEmail(email)
+          .orElseThrow(() -> new CustomException(ExceptionCode.INVALID_FORM_DATA));
     }
-
-    User user = userRepository.findByEmail(email)
-        .orElseThrow(() -> new CustomException(ExceptionCode.INVALID_FORM_DATA));
     return UserInfoResponseDto.builder()
         .email(user.getEmail())
         .nickname(user.getNickname())
@@ -80,14 +80,35 @@ public class UserServiceImpl implements UserService {
   @Override
   public void checkUserInfo(CheckUserRequestDto checkUserRequestDto) {
     String userEmail = principalHelper.getName();
-    if (!userEmail.equals(checkUserRequestDto.getEmail())) {
+    if (matchesEmail(userEmail, checkUserRequestDto.getEmail())) {
+      User user = userRepository
+          .findByEmail(userEmail)
+          .orElseThrow(() -> new CustomException(ExceptionCode.INVALID_FORM_DATA));
+      if (!passwordEncoder.matches(checkUserRequestDto.getPassword(), user.getPassword())) {
+        throw new CustomException(ExceptionCode.INVALID_FORM_DATA);
+      }
+    }
+  }
+
+  @Override
+  @Transactional
+  public void updateUserInfo(String email, UpdateUserInfoRequestDto updateUserInfoRequestDto) {
+    String userEmail = principalHelper.getName();
+    if (matchesEmail(userEmail, email)) {
+      checkExistNickname(updateUserInfoRequestDto.getNickname());
+
+      User user = userRepository.findByEmail(email)
+          .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+
+      user.updateUserUsingUpdateInfo(updateUserInfoRequestDto);
+      userRepository.save(user);
+    }
+  }
+
+  private boolean matchesEmail(String loginEmail, String requestEmail) {
+    if (!loginEmail.equals(requestEmail)) {
       throw new CustomException(ExceptionCode.INVALID_FORM_DATA);
     }
-    User user = userRepository
-        .findByEmail(userEmail)
-        .orElseThrow(() -> new CustomException(ExceptionCode.INVALID_FORM_DATA));
-    if (!passwordEncoder.matches(checkUserRequestDto.getPassword(), user.getPassword())) {
-      throw new CustomException(ExceptionCode.INVALID_FORM_DATA);
-    }
+    return true;
   }
 }
