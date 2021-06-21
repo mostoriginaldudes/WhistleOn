@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,4 +25,11 @@ public class QnaController {
   public ResponseEntity<?> registQna(@RequestBody QnaRegistRequestDto qnaRegistRequestDto) {
     return new ResponseEntity<>(qnaService.registQna(qnaRegistRequestDto), HttpStatus.CREATED);
   }
+
+  @ApiOperation("Qna 한개 가져오기")
+  @GetMapping("/{qnaId}")
+  public ResponseEntity<?> getQna(@PathVariable long qnaId) {
+    return ResponseEntity.ok(qnaService.getQna(qnaId));
+  }
+
 }

@@ -1,7 +1,9 @@
 package io.hala.whistleon.domain.qna;
 
+import io.hala.whistleon.controller.dto.QnaReplyResponseDto;
 import io.hala.whistleon.domain.user.User;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,11 +50,29 @@ public class Qna {
     this.title = title;
     this.content = content;
     this.date = LocalDate.now();
+    this.qnaReplies = new ArrayList<>();
   }
 
   public void update(String title, String content) {
     this.title = title;
     this.content = content;
     this.date = LocalDate.now();
+  }
+
+  public List<QnaReplyResponseDto> replyToResponse() {
+    List<QnaReplyResponseDto> qnaReplies = new ArrayList<>();
+    for (QnaReply qnaReply : this.getQnaReplies()) {
+      qnaReplies.add(QnaReplyResponseDto.builder()
+          .content(qnaReply.getContent())
+          .date(qnaReply.getDate())
+          .replier(qnaReply.getUser().getNickname())
+          .replyId(qnaReply.getReplyId())
+          .build());
+    }
+    return qnaReplies;
+  }
+
+  public void addQnaReply(QnaReply qnaReply) {
+    this.getQnaReplies().add(qnaReply);
   }
 }
