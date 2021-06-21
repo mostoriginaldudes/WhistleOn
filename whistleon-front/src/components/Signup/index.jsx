@@ -48,7 +48,7 @@ const Signup = () => {
             <li className="signup__info__input">
               <div className="signup__info__input__wrapper">
                 <InputUnderline
-                  inputObj={{
+                  inputAttr={{
                     type: 'email',
                     name: '이메일',
                     required: true,
@@ -69,7 +69,7 @@ const Signup = () => {
                 />
               </div>
               <InputUnderline
-                inputObj={{
+                inputAttr={{
                   type: 'text',
                   name: '이름',
                   required: true,
@@ -85,7 +85,7 @@ const Signup = () => {
             <li className="signup__info__input">
               <div className="signup__info__input__wrapper">
                 <InputUnderline
-                  inputObj={{
+                  inputAttr={{
                     type: 'text',
                     name: '닉네임',
                     required: true,
@@ -106,7 +106,7 @@ const Signup = () => {
                 />
               </div>
               <InputUnderline
-                inputObj={{
+                inputAttr={{
                   readOnly: false,
                   type: 'text',
                   name: '연락처 ("-" 없이)',
@@ -144,7 +144,7 @@ const Signup = () => {
                 }
               ].map(({ name, callbacks }, index) => (
                 <InputUnderline
-                  inputObj={{
+                  inputAttr={{
                     type: 'password',
                     required: true,
                     name,
@@ -158,7 +158,7 @@ const Signup = () => {
             </li>
             <li className="signup__info__input">
               <InputUnderline
-                inputObj={{
+                inputAttr={{
                   type: 'date',
                   name: '생년월일',
                   min: '1950-01-01',
@@ -173,7 +173,7 @@ const Signup = () => {
                 }}
               />
               <InputUnderline
-                inputObj={{
+                inputAttr={{
                   type: 'text',
                   name: '연고지',
                   readOnly: true,
@@ -190,7 +190,7 @@ const Signup = () => {
             <li className="signup__info__input signup__info__input--double">
               <div className="signup__info__input__wrapper">
                 <InputUnderline
-                  inputObj={{
+                  inputAttr={{
                     type: 'number',
                     name: '키 (cm)',
                     min: 100,
@@ -205,7 +205,7 @@ const Signup = () => {
                   }}
                 />
                 <InputUnderline
-                  inputObj={{
+                  inputAttr={{
                     type: 'number',
                     name: '몸무게 (kg)',
                     min: 30,
@@ -222,7 +222,7 @@ const Signup = () => {
               </div>
               <div className="signup__info__input__wrapper">
                 <InputUnderline
-                  inputObj={{
+                  inputAttr={{
                     type: 'text',
                     name: '선호 포지션 1',
                     required: true,
@@ -239,7 +239,7 @@ const Signup = () => {
                   ))}
                 </datalist>
                 <InputUnderline
-                  inputObj={{
+                  inputAttr={{
                     type: 'text',
                     name: '선호 포지션 2',
                     required: true,
