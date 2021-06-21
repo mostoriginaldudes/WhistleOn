@@ -1,6 +1,7 @@
 package io.hala.whistleon.controller;
 
 import io.hala.whistleon.controller.dto.QnaRegistRequestDto;
+import io.hala.whistleon.controller.dto.QnaReplyRequestDto;
 import io.hala.whistleon.service.qna.QnaService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,14 @@ public class QnaController {
   @GetMapping("/{qnaId}")
   public ResponseEntity<?> getQna(@PathVariable long qnaId) {
     return ResponseEntity.ok(qnaService.getQna(qnaId));
+  }
+
+  @ApiOperation("Qna에 대한 답글 등록")
+  @PostMapping("/{qnaId}/qnaReply")
+  public ResponseEntity<?> registQnaReply(@PathVariable int qnaId,
+      @RequestBody QnaReplyRequestDto qnaReplyRequestDto) {
+    qnaService.registQnaReply(qnaId, qnaReplyRequestDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(null);
   }
 
 }

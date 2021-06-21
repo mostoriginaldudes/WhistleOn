@@ -6,8 +6,10 @@ import io.hala.whistleon.common.util.PrincipalHelper;
 import io.hala.whistleon.controller.dto.QnaInfoResponseDto;
 import io.hala.whistleon.controller.dto.QnaRegistRequestDto;
 import io.hala.whistleon.controller.dto.QnaRegistResponseDto;
+import io.hala.whistleon.controller.dto.QnaReplyRequestDto;
 import io.hala.whistleon.controller.dto.QnaReplyResponseDto;
 import io.hala.whistleon.domain.qna.Qna;
+import io.hala.whistleon.domain.qna.QnaReply;
 import io.hala.whistleon.domain.qna.QnaReplyRepository;
 import io.hala.whistleon.domain.qna.QnaRepository;
 import io.hala.whistleon.domain.user.User;
@@ -39,4 +41,13 @@ public class QnaServiceImpl implements QnaService {
     return QnaInfoResponseDto.of(qna, qnaReplies);
   }
 
+  @Override
+  public void registQnaReply(long qnaId, QnaReplyRequestDto qnaReplyRequestDto) {
+    User loginUser = principalHelper.getLoginUser();
+    Qna qna = qnaRepository.findById(qnaId)
+        .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+    QnaReply qnaReply = qnaReplyRequestDto.toQnaReply(loginUser, qna);
+    qnaReplyRepository.save(qnaReply);
+    qna.addQnaReply(qnaReply);
+  }
 }
