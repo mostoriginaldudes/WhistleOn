@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import './input-underline.scoped.scss';
 
 const InputUnderline = ({ inputAttr }) => {
-  const {
-    type,
-    required,
-    callbacks: { onInput, onFocus, onBlur, onChange },
-    value,
-    name,
-    readOnly,
-    ...args
-  } = inputAttr;
+  const { type, required, onInput, onFocus, onBlur, onChange, value, name, readOnly, ...args } = inputAttr;
 
   return (
     <div className="input_underline">

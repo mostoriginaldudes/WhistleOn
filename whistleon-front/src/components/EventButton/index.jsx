@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './event-button.scoped.scss';
 
-const EventButton = (props) => {
-  const { eventHandler, text, color } = props;
-
+const EventButton = ({ text, color, eventHandler }) => {
   return (
     <button className={`event_button event_button--${color}`} onClick={eventHandler}>
       {text}
@@ -13,13 +11,13 @@ const EventButton = (props) => {
 };
 
 EventButton.defaultProps = {
-  eventHander: ({ target }) => console.log(target),
+  eventHanlder: ({ target }) => console.log(target),
   text: 'click',
   color: 'yellow'
 };
 
 EventButton.propTypes = {
-  eventHandler: PropTypes.func.isRequired,
+  eventHandler: PropTypes.func,
   text: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired
 };
