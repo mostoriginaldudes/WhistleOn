@@ -15,13 +15,7 @@ const Nickname = ({ nickname, onInput }) => {
           onInput
         }}
       />
-      <EventButton
-        text="중복 확인"
-        color="gray"
-        eventHandler={(e) => {
-          console.log(e);
-        }}
-      />
+      <EventButton text="중복 확인" color="gray" />
     </div>
   );
 };
@@ -31,4 +25,4 @@ Nickname.propTypes = {
   onInput: PropTypes.func.isRequired
 };
 
-export default Nickname;
+export default React.memo(Nickname);

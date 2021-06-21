@@ -24,4 +24,4 @@ PhoneNum.propTypes = {
   onInput: PropTypes.func.isRequired
 };
 
-export default PhoneNum;
+export default React.memo(PhoneNum);

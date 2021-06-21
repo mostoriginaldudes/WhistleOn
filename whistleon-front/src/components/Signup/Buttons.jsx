@@ -14,7 +14,7 @@ const Buttons = ({ refForm }) => {
   );
 };
 
-Buttons.propTypes = {
+export default React.memo(Buttons);
   refForm: PropTypes.object.isRequired
 };
 

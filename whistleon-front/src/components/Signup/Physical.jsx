@@ -38,4 +38,4 @@ Physical.propTypes = {
   onInputWeight: PropTypes.func.isRequired
 };
 
-export default Physical;
+export default React.memo(Physical);

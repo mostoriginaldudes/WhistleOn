@@ -51,4 +51,4 @@ PostCode.propTypes = {
   setOnAddress: PropTypes.func.isRequired,
   inputLocationToForm: PropTypes.func
 };
-export default PostCode;
+export default React.memo(PostCode);

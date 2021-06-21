@@ -22,4 +22,4 @@ EventButton.propTypes = {
   eventHandler: PropTypes.func
 };
 
-export default EventButton;
+export default React.memo(EventButton);

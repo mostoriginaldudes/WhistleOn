@@ -36,4 +36,4 @@ InputUnderline.propTypes = {
   inputAttr: PropTypes.object.isRequired
 };
 
-export default InputUnderline;
+export default React.memo(InputUnderline);

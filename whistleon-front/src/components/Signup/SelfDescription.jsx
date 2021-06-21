@@ -14,4 +14,4 @@ SelfDescription.propTypes = {
   onInput: PropTypes.func.isRequired
 };
 
-export default SelfDescription;
+export default React.memo(SelfDescription);
