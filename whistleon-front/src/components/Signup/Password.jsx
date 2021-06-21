@@ -38,4 +38,4 @@ Password.propTypes = {
   onPasswordCheckInput: PropTypes.func.isRequired
 };
 
-export default Password;
+export default React.memo(Password);

@@ -11,15 +11,15 @@ const EventButton = ({ text, color, eventHandler }) => {
 };
 
 EventButton.defaultProps = {
-  eventHanlder: ({ target }) => console.log(target),
   text: 'click',
   color: 'yellow'
 };
 
 EventButton.propTypes = {
-  eventHandler: PropTypes.func,
+  type: PropTypes.oneOf(['submit']),
   text: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired
+  color: PropTypes.string.isRequired,
+  eventHandler: PropTypes.func
 };
 
-export default EventButton;
+export default React.memo(EventButton);

@@ -21,4 +21,4 @@ Name.propTypes = {
   onInput: PropTypes.func.isRequired
 };
 
-export default Name;
+export default React.memo(Name);

@@ -22,4 +22,4 @@ Location.propTypes = {
   onFocus: PropTypes.func.isRequired
 };
 
-export default Location;
+export default React.memo(Location);

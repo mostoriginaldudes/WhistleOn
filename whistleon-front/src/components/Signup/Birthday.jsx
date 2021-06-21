@@ -28,4 +28,4 @@ Birthday.propTypes = {
   onInput: PropTypes.func.isRequired
 };
 
-export default Birthday;
+export default React.memo(Birthday);

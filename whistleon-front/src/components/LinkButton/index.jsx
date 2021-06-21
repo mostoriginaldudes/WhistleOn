@@ -22,4 +22,4 @@ LinkButton.propTypes = {
   buttonAttr: PropTypes.object.isRequired
 };
 
-export default LinkButton;
+export default React.memo(LinkButton);

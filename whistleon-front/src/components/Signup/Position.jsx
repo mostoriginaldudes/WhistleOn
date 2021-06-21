@@ -48,4 +48,4 @@ Position.propTypes = {
   onChangeSubPosition: PropTypes.func.isRequired
 };
 
-export default Position;
+export default React.memo(Position);

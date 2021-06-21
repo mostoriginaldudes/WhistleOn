@@ -29,4 +29,4 @@ Email.propTypes = {
   onInput: PropTypes.func.isRequired
 };
 
-export default Email;
+export default React.memo(Email);

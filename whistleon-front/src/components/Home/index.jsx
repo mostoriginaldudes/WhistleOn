@@ -3,10 +3,6 @@ import LinkButton from '@/components/LinkButton';
 import './home.scoped.scss';
 
 const Home = () => {
-  const onClick = () => {
-    console.log('onClick');
-  };
-
   return (
     <div className="home__container">
       <aside className="home__aside">
@@ -32,7 +28,7 @@ const Home = () => {
               btnText: '회원가입'
             }
           ].map((buttonAttr, index) => (
-            <LinkButton buttonAttr={buttonAttr} key={index} onClick={onClick} />
+            <LinkButton buttonAttr={buttonAttr} key={index} />
           ))}
         </div>
       </section>
