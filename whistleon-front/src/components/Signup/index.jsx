@@ -260,16 +260,15 @@ const Signup = () => {
             <li className="signup__info__input">
               <h3 className="signup__info__input__guide">자기소개</h3>
             </li>
-
             <li className="signup__info__input">
-              <div
-                contentEditable
+              <textarea
                 className="signup__info__input__description"
+                style={{ resize: 'none' }}
                 onInput={(e) => {
-                  setDescription(e.target.textContent);
+                  console.log(description);
+                  setDescription(e.target.value);
                 }}
-                style={{ width: '100%' }}
-              ></div>
+              />
             </li>
             <li className="signup__info__input signup__info__input--btns">
               {['회원가입', '취소'].map((text, index) => (
