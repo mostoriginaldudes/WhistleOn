@@ -9,8 +9,8 @@ const Buttons = ({ refForm }) => {
 
   return (
     <>
-      <EventButton text="회원가입" color="yellow" eventHander={() => refForm} />
-      <EventButton text="취소" color="gray" eventHander={() => history.replace('/')} />
+      <EventButton text="회원가입" color="yellow" />
+      <EventButton text="취소" color="gray" eventHandler={() => history.replace('/')} />
     </>
   );
 };
