@@ -34,7 +34,7 @@ public class QnaController {
   }
 
   @ApiOperation("Qna에 대한 답글 등록")
-  @PostMapping("/{qnaId}/qnaReply")
+  @PostMapping("/{qnaId}/reply")
   public ResponseEntity<?> registQnaReply(@PathVariable int qnaId,
       @RequestBody QnaReplyRequestDto qnaReplyRequestDto) {
     qnaService.registQnaReply(qnaId, qnaReplyRequestDto);
