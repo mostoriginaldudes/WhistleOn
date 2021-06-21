@@ -18,7 +18,8 @@ EventButton.defaultProps = {
 EventButton.propTypes = {
   type: PropTypes.oneOf(['submit']),
   text: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired
+  color: PropTypes.string.isRequired,
+  eventHandler: PropTypes.func
 };
 
 export default EventButton;
