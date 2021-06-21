@@ -22,7 +22,7 @@ const Login = () => {
         <ul className="login__info">
           <li className="login__info__input">
             <InputUnderline
-              inputObj={{
+              inputAttr={{
                 type: 'email',
                 name: '이메일',
                 required: true,
@@ -37,7 +37,7 @@ const Login = () => {
           </li>
           <li className="login__info__input">
             <InputUnderline
-              inputObj={{
+              inputAttr={{
                 type: 'password',
                 name: '비밀번호',
                 required: true,

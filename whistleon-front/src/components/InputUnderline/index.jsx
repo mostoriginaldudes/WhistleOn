@@ -2,16 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './input-underline.scoped.scss';
 
-const InputUnderline = ({ inputObj }) => {
-  const {
-    type,
-    required,
-    callbacks: { onInput, onFocus, onBlur, onChange },
-    value,
-    name,
-    readOnly,
-    ...args
-  } = inputObj;
+const InputUnderline = ({ inputAttr }) => {
+  const { type, required, onInput, onFocus, onBlur, onChange, value, name, readOnly, ...args } = inputAttr;
 
   return (
     <div className="input_underline">
@@ -41,7 +33,7 @@ const InputUnderline = ({ inputObj }) => {
 };
 
 InputUnderline.propTypes = {
-  inputObj: PropTypes.object.isRequired
+  inputAttr: PropTypes.object.isRequired
 };
 
 export default InputUnderline;
