@@ -3,7 +3,7 @@ import EventButton from '../EventButton';
 
 import { useHistory } from 'react-router-dom';
 
-const Buttons = ({ refForm }) => {
+const Buttons = () => {
   const history = useHistory();
 
   return (
@@ -15,7 +15,3 @@ const Buttons = ({ refForm }) => {
 };
 
 export default React.memo(Buttons);
-  refForm: PropTypes.object.isRequired
-};
-
-export default Buttons;

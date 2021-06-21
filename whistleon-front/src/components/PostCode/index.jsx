@@ -37,7 +37,7 @@ const PostCode = ({ onAddress, setOnAddress }) => {
               <MdClose className="post-code__popup__header__btn" onClick={closeAddress} />
             </header>
             <article className="post-code__popup__body">
-              <DaumPostcode onComplete={handleComplete} height={'100%'} />
+              <DaumPostcode onComplete={handleComplete} height="100%" />
             </article>
           </section>
         </div>

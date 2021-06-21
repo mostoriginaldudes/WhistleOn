@@ -12,7 +12,6 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
   };
 
   return (

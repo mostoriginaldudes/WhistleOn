@@ -76,7 +76,7 @@ const Signup = () => {
               <SelfDescription description={description} onInput={({ target: { value } }) => setDescription(value)} />
             </li>
             <li className="signup__info__input signup__info__input--btns">
-              <Buttons refForm={signupForm} />
+              <Buttons />
             </li>
           </ul>
         </form>
