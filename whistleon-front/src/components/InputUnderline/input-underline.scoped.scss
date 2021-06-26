@@ -13,6 +13,16 @@ input[type='date'] {
   &:focus::-webkit-datetime-edit {
     color: $pt-gray !important;
   }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
 }
 
 .input_underline {
