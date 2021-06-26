@@ -1,22 +1,30 @@
+import { today } from './Birthday';
 class FormValidation {
   validateEmail(email) {
     return /[\w.]+@[\w.]+\.\w+/gi.test(email);
   }
+
   validateName(name) {
     return /^[가-힣]{2,}/g.test(name);
   }
-  validatePassword(password) {
-    // eslint-disable-next-line prettier/prettier
-    return [
-      () => /(!|@|#|\$)/g.test(password), 
-      () => /[A-Z]/g.test(password), 
-      () => /[a-z]/g.test(password), 
-      () => 8 <= password.length && password.length <= 20
-    ].every((isValid) => isValid());
+
+  validateRange(minValue, valueToValidate, maxValue) {
+    return minValue <= valueToValidate && valueToValidate <= maxValue;
   }
+
+  validatePassword(password) {
+    const includesSpecificSymbols = () => /(!|@|#|\$)/g.test(password);
+    const includesUpperCase = () => /[A-Z]/g.test(password);
+    const includesLowerCase = () => /[a-z]/g.test(password);
+    const includesRightLength = () => this.validateRange(8, password.length, 20);
+
+    return [includesSpecificSymbols, includesUpperCase, includesLowerCase, includesRightLength].every((isValid) => isValid());
+  }
+
   validatePasswordCheck(password, passwordCheck) {
     return password === passwordCheck;
   }
+
   validatePhoneNum(phoneNum) {
     return /010-\d{4}-\d{4}/g.test(phoneNum);
   }
@@ -47,7 +55,7 @@ class FormValidation {
 
   validateDescription(description) {
     const descriptionLengthWithoutSpace = description.trim().length;
-    return 10 <= descriptionLengthWithoutSpace && descriptionLengthWithoutSpace <= 100;
+    return this.validateRange(10, descriptionLengthWithoutSpace, 100);
   }
 }
 
