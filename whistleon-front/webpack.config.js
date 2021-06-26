@@ -48,7 +48,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               implementation: require('sass'),
-              additionalData:  `@import '../../style/main';`
+              additionalData: `@import '../../style/main';`
             }
           }
         ]
