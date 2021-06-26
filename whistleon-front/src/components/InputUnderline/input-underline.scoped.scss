@@ -6,12 +6,14 @@ $gap: 10px;
   -webkit-transition: 0.2s ease all;
 }
 
-input[type='date'] {
-  &:required:invalid::-webkit-datetime-edit {
-    color: transparent;
-  }
-  &:focus::-webkit-datetime-edit {
-    color: $pt-gray !important;
+input {
+  &[type='date'] {
+    &:required:invalid::-webkit-datetime-edit {
+      color: transparent;
+    }
+    &:focus::-webkit-datetime-edit {
+      color: $pt-gray !important;
+    }
   }
 
   &::-webkit-outer-spin-button,
