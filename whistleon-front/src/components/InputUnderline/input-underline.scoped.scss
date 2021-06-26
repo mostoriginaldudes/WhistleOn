@@ -110,6 +110,27 @@ input[type='date'] {
     -moz-animation: inputHighlighter 0.3s ease;
     animation: inputHighlighter 0.3s ease;
   }
+
+  $error: red;
+  &__error {
+    color: $error;
+    margin: 5px 0 0;
+    font: {
+      size: 0.85em;
+    }
+    animation: inputInvalid 0.5s ease;
+  }
+}
+
+@keyframes inputInvalid {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ANIMATIONS ================ */
