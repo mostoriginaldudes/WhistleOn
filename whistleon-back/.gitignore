@@ -2,6 +2,7 @@
 /src/main/resources/application-dev.properties
 /src/main/resources/application.properties
 
+**/src/main/resources/application.yml
 
 HELP.md
 .DS_Store
