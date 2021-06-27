@@ -2,7 +2,6 @@
 /src/main/resources/application-dev.properties
 /src/main/resources/application.properties
 
-**/src/main/resources/application.yml
 
 HELP.md
 .DS_Store
@@ -30,3 +29,5 @@ out/
 
 ### VS Code ###
 .vscode/
+/api-module/src/main/resources/application.yml
+/common-module/src/main/resources/application.yml
