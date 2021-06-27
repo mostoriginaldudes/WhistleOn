@@ -4,6 +4,8 @@ import io.hala.whistleon.controller.dto.QnaRegistRequestDto;
 import io.hala.whistleon.controller.dto.QnaReplyRequestDto;
 import io.hala.whistleon.service.qna.QnaService;
 import io.swagger.annotations.ApiOperation;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -39,6 +42,12 @@ public class QnaController {
       @RequestBody QnaReplyRequestDto qnaReplyRequestDto) {
     qnaService.registQnaReply(qnaId, qnaReplyRequestDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(null);
+  }
+
+  @ApiOperation("Qna 목록가져오기")
+  @GetMapping
+  public ResponseEntity<?> getQnaList(@Valid @Min(1) @RequestParam(defaultValue = "1") int page) {
+    return ResponseEntity.ok(qnaService.getQnaList(page));
   }
 
 }
