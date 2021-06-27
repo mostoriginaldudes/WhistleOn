@@ -79,7 +79,19 @@ public class QnaServiceImpl implements QnaService {
           .of(qna.getQnaId(), qna.getTitle(), qna.getUser().getNickname(), qna.getDate()));
     }
 
+
+  private QnaListResponseDto createQnaListResponseDto(Page<Qna> qnasAndPages, int page) {
+    List<QnaListDto> qnaListDtos = qnasAndPages.getContent()
+        .stream()
+        .map(this::toQnaListDto)
+        .collect(Collectors.toList());
+
     return QnaListResponseDto
         .of(qnaListDtos, page, qnasAndPages.hasNext(), qnasAndPages.getTotalPages());
+  }
+
+  private QnaListDto toQnaListDto(Qna qna) {
+    return QnaListDto
+        .of(qna.getQnaId(), qna.getTitle(), qna.getUser().getNickname(), qna.getDate());
   }
 }
