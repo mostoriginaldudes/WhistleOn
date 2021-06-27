@@ -17,6 +17,7 @@ import io.hala.whistleon.exception.ExceptionCode;
 import io.hala.whistleon.service.PrincipalHelper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +28,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class QnaServiceImpl implements QnaService {
+
+  private static final int PAGE_SIZE = 10;
+  private static final String ORDER_COLUMN = "date";
 
   private final PrincipalHelper principalHelper;
   private final QnaRepository qnaRepository;
@@ -70,14 +74,21 @@ public class QnaServiceImpl implements QnaService {
   @Override
   public QnaListResponseDto getQnaList(int page) {
     Page<Qna> qnasAndPages = qnaRepository
-        .findAll(PageRequest.of(page - 1, 10, Sort.by(Direction.DESC, "date")));
-    List<Qna> qnas = qnasAndPages.getContent();
+        .findAll(PageRequest.of(page - 1, PAGE_SIZE, Sort.by(Direction.DESC, ORDER_COLUMN)));
 
-    List<QnaListDto> qnaListDtos = new ArrayList<>();
-    for (Qna qna : qnas) {
-      qnaListDtos.add(QnaListDto
-          .of(qna.getQnaId(), qna.getTitle(), qna.getUser().getNickname(), qna.getDate()));
-    }
+    return createQnaListResponseDto(qnasAndPages, page);
+  }
+
+  @Override
+  public QnaListResponseDto getMyQnaList(int page) {
+    User loginUser = principalHelper.getLoginUser();
+
+    Page<Qna> qnasAndPages = qnaRepository
+        .findAllByUser(loginUser,
+            PageRequest.of(page - 1, PAGE_SIZE, Sort.by(Direction.DESC, ORDER_COLUMN)));
+
+    return createQnaListResponseDto(qnasAndPages, page);
+  }
 
 
   private QnaListResponseDto createQnaListResponseDto(Page<Qna> qnasAndPages, int page) {

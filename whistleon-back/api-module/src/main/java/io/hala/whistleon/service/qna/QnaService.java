@@ -15,4 +15,6 @@ public interface QnaService {
   void registQnaReply(long qnaId, QnaReplyRequestDto qnaReplyRequestDto);
 
   QnaListResponseDto getQnaList(int page);
+
+  QnaListResponseDto getMyQnaList(int page);
 }

@@ -50,4 +50,9 @@ public class QnaController {
     return ResponseEntity.ok(qnaService.getQnaList(page));
   }
 
+  @ApiOperation("내가 작성한 qna 가져오기")
+  @GetMapping("/my")
+  public ResponseEntity<?> getMyQnaList(@Valid @Min(1) @RequestParam(defaultValue = "1") int page) {
+    return ResponseEntity.ok(qnaService.getMyQnaList(page));
+  }
 }
