@@ -15,7 +15,6 @@ import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.exception.ExceptionCode;
 import io.hala.whistleon.service.PrincipalHelper;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -49,16 +48,7 @@ public class QnaServiceImpl implements QnaService {
     Qna qna = qnaRepository.findById(qnaId)
         .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
 
-    List<QnaReplyResponseDto> qnaReplies = new ArrayList<>();
-    for (QnaReply qnaReply : qna.getQnaReplies()) {
-      qnaReplies.add(QnaReplyResponseDto.builder()
-          .replyId(qnaReply.getReplyId())
-          .replier(qnaReply.getUser().getNickname())
-          .date(qnaReply.getDate())
-          .content(qnaReply.getContent())
-          .build());
-    }
-    return QnaInfoResponseDto.of(qna, qnaReplies);
+    return createQnaInfoResponse(qna);
   }
 
   @Override
@@ -90,6 +80,27 @@ public class QnaServiceImpl implements QnaService {
     return createQnaListResponseDto(qnasAndPages, page);
   }
 
+  /**
+   * 이 아래로는 private method
+   */
+
+  private QnaInfoResponseDto createQnaInfoResponse(Qna qna) {
+    List<QnaReplyResponseDto> qnaReplies = qna.getQnaReplies()
+        .stream()
+        .map(this::toQnaReplyResponse)
+        .collect(Collectors.toList());
+
+    return QnaInfoResponseDto.of(qna, qnaReplies);
+  }
+
+  private QnaReplyResponseDto toQnaReplyResponse(QnaReply qnaReply) {
+    return QnaReplyResponseDto.builder()
+        .replyId(qnaReply.getReplyId())
+        .replier(qnaReply.getUser().getNickname())
+        .date(qnaReply.getDate())
+        .content(qnaReply.getContent())
+        .build();
+  }
 
   private QnaListResponseDto createQnaListResponseDto(Page<Qna> qnasAndPages, int page) {
     List<QnaListDto> qnaListDtos = qnasAndPages.getContent()
