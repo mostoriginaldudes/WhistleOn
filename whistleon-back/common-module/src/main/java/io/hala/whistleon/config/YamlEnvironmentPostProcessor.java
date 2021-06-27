@@ -44,7 +44,6 @@ public class YamlEnvironmentPostProcessor implements EnvironmentPostProcessor {
       resources.stream().map(this::loadYaml).forEach(them -> {
         if (them != null) {
           for (PropertySource<?> it : them) {
-            System.out.println(environment.getPropertySources());
             environment.getPropertySources().addLast(it);
           }
         }
