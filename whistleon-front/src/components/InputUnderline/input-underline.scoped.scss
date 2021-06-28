@@ -123,14 +123,8 @@ input {
     animation: inputHighlighter 0.3s ease;
   }
 
-  $error: red;
   &__error {
-    color: $error;
-    margin: 5px 0 0;
-    font: {
-      size: 0.85em;
-    }
-    animation: inputInvalid 0.5s ease;
+    @include form-validation;
   }
 }
 

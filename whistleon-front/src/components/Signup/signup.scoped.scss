@@ -108,14 +108,19 @@
           color: $pt-gray;
           radius: 5px;
         }
-        margin: {
-          bottom: 20px;
-        }
+
         padding: 10px;
         overflow: scroll;
 
         &:focus {
           outline: none;
+        }
+
+        & + &__error {
+          @include form-validation;
+          margin: {
+            bottom: 20px;
+          }
         }
       }
 
