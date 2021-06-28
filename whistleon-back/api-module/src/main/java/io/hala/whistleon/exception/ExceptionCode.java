@@ -22,6 +22,11 @@ public enum ExceptionCode {
   UNAUTHORIZED_MEMBER(HttpStatus.UNAUTHORIZED, "계정 정보 오류"),
 
   /**
+   * 403 FORBIDDEN
+   */
+  UNAUTHENTICATED_AUTHOR(HttpStatus.FORBIDDEN, "권한이 없습니다."),
+
+  /**
    * 409 CONFLICT
    */
   DUPLICATE_DATA(HttpStatus.CONFLICT, "해당하는 데이터가 이미 존재합니다");
