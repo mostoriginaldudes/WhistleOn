@@ -4,7 +4,6 @@ import io.hala.whistleon.domain.user.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +26,7 @@ public class Qna {
   @Column(name = "qna_id")
   private Long qnaId;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author")
   private User user;
 
