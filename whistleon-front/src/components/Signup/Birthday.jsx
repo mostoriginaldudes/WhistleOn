@@ -1,11 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
+import { today } from '@utils/date';
+import validate from './FormValidation';
+import { isError } from '@utils/error';
 
-const Birthday = ({ birthday, onInput }) => {
-  const today = () => {
-    const date = new Date();
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+const Birthday = () => {
+  const [birthday, setBirthday] = useState('');
+  const [message, setMessage] = useState(null);
+
+  const onInput = ({ target: { value } }) => {
+    try {
+      setBirthday(value);
+      const validatedBirthday = validate.birthday(birthday);
+
+      if (isError(validatedBirthday)) throw validatedBirthday;
+
+      setMessage(null);
+    } catch ({ message }) {
+      setMessage(message);
+    }
   };
 
   return (
@@ -17,15 +30,11 @@ const Birthday = ({ birthday, onInput }) => {
         max: today(),
         required: true,
         value: birthday,
-        onInput
+        onInput,
+        onError: message
       }}
     />
   );
-};
-
-Birthday.propTypes = {
-  birthday: PropTypes.string.isRequired,
-  onInput: PropTypes.func.isRequired
 };
 
 export default React.memo(Birthday);

@@ -1,27 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
+import validate from './FormValidation';
+import { isError } from '@utils/error';
 
-const PhoneNum = ({ phoneNum, onInput }) => {
+const PhoneNum = () => {
+  const [phoneNum, setPhoneNum] = useState('');
+  const [message, setMessage] = useState(null);
+
+  const onInput = ({ target: { value } }) => {
+    try {
+      setPhoneNum(value);
+
+      const validatePhoneNum = validate.phoneNum(phoneNum);
+      if (isError(validatePhoneNum)) throw validatePhoneNum;
+
+      setMessage(null);
+    } catch ({ message }) {
+      setMessage(message);
+    }
+  };
+
   return (
     <InputUnderline
       inputAttr={{
         readOnly: false,
-        type: 'text',
+        type: 'number',
         name: '연락처 ("-" 없이)',
         required: true,
         value: phoneNum,
-        minLength: 10,
-        maxLength: 11,
-        onInput
+        onInput,
+        onError: message
       }}
     />
   );
-};
-
-PhoneNum.propTypes = {
-  phoneNum: PropTypes.string.isRequired,
-  onInput: PropTypes.func.isRequired
 };
 
 export default React.memo(PhoneNum);
