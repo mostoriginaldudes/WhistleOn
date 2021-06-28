@@ -10,6 +10,7 @@ import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,6 +64,13 @@ public class QnaController {
   public ResponseEntity<?> updateQna(@PathVariable long qnaId,
       @RequestBody UpdateQnaRequestDto updateQnaRequestDto) {
     qnaService.updateQna(qnaId, updateQnaRequestDto);
+    return ResponseEntity.status(HttpStatus.OK).body(null);
+  }
+
+  @ApiOperation("qna 삭제")
+  @DeleteMapping("/{qnaId}")
+  public ResponseEntity<?> deleteQna(@PathVariable long qnaId) {
+    qnaService.deleteQna(qnaId);
     return ResponseEntity.status(HttpStatus.OK).body(null);
   }
 }

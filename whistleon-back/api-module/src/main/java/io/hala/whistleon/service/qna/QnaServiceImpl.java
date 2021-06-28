@@ -12,6 +12,7 @@ import io.hala.whistleon.domain.qna.Qna;
 import io.hala.whistleon.domain.qna.QnaReply;
 import io.hala.whistleon.domain.qna.QnaReplyRepository;
 import io.hala.whistleon.domain.qna.QnaRepository;
+import io.hala.whistleon.domain.user.Role;
 import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.exception.ExceptionCode;
@@ -24,6 +25,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -36,6 +38,7 @@ public class QnaServiceImpl implements QnaService {
   private final QnaRepository qnaRepository;
   private final QnaReplyRepository qnaReplyRepository;
 
+  @Transactional
   @Override
   public QnaRegistResponseDto registQna(QnaRegistRequestDto qnaRegistRequestDto) {
     User loginUser = principalHelper.getLoginUser();
@@ -52,6 +55,7 @@ public class QnaServiceImpl implements QnaService {
     return createQnaInfoResponse(qna);
   }
 
+  @Transactional
   @Override
   public void registQnaReply(long qnaId, QnaReplyRequestDto qnaReplyRequestDto) {
     User loginUser = principalHelper.getLoginUser();
@@ -81,6 +85,7 @@ public class QnaServiceImpl implements QnaService {
     return createQnaListResponseDto(qnasAndPages, page);
   }
 
+  @Transactional
   @Override
   public void updateQna(long qnaId, UpdateQnaRequestDto updateQnaRequestDto) {
     User loginUser = principalHelper.getLoginUser();
@@ -92,15 +97,39 @@ public class QnaServiceImpl implements QnaService {
     }
   }
 
+  @Transactional
+  @Override
+  public void deleteQna(long qnaId) {
+    User loginUser = principalHelper.getLoginUser();
+    Qna qna = qnaRepository.findById(qnaId)
+        .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+
+    if (canDeleteQna(loginUser, qna.getUser())) {
+      qnaRepository.delete(qna);
+    }
+  }
+
   /**
    * 이 아래로는 private method
    */
+
+  private boolean canDeleteQna(User loginUser, User qnaAuthor) {
+    if (loginUser == qnaAuthor) {
+      return true;
+    }
+    if (loginUser.getRole() == Role.ADMIN) {
+      return true;
+    }
+    throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTHOR);
+  }
+
   private boolean isQnaAuthor(User loginUser, User qnaAuthor) {
     if (loginUser != qnaAuthor) {
       throw new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER);
     }
     return true;
   }
+
   private QnaInfoResponseDto createQnaInfoResponse(Qna qna) {
     List<QnaReplyResponseDto> qnaReplies = qna.getQnaReplies()
         .stream()

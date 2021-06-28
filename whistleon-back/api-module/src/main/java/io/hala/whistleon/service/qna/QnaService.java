@@ -20,4 +20,6 @@ public interface QnaService {
   QnaListResponseDto getMyQnaList(int page);
 
   void updateQna(long qnaId, UpdateQnaRequestDto updateQnaRequestDto);
+
+  void deleteQna(long qnaId);
 }
