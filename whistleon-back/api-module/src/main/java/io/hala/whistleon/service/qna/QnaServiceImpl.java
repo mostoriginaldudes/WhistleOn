@@ -7,6 +7,7 @@ import io.hala.whistleon.controller.dto.QnaRegistRequestDto;
 import io.hala.whistleon.controller.dto.QnaRegistResponseDto;
 import io.hala.whistleon.controller.dto.QnaReplyRequestDto;
 import io.hala.whistleon.controller.dto.QnaReplyResponseDto;
+import io.hala.whistleon.controller.dto.UpdateQnaRequestDto;
 import io.hala.whistleon.domain.qna.Qna;
 import io.hala.whistleon.domain.qna.QnaReply;
 import io.hala.whistleon.domain.qna.QnaReplyRepository;
@@ -80,10 +81,26 @@ public class QnaServiceImpl implements QnaService {
     return createQnaListResponseDto(qnasAndPages, page);
   }
 
+  @Override
+  public void updateQna(long qnaId, UpdateQnaRequestDto updateQnaRequestDto) {
+    User loginUser = principalHelper.getLoginUser();
+    Qna qna = qnaRepository.findById(qnaId)
+        .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+    if (isQnaAuthor(loginUser, qna.getUser())) {
+      qna.update(updateQnaRequestDto.getTitle(), updateQnaRequestDto.getContent());
+      qnaRepository.save(qna);
+    }
+  }
+
   /**
    * 이 아래로는 private method
    */
-
+  private boolean isQnaAuthor(User loginUser, User qnaAuthor) {
+    if (loginUser != qnaAuthor) {
+      throw new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER);
+    }
+    return true;
+  }
   private QnaInfoResponseDto createQnaInfoResponse(Qna qna) {
     List<QnaReplyResponseDto> qnaReplies = qna.getQnaReplies()
         .stream()
