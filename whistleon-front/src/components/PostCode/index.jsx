@@ -4,7 +4,7 @@ import DaumPostcode from 'react-daum-postcode';
 import { MdClose } from 'react-icons/md';
 import './post-code.scoped.scss';
 
-const PostCode = ({ onAddress, setOnAddress }) => {
+const PostCode = ({ onAddress, setOnAddress, setLocation }) => {
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -19,7 +19,7 @@ const PostCode = ({ onAddress, setOnAddress }) => {
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
-    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+    setLocation(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
 
     setOnAddress(false);
   };
@@ -49,6 +49,6 @@ const PostCode = ({ onAddress, setOnAddress }) => {
 PostCode.propTypes = {
   onAddress: PropTypes.bool.isRequired,
   setOnAddress: PropTypes.func.isRequired,
-  inputLocationToForm: PropTypes.func
+  setLocation: PropTypes.func.isRequired
 };
 export default React.memo(PostCode);
