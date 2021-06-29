@@ -94,7 +94,6 @@ public class QnaServiceImpl implements QnaService {
         .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
     if (isQnaAuthor(loginUser, qna.getUser())) {
       qna.update(updateQnaRequestDto.getTitle(), updateQnaRequestDto.getContent());
-      qnaRepository.save(qna);
     }
   }
 
