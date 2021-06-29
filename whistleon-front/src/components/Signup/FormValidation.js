@@ -15,7 +15,7 @@ const validate = () => ({
   },
 
   nickname(nickname) {
-    return (/^[가-힣a-z]+$/gi.test(nickname) && this.range(2, nickname, 20)) || new ValidationError('한글 또는 영문 최소 2글자 최대 20자를 입력해주세요.');
+    return /^[가-힣a-z]{2,20}$/gi.test(nickname) || new ValidationError('한글 또는 영문 최소 2글자 최대 20자를 입력해주세요.');
   },
 
   phoneNum(phoneNum) {
