@@ -7,6 +7,7 @@ import io.hala.whistleon.controller.dto.QnaRegistRequestDto;
 import io.hala.whistleon.controller.dto.QnaRegistResponseDto;
 import io.hala.whistleon.controller.dto.QnaReplyRequestDto;
 import io.hala.whistleon.controller.dto.QnaReplyResponseDto;
+import io.hala.whistleon.controller.dto.UpdateQnaReplyRequestDto;
 import io.hala.whistleon.controller.dto.UpdateQnaRequestDto;
 import io.hala.whistleon.domain.qna.Qna;
 import io.hala.whistleon.domain.qna.QnaReply;
@@ -109,9 +110,40 @@ public class QnaServiceImpl implements QnaService {
     }
   }
 
+  @Transactional
+  @Override
+  public void updateQnaReply(long qnaId, long replyId,
+      UpdateQnaReplyRequestDto updateQnaReplyRequestDto) {
+    User loginUser = principalHelper.getLoginUser();
+
+    // Todo authentication 부분 role hierarchy로 수정할 예정
+    if (canUpdateQnaReply(loginUser)) {
+      QnaReply qnaReply = qnaReplyRepository.findById(replyId)
+          .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+
+      if (isMatchQnaAndReply(qnaId, qnaReply.getQna().getQnaId())) {
+        qnaReply.update(updateQnaReplyRequestDto.getContent());
+      }
+    }
+  }
+
   /**
    * 이 아래로는 private method
    */
+
+  private boolean isMatchQnaAndReply(long formQnaId, long qnaId) {
+    if (formQnaId != qnaId) {
+      throw new CustomException(ExceptionCode.INVALID_FORM_DATA);
+    }
+    return true;
+  }
+
+  private boolean canUpdateQnaReply(User loginUser) {
+    if (loginUser.getRole() != Role.ADMIN) {
+      throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTHOR);
+    }
+    return true;
+  }
 
   private boolean canDeleteQna(User loginUser, User qnaAuthor) {
     if (loginUser == qnaAuthor) {

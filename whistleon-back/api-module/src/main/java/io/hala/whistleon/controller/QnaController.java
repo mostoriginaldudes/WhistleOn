@@ -2,6 +2,7 @@ package io.hala.whistleon.controller;
 
 import io.hala.whistleon.controller.dto.QnaRegistRequestDto;
 import io.hala.whistleon.controller.dto.QnaReplyRequestDto;
+import io.hala.whistleon.controller.dto.UpdateQnaReplyRequestDto;
 import io.hala.whistleon.controller.dto.UpdateQnaRequestDto;
 import io.hala.whistleon.service.qna.QnaService;
 import io.swagger.annotations.ApiOperation;
@@ -71,6 +72,15 @@ public class QnaController {
   @DeleteMapping("/{qnaId}")
   public ResponseEntity<?> deleteQna(@PathVariable long qnaId) {
     qnaService.deleteQna(qnaId);
+    return ResponseEntity.status(HttpStatus.OK).body(null);
+  }
+
+  @ApiOperation("qna reply 수정")
+  @PatchMapping("/{qnaId}/reply/{replyId}")
+  public ResponseEntity<?> updateQnaReply(@PathVariable long qnaId, @PathVariable long replyId,
+      @RequestBody
+          UpdateQnaReplyRequestDto updateQnaReplyRequestDto) {
+    qnaService.updateQnaReply(qnaId, replyId, updateQnaReplyRequestDto);
     return ResponseEntity.status(HttpStatus.OK).body(null);
   }
 }
