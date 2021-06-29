@@ -1,12 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import EventButton from '../EventButton';
 
-const Email = ({ email, onInput }) => {
-  const checkEmail = (email) => {
-    console.log(email);
+import validate from './FormValidation';
+import { isError, isValidationError } from '@utils/error';
+
+const Email = () => {
+  const [email, setEmail] = useState('');
+  const [validationMessage, setValidationMessage] = useState(null);
+
+  const onInput = ({ target: { value } }) => {
+    try {
+      setEmail(value);
+
+      const validatedEmail = validate.email(value);
+      if (isError(validatedEmail)) {
+        throw validatedEmail;
+      }
+
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessage(error.message);
+      }
+    }
   };
+
+  const checkEmail = () => {};
 
   return (
     <div className="signup__info__input__wrapper">
@@ -16,17 +36,13 @@ const Email = ({ email, onInput }) => {
           name: '이메일',
           required: true,
           value: email,
-          onInput
+          onInput,
+          onError: validationMessage
         }}
       />
       <EventButton text="이메일 인증" color="gray" eventHandler={checkEmail} />
     </div>
   );
-};
-
-Email.propTypes = {
-  email: PropTypes.string.isRequired,
-  onInput: PropTypes.func.isRequired
 };
 
 export default React.memo(Email);

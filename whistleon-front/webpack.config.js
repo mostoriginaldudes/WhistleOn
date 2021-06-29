@@ -13,7 +13,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.scss', '.css'],
     alias: {
-      '@': path.resolve(__dirname, 'src/')
+      '@': path.resolve(__dirname, 'src/'),
+      '@utils': path.resolve(__dirname, 'src/utils/')
     }
   },
   entry: {
@@ -48,7 +49,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               implementation: require('sass'),
-              additionalData:  `@import '../../style/main';`
+              additionalData: `@import '../../style/main';`
             }
           }
         ]

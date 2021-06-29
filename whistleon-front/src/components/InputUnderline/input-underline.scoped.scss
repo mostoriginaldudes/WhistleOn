@@ -6,12 +6,24 @@ $gap: 10px;
   -webkit-transition: 0.2s ease all;
 }
 
-input[type='date'] {
-  &:required:invalid::-webkit-datetime-edit {
-    color: transparent;
+input {
+  &[type='date'] {
+    &:required:invalid::-webkit-datetime-edit {
+      color: transparent;
+    }
+    &:focus::-webkit-datetime-edit {
+      color: $pt-gray !important;
+    }
   }
-  &:focus::-webkit-datetime-edit {
-    color: $pt-gray !important;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
   }
 }
 
@@ -109,6 +121,21 @@ input[type='date'] {
     -webkit-animation: inputHighlighter 0.3s ease;
     -moz-animation: inputHighlighter 0.3s ease;
     animation: inputHighlighter 0.3s ease;
+  }
+
+  &__error {
+    @include form-validation;
+  }
+}
+
+@keyframes inputInvalid {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 

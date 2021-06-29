@@ -1,51 +1,67 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import InputUnderline from '../InputUnderline';
+import validate from './FormValidation';
+import { isError, isValidationError } from '@utils/error';
 
-const soccerPosition = ['GK', 'RW', 'CF', 'ST', 'LW', 'CAM', 'CM', 'CDM', 'CB', 'RWB', 'RB', 'LWB', 'LB'];
+const soccerPositions = ['GK', 'RW', 'CF', 'ST', 'LW', 'CAM', 'CM', 'CDM', 'CB', 'RWB', 'RB', 'LWB', 'LB'];
 
-const Position = ({ mainPosition, onChangeMainPosition, subPosition, onChangeSubPosition }) => {
+const Position = () => {
+  const [mainPosition, setMainPosition] = useState('');
+  const [subPosition, setSubPosition] = useState('');
+  const [validationMessage, setValidationMessage] = useState(null);
+
+  const validatePosition = () => {
+    try {
+      const validatedPosition = validate.position(mainPosition, subPosition, soccerPositions);
+      if (isError(validatedPosition)) {
+        throw validatedPosition;
+      }
+
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessage(error.message);
+      }
+    }
+  };
+
+  useEffect(validatePosition, [mainPosition, subPosition]);
+
+  const datalist = (type) => (
+    <datalist id={type}>
+      {soccerPositions.map((pos, index) => (
+        <option value={pos} key={index} />
+      ))}
+    </datalist>
+  );
+
   return (
     <div className="signup__info__input__wrapper">
       <InputUnderline
         inputAttr={{
           type: 'text',
-          name: '선호 포지션 1',
+          name: '메인 포지션',
           required: true,
           value: mainPosition,
           list: 'main-position',
-          onChange: onChangeMainPosition
+          onChange: ({ target: { value } }) => setMainPosition(value),
+          onError: validationMessage
         }}
       />
-      <datalist id="main-position">
-        {soccerPosition.map((pos, index) => (
-          <option value={pos} key={index} />
-        ))}
-      </datalist>
+      {datalist('main-position')}
       <InputUnderline
         inputAttr={{
           type: 'text',
-          name: '선호 포지션 2',
+          name: '서브 포지션',
           required: true,
           value: subPosition,
           list: 'sub-position',
-          onChange: onChangeSubPosition
+          onChange: ({ target: { value } }) => setSubPosition(value)
         }}
       />
-      <datalist id="sub-position">
-        {soccerPosition.map((pos, index) => (
-          <option value={pos} key={index} />
-        ))}
-      </datalist>
+      {datalist('sub-position')}
     </div>
   );
-};
-
-Position.propTypes = {
-  mainPosition: PropTypes.string.isRequired,
-  subPosition: PropTypes.string.isRequired,
-  onChangeMainPosition: PropTypes.func.isRequired,
-  onChangeSubPosition: PropTypes.func.isRequired
 };
 
 export default React.memo(Position);
