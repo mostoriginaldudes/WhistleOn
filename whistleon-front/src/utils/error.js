@@ -1,3 +1,7 @@
+import ValidationError from '@/components/Signup/ValidationError';
+
 const isError = (arg) => arg instanceof Error;
 
-export { isError };
+const isValidationError = (arg) => arg instanceof ValidationError;
+
+export { isError, isValidationError };
