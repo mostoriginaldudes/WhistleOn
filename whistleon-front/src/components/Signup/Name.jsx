@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
-import { isError } from '@utils/error';
+import { isError, isValidationError } from '@utils/error';
 
 const Name = () => {
   const [name, setName] = useState('');
-  const [message, setMessage] = useState(null);
+  const [validationMessage, setValidationMessage] = useState(null);
 
   const onInput = ({ target: { value } }) => {
     try {
@@ -14,9 +14,11 @@ const Name = () => {
       const validatedName = validate.name(name);
       if (isError(validatedName)) throw validatedName;
 
-      setMessage(null);
-    } catch ({ message }) {
-      setMessage(message);
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessage(error.message);
+      }
     }
   };
 
@@ -28,7 +30,7 @@ const Name = () => {
         required: true,
         value: name,
         onInput,
-        onError: message
+        onError: validationMessage
       }}
     />
   );

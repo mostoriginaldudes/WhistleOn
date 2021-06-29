@@ -3,22 +3,26 @@ import InputUnderline from '../InputUnderline';
 import EventButton from '../EventButton';
 
 import validate from './FormValidation';
-import { isError } from '@utils/error';
+import { isError, isValidationError } from '@utils/error';
 
 const Email = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState(null);
+  const [validationMessage, setValidationMessage] = useState(null);
 
   const onInput = ({ target: { value } }) => {
     try {
       setEmail(value);
 
       const validatedEmail = validate.email(email);
-      if (isError(validatedEmail)) throw validatedEmail;
+      if (isError(validatedEmail)) {
+        throw validatedEmail;
+      }
 
-      setMessage(null);
-    } catch ({ message }) {
-      setMessage(message);
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessage(error.message);
+      }
     }
   };
 
@@ -33,7 +37,7 @@ const Email = () => {
           required: true,
           value: email,
           onInput,
-          onError: message
+          onError: validationMessage
         }}
       />
       <EventButton text="이메일 인증" color="gray" eventHandler={checkEmail} />

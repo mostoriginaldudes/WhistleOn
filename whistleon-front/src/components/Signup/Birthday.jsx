@@ -2,22 +2,26 @@ import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import { today } from '@utils/date';
 import validate from './FormValidation';
-import { isError } from '@utils/error';
+import { isError, isValidationError } from '@utils/error';
 
 const Birthday = () => {
   const [birthday, setBirthday] = useState('');
-  const [message, setMessage] = useState(null);
+  const [validationMessage, setValidationMessage] = useState(null);
 
   const onInput = ({ target: { value } }) => {
     try {
       setBirthday(value);
+
       const validatedBirthday = validate.birthday(birthday);
+      if (isError(validatedBirthday)) {
+        throw validatedBirthday;
+      }
 
-      if (isError(validatedBirthday)) throw validatedBirthday;
-
-      setMessage(null);
-    } catch ({ message }) {
-      setMessage(message);
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessage(error.message);
+      }
     }
   };
 
@@ -31,7 +35,7 @@ const Birthday = () => {
         required: true,
         value: birthday,
         onInput,
-        onError: message
+        onError: validationMessage
       }}
     />
   );

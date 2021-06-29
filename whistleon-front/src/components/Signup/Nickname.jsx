@@ -2,22 +2,26 @@ import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import EventButton from '../EventButton';
 import validate from './FormValidation';
-import { isError } from '@utils/error';
+import { isError, isValidationError } from '@utils/error';
 
 const Nickname = () => {
   const [nickname, setNickname] = useState('');
-  const [message, setMessage] = useState(null);
+  const [validationMessage, setValidationMessage] = useState(null);
 
   const onInput = ({ target: { value } }) => {
     try {
       setNickname(value);
 
-      const validateNickname = validate.nickname(nickname);
-      if (isError(validateNickname)) throw validateNickname;
+      const validatedNickname = validate.nickname(nickname);
+      if (isError(validatedNickname)) {
+        throw validatedNickname;
+      }
 
-      setMessage(null);
-    } catch ({ message }) {
-      setMessage(message);
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError) {
+        setValidationMessage(error.message);
+      }
     }
   };
 
@@ -30,7 +34,7 @@ const Nickname = () => {
           required: true,
           value: nickname,
           onInput,
-          onError: message
+          onError: validationMessage
         }}
       />
       <EventButton text="중복 확인" color="gray" />

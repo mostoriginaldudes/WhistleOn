@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
-import { isError } from '@utils/error';
+import { isError, isValidationError } from '@utils/error';
 
 const soccerPositions = ['GK', 'RW', 'CF', 'ST', 'LW', 'CAM', 'CM', 'CDM', 'CB', 'RWB', 'RB', 'LWB', 'LB'];
 
 const Position = () => {
   const [mainPosition, setMainPosition] = useState('');
   const [subPosition, setSubPosition] = useState('');
-  const [message, setMessage] = useState(null);
+  const [validationMessage, setValidationMessage] = useState(null);
 
   const validatePosition = () => {
     try {
       const validatedPosition = validate.position(mainPosition, subPosition, soccerPositions);
-      if (isError(validatedPosition)) throw validatedPosition;
+      if (isError(validatedPosition)) {
+        throw validatedPosition;
+      }
 
-      setMessage(null);
-    } catch ({ message }) {
-      setMessage(message);
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessage(error.message);
+      }
     }
   };
 
@@ -41,7 +45,7 @@ const Position = () => {
           value: mainPosition,
           list: 'main-position',
           onChange: ({ target: { value } }) => setMainPosition(value),
-          onError: message
+          onError: validationMessage
         }}
       />
       {datalist('main-position')}

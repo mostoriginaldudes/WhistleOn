@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
-import { isError } from '@utils/error';
+import { isError, isValidationError } from '@utils/error';
 
 const PhoneNum = () => {
   const [phoneNum, setPhoneNum] = useState('');
-  const [message, setMessage] = useState(null);
+  const [validationMessage, setValidationMessage] = useState(null);
 
   const onInput = ({ target: { value } }) => {
     try {
       setPhoneNum(value);
 
       const validatePhoneNum = validate.phoneNum(phoneNum);
-      if (isError(validatePhoneNum)) throw validatePhoneNum;
+      if (isError(validatePhoneNum)) {
+        throw validatePhoneNum;
+      }
 
-      setMessage(null);
-    } catch ({ message }) {
-      setMessage(message);
+      setValidationMessage(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessage(error.message);
+      }
     }
   };
 
@@ -29,7 +33,7 @@ const PhoneNum = () => {
         required: true,
         value: phoneNum,
         onInput,
-        onError: message
+        onError: validationMessage
       }}
     />
   );

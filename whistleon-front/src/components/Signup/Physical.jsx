@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
-import { isError } from '@utils/error';
+import { isError, isValidationError } from '@utils/error';
 
 const Physical = () => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
-  const [messageForHeight, setMessageForHeight] = useState(null);
-  const [messageForWeight, setMessageForWeight] = useState(null);
+  const [validationMessageForHeight, setValidationMessageForHeight] = useState(null);
+  const [validationMessageForWeight, setValidationMessageForWeight] = useState(null);
 
   const onInputHeight = ({ target: { value } }) => {
     try {
@@ -15,11 +15,15 @@ const Physical = () => {
 
       const validatedHeight = validate.height(value);
 
-      if (isError(validatedHeight)) throw validatedHeight;
+      if (isError(validatedHeight)) {
+        throw validatedHeight;
+      }
 
-      setMessageForHeight(null);
-    } catch ({ message }) {
-      setMessageForHeight(message);
+      setValidationMessageForHeight(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessageForHeight(error.message);
+      }
     }
   };
 
@@ -29,11 +33,15 @@ const Physical = () => {
 
       const validatedWeight = validate.weight(value);
 
-      if (isError(validatedWeight)) throw validatedWeight;
+      if (isError(validatedWeight)) {
+        throw validatedWeight;
+      }
 
-      setMessageForWeight(null);
-    } catch ({ message }) {
-      setMessageForWeight(message);
+      setValidationMessageForWeight(null);
+    } catch (error) {
+      if (isValidationError(error)) {
+        setValidationMessageForWeight(error.message);
+      }
     }
   };
 
@@ -48,7 +56,7 @@ const Physical = () => {
           required: true,
           value: height,
           onInput: onInputHeight,
-          onError: messageForHeight
+          onError: validationMessageForHeight
         }}
       />
       <InputUnderline
@@ -60,7 +68,7 @@ const Physical = () => {
           required: true,
           value: weight,
           onInput: onInputWeight,
-          onError: messageForWeight
+          onError: validationMessageForWeight
         }}
       />
     </div>
