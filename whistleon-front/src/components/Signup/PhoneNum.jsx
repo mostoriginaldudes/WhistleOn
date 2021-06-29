@@ -11,7 +11,7 @@ const PhoneNum = () => {
     try {
       setPhoneNum(value);
 
-      const validatePhoneNum = validate.phoneNum(phoneNum);
+      const validatePhoneNum = validate.phoneNum(value);
       if (isError(validatePhoneNum)) {
         throw validatePhoneNum;
       }

@@ -12,7 +12,7 @@ const Birthday = () => {
     try {
       setBirthday(value);
 
-      const validatedBirthday = validate.birthday(birthday);
+      const validatedBirthday = validate.birthday(value);
       if (isError(validatedBirthday)) {
         throw validatedBirthday;
       }

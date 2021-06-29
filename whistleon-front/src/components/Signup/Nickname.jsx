@@ -12,7 +12,7 @@ const Nickname = () => {
     try {
       setNickname(value);
 
-      const validatedNickname = validate.nickname(nickname);
+      const validatedNickname = validate.nickname(value);
       if (isError(validatedNickname)) {
         throw validatedNickname;
       }

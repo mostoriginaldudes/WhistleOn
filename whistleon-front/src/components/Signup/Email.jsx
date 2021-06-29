@@ -13,7 +13,7 @@ const Email = () => {
     try {
       setEmail(value);
 
-      const validatedEmail = validate.email(email);
+      const validatedEmail = validate.email(value);
       if (isError(validatedEmail)) {
         throw validatedEmail;
       }
