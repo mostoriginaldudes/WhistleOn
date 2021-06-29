@@ -157,7 +157,7 @@ public class QnaServiceImpl implements QnaService {
 
   private boolean isQnaAuthor(User loginUser, User qnaAuthor) {
     if (loginUser != qnaAuthor) {
-      throw new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER);
+      throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTHOR);
     }
     return true;
   }
