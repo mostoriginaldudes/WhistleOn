@@ -10,11 +10,11 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class QnaRegistResponseDto {
 
-  private final long id;
+  private final long qnaId;
 
-  public static QnaRegistResponseDto of(long id) {
+  public static QnaRegistResponseDto of(long qnaId) {
     return QnaRegistResponseDto.builder()
-        .id(id)
+        .qnaId(qnaId)
         .build();
   }
 }

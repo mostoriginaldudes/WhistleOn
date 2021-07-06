@@ -4,11 +4,11 @@ import io.hala.whistleon.domain.user.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,11 +23,11 @@ import lombok.NoArgsConstructor;
 public class Qna {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "qna_id")
   private Long qnaId;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author")
   private User user;
 

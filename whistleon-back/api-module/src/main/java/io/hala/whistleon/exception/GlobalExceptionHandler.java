@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+  @ExceptionHandler(value = {MethodArgumentNotValidException.class, IllegalArgumentException.class})
   public ResponseEntity<ExceptionResponse> handleValidException() {
     return ExceptionResponse.toResponseEntity(ExceptionCode.INVALID_FORM_DATA);
   }
