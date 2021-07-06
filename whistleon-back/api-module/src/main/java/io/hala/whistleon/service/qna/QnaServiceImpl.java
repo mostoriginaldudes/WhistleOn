@@ -116,7 +116,7 @@ public class QnaServiceImpl implements QnaService {
     User loginUser = principalHelper.getLoginUser();
 
     // Todo authentication 부분 role hierarchy로 수정할 예정
-    if (canUpdateQnaReply(loginUser)) {
+    if (isQnaReplyAuthor(loginUser)) {
       QnaReply qnaReply = qnaReplyRepository.findById(replyId)
           .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
 
@@ -137,7 +137,7 @@ public class QnaServiceImpl implements QnaService {
     return true;
   }
 
-  private boolean canUpdateQnaReply(User loginUser) {
+  private boolean isQnaReplyAuthor(User loginUser) {
     if (loginUser.getRole() != Role.ADMIN) {
       throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTHOR);
     }
