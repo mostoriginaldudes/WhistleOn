@@ -2,11 +2,11 @@ package io.hala.whistleon.domain.qna;
 
 import io.hala.whistleon.domain.user.User;
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,15 +20,15 @@ import lombok.NoArgsConstructor;
 public class QnaReply {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "reply_id")
   private Long replyId;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author")
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "qna_id")
   private Qna qna;
 
