@@ -26,4 +26,5 @@ public interface QnaService {
 
   void updateQnaReply(long qnaId, long replyId, UpdateQnaReplyRequestDto updateQnaReplyRequestDto);
 
+  void deleteQnaReply(long qnaId, long replyId);
 }

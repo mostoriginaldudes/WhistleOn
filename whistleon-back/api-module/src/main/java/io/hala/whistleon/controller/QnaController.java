@@ -83,4 +83,11 @@ public class QnaController {
     qnaService.updateQnaReply(qnaId, replyId, updateQnaReplyRequestDto);
     return ResponseEntity.status(HttpStatus.OK).body(null);
   }
+
+  @ApiOperation("qna reply 삭제")
+  @DeleteMapping("/{qnaId}/reply/{replyId}")
+  public ResponseEntity<?> deleteQnaReply(@PathVariable long qnaId, @PathVariable long replyId) {
+    qnaService.deleteQnaReply(qnaId, replyId);
+    return ResponseEntity.status(HttpStatus.OK).body(null);
+  }
 }

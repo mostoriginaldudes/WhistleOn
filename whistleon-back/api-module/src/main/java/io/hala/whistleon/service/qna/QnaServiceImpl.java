@@ -126,6 +126,18 @@ public class QnaServiceImpl implements QnaService {
     }
   }
 
+  @Override
+  public void deleteQnaReply(long qnaId, long replyId) {
+    User loginUser = principalHelper.getLoginUser();
+    if (isQnaReplyAuthor(loginUser)) {
+      QnaReply qnaReply = qnaReplyRepository.findById(replyId)
+          .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+      if (isMatchQnaAndReply(qnaId, qnaReply.getQna().getQnaId())) {
+        qnaReplyRepository.delete(qnaReply);
+      }
+    }
+  }
+
   /**
    * 이 아래로는 private method
    */
