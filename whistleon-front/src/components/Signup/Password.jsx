@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
@@ -8,10 +8,6 @@ const Password = () => {
   const [equalMessage, setEqualMessage] = useState(null);
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
-
-  useEffect(() => {
-    onInput();
-  }, [password, passwordCheck]);
 
   const isUnMatchedPassword = (validationErrorMessage) => {
     validationErrorMessage === '비밀번호가 일치하지 않습니다.' ? setEqualMessage(validationErrorMessage) : setValidationMessage(validationErrorMessage);
@@ -42,13 +38,19 @@ const Password = () => {
     {
       name: '비밀번호',
       value: password,
-      onInput: ({ target: { value } }) => setPassword(value),
+      onInput: ({ target: { value } }) => {
+        setPassword(value);
+        onInput();
+      },
       onError: validationMessage
     },
     {
       name: '비밀번호 확인',
       value: passwordCheck,
-      onInput: ({ target: { value } }) => setPasswordCheck(value),
+      onInput: ({ target: { value } }) => {
+        setPasswordCheck(value);
+        onInput();
+      },
       onError: equalMessage
     }
   ];

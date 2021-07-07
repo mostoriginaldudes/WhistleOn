@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
@@ -25,8 +25,6 @@ const Position = () => {
     }
   };
 
-  useEffect(validatePosition, [mainPosition, subPosition]);
-
   const datalist = (type) => (
     <datalist id={type}>
       {soccerPositions.map((pos, index) => (
@@ -44,7 +42,10 @@ const Position = () => {
           required: true,
           value: mainPosition,
           list: 'main-position',
-          onChange: ({ target: { value } }) => setMainPosition(value),
+          onChange: ({ target: { value } }) => {
+            validatePosition();
+            setMainPosition(value);
+          },
           onError: validationMessage
         }}
       />
@@ -56,7 +57,10 @@ const Position = () => {
           required: true,
           value: subPosition,
           list: 'sub-position',
-          onChange: ({ target: { value } }) => setSubPosition(value)
+          onChange: ({ target: { value } }) => {
+            validatePosition();
+            setSubPosition(value);
+          }
         }}
       />
       {datalist('sub-position')}
