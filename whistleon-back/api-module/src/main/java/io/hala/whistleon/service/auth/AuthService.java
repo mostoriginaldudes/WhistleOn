@@ -1,11 +1,11 @@
-package io.hala.whistleon.service.user;
+package io.hala.whistleon.service.auth;
 
 import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
 
 public interface AuthService {
 
-  void authEmail(String to);
+  void authUserEmail(String to);
 
   void authCode(String email, String code);
 

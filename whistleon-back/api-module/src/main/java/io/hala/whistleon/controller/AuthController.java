@@ -2,8 +2,7 @@ package io.hala.whistleon.controller;
 
 import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
-import io.hala.whistleon.controller.dto.TokenDto;
-import io.hala.whistleon.service.user.AuthService;
+import io.hala.whistleon.service.auth.AuthService;
 import io.hala.whistleon.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.constraints.Email;
@@ -24,10 +23,10 @@ public class AuthController {
   private final AuthService authService;
   private final UserService userService;
 
-  @PostMapping("/email/{email}")
-  public ResponseEntity<?> authEmail(@PathVariable @Email String email) {
+  @PostMapping("/user/email/{email}")
+  public ResponseEntity<?> authUserEmail(@PathVariable @Email String email) {
     if (userService.checkEmail(email)) {
-      authService.authEmail(email);
+      authService.authUserEmail(email);
     }
     return ResponseEntity.ok(null);
   }

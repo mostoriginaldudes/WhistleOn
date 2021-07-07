@@ -13,7 +13,7 @@ import io.hala.whistleon.controller.dto.SigninRequestDto;
 import io.hala.whistleon.controller.dto.SignupRequestDto;
 import io.hala.whistleon.domain.user.Position;
 import io.hala.whistleon.exception.CustomException;
-import io.hala.whistleon.service.user.AuthService;
+import io.hala.whistleon.service.auth.AuthService;
 import io.hala.whistleon.service.user.UserService;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
