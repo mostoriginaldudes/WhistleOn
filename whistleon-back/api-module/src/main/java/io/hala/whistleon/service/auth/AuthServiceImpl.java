@@ -31,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
 
   @Transactional
   @Override
-  public void authUserEmail(String to) {
+  public void authEmail(String to) {
     String code = mailSendHelper.makeRandomText();
     mailSendHelper.sendMail(to, code);
     AuthCode authCode = authRepository.findAuthCodeByEmail(to)

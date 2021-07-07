@@ -5,7 +5,7 @@ import io.hala.whistleon.controller.dto.SigninRequestDto;
 
 public interface AuthService {
 
-  void authUserEmail(String to);
+  void authEmail(String to);
 
   void authCode(String email, String code);
 
