@@ -1,13 +1,17 @@
 package io.hala.whistleon.domain.user;
 
 import io.hala.whistleon.domain.team.Team;
+import io.hala.whistleon.exception.CustomException;
+import io.hala.whistleon.exception.ExceptionCode;
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,12 +31,12 @@ import org.springframework.lang.Nullable;
 public class User {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
   private Long userId;
 
   @Nullable
-  @OneToOne(cascade = {CascadeType.ALL})
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "stat_id")
   private UserStat userStat; // fk (one to one)
 
@@ -132,5 +136,17 @@ public class User {
     this.position1 = userInfo.getPosition1();
     this.position2 = userInfo.getPosition2();
     this.description = userInfo.getDescription();
+  }
+
+  public boolean hasNotTeam() {
+    if (this.team != null) {
+      throw new CustomException(ExceptionCode.HAS_TEAM);
+    }
+    return true;
+  }
+
+  public void createTeam(Team team) {
+    this.team = team;
+    this.role = Role.LEADER;
   }
 }

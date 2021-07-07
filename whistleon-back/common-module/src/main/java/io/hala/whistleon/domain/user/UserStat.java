@@ -3,6 +3,7 @@ package io.hala.whistleon.domain.user;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.DynamicInsert;
 public class UserStat {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "stat_id")
   private Long statId;
 
