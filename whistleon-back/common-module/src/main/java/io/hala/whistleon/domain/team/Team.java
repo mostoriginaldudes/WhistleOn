@@ -76,4 +76,13 @@ public class Team {
   public void addTeamStat(TeamStat teamStat) {
     this.teamStat = teamStat;
   }
+
+  public void updateTeamInfo(UpdateTeamInfo teamInfo) {
+    this.name = teamInfo.getName();
+    this.logo = teamInfo.getLogo();
+    this.sido = teamInfo.getSido();
+    this.sigungu = teamInfo.getSigungu();
+    this.description = teamInfo.getDescription();
+    this.foundDate = teamInfo.getFoundDate();
+  }
 }

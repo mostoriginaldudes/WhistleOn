@@ -145,6 +145,15 @@ public class User {
     return true;
   }
 
+  public boolean hasTeamAuth(Team team) {
+    if (this.role != Role.LEADER && this.role != Role.STAFF) {
+      throw new CustomException(ExceptionCode.UNAUTHORIZED_TEAM_MANAGER);
+    }
+    if (this.getTeam() == null || !team.getEmail().equals(this.getTeam().getEmail())) {
+      throw new CustomException(ExceptionCode.UNAUTHORIZED_TEAM);
+    }
+    return true;
+  }
   public void createTeam(Team team) {
     this.team = team;
     this.role = Role.LEADER;
