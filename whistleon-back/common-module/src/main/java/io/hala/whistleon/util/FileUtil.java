@@ -32,7 +32,7 @@ public class FileUtil {
   }
 
   public String uploadFile(MultipartFile file, String folder) {
-    if (file.isEmpty()) {
+    if (file == null || file.isEmpty()) {
       return getNameByDefault(folder);
     }
     String saveFileName = getName(folder, file.getOriginalFilename());
