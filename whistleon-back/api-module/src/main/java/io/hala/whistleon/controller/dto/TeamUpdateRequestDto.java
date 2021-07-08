@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-@ToString
 @Getter
 @Setter
 public class TeamUpdateRequestDto {

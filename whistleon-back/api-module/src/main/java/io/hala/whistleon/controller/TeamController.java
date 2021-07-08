@@ -36,7 +36,6 @@ public class TeamController {
   @PatchMapping("/email/{email}")
   public ResponseEntity<?> updateTeam(@PathVariable String email,
       @ModelAttribute TeamUpdateRequestDto teamUpdateRequestDto) {
-    System.out.println(teamUpdateRequestDto.toString());
     teamService.updateTeam(email, teamUpdateRequestDto);
     return ResponseEntity.status(HttpStatus.OK).body(null);
   }
