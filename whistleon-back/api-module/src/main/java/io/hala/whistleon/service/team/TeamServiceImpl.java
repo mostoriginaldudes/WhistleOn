@@ -25,16 +25,15 @@ public class TeamServiceImpl implements TeamService {
 
   @Override
   public void checkExistTeamEmail(String email) {
-    Team existTeam = teamRepository.findByEmail(email);
-    if (existTeam != null) {
-      throw new CustomException(ExceptionCode.DUPLICATE_TEAM_EMAIL);
-    }
+    this.checkExistTeamByEmail(email);
   }
 
   @Transactional
   @Override
   public void registTeam(TeamRegistRequestDto teamRegistRequestDto) {
     User loginUser = principalHelper.getLoginUser();
+    this.checkExistTeamByEmail(teamRegistRequestDto.getEmail());
+
     if (loginUser.hasNotTeam()) {
       String logo = fileUtil.uploadFile(teamRegistRequestDto.getLogo(), TEAM_LOGO_DIR);
 
@@ -50,6 +49,13 @@ public class TeamServiceImpl implements TeamService {
    * 이 아래로는 private method
    */
 
+  private void checkExistTeamByEmail(String email) {
+    Team team = teamRepository.findByEmail(email)
+        .orElse(null);
+    if (team != null) {
+      throw new CustomException(ExceptionCode.DUPLICATE_TEAM_EMAIL);
+    }
+  }
   private Team makeTeam(TeamRegistRequestDto teamRegistRequestDto, String logo) {
     return Team.builder()
         .email(teamRegistRequestDto.getEmail())
