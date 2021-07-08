@@ -7,7 +7,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -26,12 +28,12 @@ import org.springframework.lang.Nullable;
 public class Team {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "team_id")
   private Long teamId;
 
   @Nullable
-  @OneToOne(cascade = {CascadeType.ALL})
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "stat_id")
   private TeamStat teamStat;
 
@@ -39,7 +41,6 @@ public class Team {
   private String name;
 
   @Column(name = "logo")
-  @ColumnDefault("default.jpg")
   private String logo;
 
   @Column(name = "sido")
@@ -61,17 +62,27 @@ public class Team {
   private List<User> users = new ArrayList<>();
 
   @Builder
-  public Team(String name, String sido, String sigungu, String email, String description,
+  public Team(String name, String sido, String sigungu, String email, String description, String logo,
       LocalDate foundDate) {
     this.name = name;
     this.sido = sido;
     this.sigungu = sigungu;
     this.email = email;
     this.description = description;
+    this.logo = logo;
     this.foundDate = foundDate;
   }
 
   public void addTeamStat(TeamStat teamStat) {
     this.teamStat = teamStat;
+  }
+
+  public void updateTeamInfo(UpdateTeamInfo teamInfo) {
+    this.name = teamInfo.getName();
+    this.logo = teamInfo.getLogo();
+    this.sido = teamInfo.getSido();
+    this.sigungu = teamInfo.getSigungu();
+    this.description = teamInfo.getDescription();
+    this.foundDate = teamInfo.getFoundDate();
   }
 }

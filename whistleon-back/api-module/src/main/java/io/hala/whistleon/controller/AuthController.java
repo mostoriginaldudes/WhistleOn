@@ -2,12 +2,13 @@ package io.hala.whistleon.controller;
 
 import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
-import io.hala.whistleon.controller.dto.TokenDto;
-import io.hala.whistleon.service.user.AuthService;
+import io.hala.whistleon.service.auth.AuthService;
+import io.hala.whistleon.service.team.TeamService;
 import io.hala.whistleon.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,15 +22,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
+  private final TeamService teamService;
   private final AuthService authService;
   private final UserService userService;
 
-  @PostMapping("/email/{email}")
-  public ResponseEntity<?> authEmail(@PathVariable @Email String email) {
+  @PostMapping("/user/email/{email}")
+  public ResponseEntity<?> authUserEmail(@PathVariable @Email String email) {
     if (userService.checkEmail(email)) {
       authService.authEmail(email);
     }
     return ResponseEntity.ok(null);
+  }
+
+  @PostMapping("/team/email/{email}")
+  public ResponseEntity<?> authTeamEmail(@PathVariable @Email String email) {
+    teamService.checkExistTeamEmail(email);
+    authService.authEmail(email);
+    return ResponseEntity.status(HttpStatus.OK).body(null);
   }
 
   @GetMapping("/email/{email}/code/{code}")

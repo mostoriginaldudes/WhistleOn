@@ -1,4 +1,4 @@
-package io.hala.whistleon.service.user;
+package io.hala.whistleon.service.auth;
 
 import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
@@ -10,6 +10,7 @@ import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.exception.ExceptionCode;
 import io.hala.whistleon.jwt.JwtTokenProvider;
+import io.hala.whistleon.service.auth.AuthService;
 import io.hala.whistleon.util.MailSendHelper;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

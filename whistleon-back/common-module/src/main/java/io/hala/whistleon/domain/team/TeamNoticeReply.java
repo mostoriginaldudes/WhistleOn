@@ -2,7 +2,6 @@ package io.hala.whistleon.domain.team;
 
 import io.hala.whistleon.domain.user.User;
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,11 +23,11 @@ public class TeamNoticeReply {
   @Column(name = "reply_id")
   private Long replyId;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "notice_id")
   private TeamNotice teamNotice;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "author")
   private User author;
 

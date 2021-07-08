@@ -1,4 +1,4 @@
-package io.hala.whistleon.service.user;
+package io.hala.whistleon.service.auth;
 
 import io.hala.whistleon.controller.dto.LoginResponseDto;
 import io.hala.whistleon.controller.dto.SigninRequestDto;
