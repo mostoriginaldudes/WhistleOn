@@ -4,27 +4,20 @@ import DaumPostcode from 'react-daum-postcode';
 import { MdClose } from 'react-icons/md';
 import './post-code.scoped.scss';
 
-const PostCode = ({ onAddress, setOnAddress, setLocation }) => {
-  const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = '';
+const PostCode = ({ onAddress, setOnAddress, setLocation, dispatch }) => {
+  const closeAddress = () => setOnAddress(false);
 
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-    }
-
-    setLocation(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-
-    setOnAddress(false);
+  const dispatchAllLocationInfo = (locationData) => {
+    ['sido', 'sigungu', 'zonecode'].forEach((name) => {
+      dispatch({ name, value: locationData[name] });
+    });
   };
 
-  const closeAddress = () => setOnAddress(false);
+  const handleComplete = (locationData) => {
+    dispatchAllLocationInfo(locationData);
+    setLocation(locationData.roadAddress);
+    closeAddress();
+  };
 
   return (
     onAddress && (
@@ -49,6 +42,7 @@ const PostCode = ({ onAddress, setOnAddress, setLocation }) => {
 PostCode.propTypes = {
   onAddress: PropTypes.bool.isRequired,
   setOnAddress: PropTypes.func.isRequired,
-  setLocation: PropTypes.func.isRequired
+  setLocation: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 export default React.memo(PostCode);

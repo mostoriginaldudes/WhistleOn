@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
-const Name = () => {
-  const [name, setName] = useState('');
+const Name = ({ name, dispatch }) => {
   const [validationMessage, setValidationMessage] = useState(null);
 
-  const onInput = ({ target: { value } }) => {
+  const onInput = ({ target }) => {
     try {
-      setName(value);
+      dispatch(target);
 
-      const validatedName = validate.name(name);
+      const validatedName = validate.name(target.value);
       if (isError(validatedName)) throw validatedName;
 
       setValidationMessage(null);
@@ -26,7 +26,8 @@ const Name = () => {
     <InputUnderline
       inputAttr={{
         type: 'text',
-        name: '이름',
+        name: 'name',
+        label: '이름',
         required: true,
         value: name,
         onInput,
@@ -34,6 +35,11 @@ const Name = () => {
       }}
     />
   );
+};
+
+Name.propTypes = {
+  name: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default React.memo(Name);

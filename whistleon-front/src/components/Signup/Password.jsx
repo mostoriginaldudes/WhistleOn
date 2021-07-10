@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
-const Password = () => {
+const Password = ({ password, passwordCheck, dispatch }) => {
   const [validationMessage, setValidationMessage] = useState(null);
   const [equalMessage, setEqualMessage] = useState(null);
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
 
   const isUnMatchedPassword = (validationErrorMessage) => {
     validationErrorMessage === '비밀번호가 일치하지 않습니다.' ? setEqualMessage(validationErrorMessage) : setValidationMessage(validationErrorMessage);
@@ -36,31 +35,34 @@ const Password = () => {
 
   const passwordInputElementAttr = [
     {
-      name: '비밀번호',
+      label: '비밀번호',
+      name: 'password',
       value: password,
-      onInput: ({ target: { value } }) => {
-        setPassword(value);
+      onInput: ({ target }) => {
+        dispatch(target);
         onInput();
       },
       onError: validationMessage
     },
     {
-      name: '비밀번호 확인',
+      label: '비밀번호 확인',
+      name: 'passwordCheck',
       value: passwordCheck,
-      onInput: ({ target: { value } }) => {
-        setPasswordCheck(value);
+      onInput: ({ target }) => {
+        dispatch(target);
         onInput();
       },
       onError: equalMessage
     }
   ];
 
-  return passwordInputElementAttr.map(({ name, value, onInput, onError }, index) => (
+  return passwordInputElementAttr.map(({ label, name, value, onInput, onError }, index) => (
     <InputUnderline
       inputAttr={{
         type: 'password',
         required: true,
         value,
+        label,
         name,
         onInput,
         onError,
@@ -70,6 +72,12 @@ const Password = () => {
       key={index}
     />
   ));
+};
+
+Password.propTypes = {
+  password: PropTypes.string.isRequired,
+  passwordCheck: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default React.memo(Password);

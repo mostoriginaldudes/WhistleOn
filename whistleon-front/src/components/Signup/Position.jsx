@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
 const soccerPositions = ['GK', 'RW', 'CF', 'ST', 'LW', 'CAM', 'CM', 'CDM', 'CB', 'RWB', 'RB', 'LWB', 'LB'];
 
-const Position = () => {
-  const [mainPosition, setMainPosition] = useState('');
-  const [subPosition, setSubPosition] = useState('');
+const Position = ({ position1, position2, dispatch }) => {
   const [validationMessage, setValidationMessage] = useState(null);
+
+  const onChange = ({ target }) => {
+    dispatch(target);
+    validatePosition();
+  };
 
   const validatePosition = () => {
     try {
-      const validatedPosition = validate.position(mainPosition, subPosition, soccerPositions);
+      const validatedPosition = validate.position(position1, position2, soccerPositions);
       if (isError(validatedPosition)) {
         throw validatedPosition;
       }
@@ -38,14 +42,12 @@ const Position = () => {
       <InputUnderline
         inputAttr={{
           type: 'text',
-          name: '메인 포지션',
+          name: 'position1',
+          label: '메인 포지션',
           required: true,
-          value: mainPosition,
+          value: position1,
           list: 'main-position',
-          onChange: ({ target: { value } }) => {
-            validatePosition();
-            setMainPosition(value);
-          },
+          onChange,
           onError: validationMessage
         }}
       />
@@ -53,19 +55,23 @@ const Position = () => {
       <InputUnderline
         inputAttr={{
           type: 'text',
-          name: '서브 포지션',
+          name: 'position2',
+          label: '서브 포지션',
           required: true,
-          value: subPosition,
+          value: position2,
           list: 'sub-position',
-          onChange: ({ target: { value } }) => {
-            validatePosition();
-            setSubPosition(value);
-          }
+          onChange
         }}
       />
       {datalist('sub-position')}
     </div>
   );
+};
+
+Position.propTypes = {
+  position1: PropTypes.oneOf([...soccerPositions, '']).isRequired,
+  position2: PropTypes.oneOf([...soccerPositions, '']).isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default React.memo(Position);

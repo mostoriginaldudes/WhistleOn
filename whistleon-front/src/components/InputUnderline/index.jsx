@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './input-underline.scoped.scss';
 
 const InputUnderline = ({ inputAttr }) => {
-  const { type, required, onInput, onFocus, onBlur, onChange, value, name, readOnly, onError, ...args } = inputAttr;
+  const { type, name, required, onInput, onFocus, onBlur, onChange, value, label, readOnly, onError, ...args } = inputAttr;
 
   return (
     <div className="input_underline">
@@ -11,6 +11,7 @@ const InputUnderline = ({ inputAttr }) => {
         <input
           className="input_underline__input"
           type={type}
+          name={name}
           required={required}
           onInput={onInput}
           onFocus={onFocus}
@@ -26,7 +27,7 @@ const InputUnderline = ({ inputAttr }) => {
         />
         <span className="input_underline__highlight" />
         <span className="input_underline__bar" />
-        <label className="input_underline__label">{name}</label>
+        <label className="input_underline__label">{label}</label>
         {onError && <h6 className="input_underline__error">{onError}</h6>}
       </div>
     </div>

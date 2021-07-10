@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import EventButton from '../EventButton';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
-const Nickname = () => {
-  const [nickname, setNickname] = useState('');
+const Nickname = ({ nickname, dispatch }) => {
   const [validationMessage, setValidationMessage] = useState(null);
 
-  const onInput = ({ target: { value } }) => {
+  const onInput = ({ target }) => {
     try {
-      setNickname(value);
+      dispatch(target);
 
-      const validatedNickname = validate.nickname(value);
+      const validatedNickname = validate.nickname(target.value);
       if (isError(validatedNickname)) {
         throw validatedNickname;
       }
@@ -30,7 +30,8 @@ const Nickname = () => {
       <InputUnderline
         inputAttr={{
           type: 'text',
-          name: '닉네임',
+          name: 'nickname',
+          label: '닉네임',
           required: true,
           value: nickname,
           onInput,
@@ -40,6 +41,11 @@ const Nickname = () => {
       <EventButton text="중복 확인" color="gray" />
     </div>
   );
+};
+
+Nickname.propTypes = {
+  nickname: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default React.memo(Nickname);

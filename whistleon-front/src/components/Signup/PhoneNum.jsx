@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
-const PhoneNum = () => {
-  const [phoneNum, setPhoneNum] = useState('');
+const PhoneNum = ({ phoneNum, dispatch }) => {
   const [validationMessage, setValidationMessage] = useState(null);
 
-  const onInput = ({ target: { value } }) => {
+  const onInput = ({ target }) => {
     try {
-      setPhoneNum(value);
+      dispatch(target);
 
-      const validatePhoneNum = validate.phoneNum(value);
+      const validatePhoneNum = validate.phoneNum(target.value);
       if (isError(validatePhoneNum)) {
         throw validatePhoneNum;
       }
@@ -29,7 +29,8 @@ const PhoneNum = () => {
       inputAttr={{
         readOnly: false,
         type: 'number',
-        name: '연락처 ("-" 없이)',
+        name: 'phoneNum',
+        label: '연락처 ("-" 없이)',
         required: true,
         value: phoneNum,
         onInput,
@@ -37,6 +38,11 @@ const PhoneNum = () => {
       }}
     />
   );
+};
+
+PhoneNum.propTypes = {
+  phoneNum: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default React.memo(PhoneNum);

@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
-const Physical = () => {
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
+const Physical = ({ height, weight, dispatch }) => {
   const [validationMessageForHeight, setValidationMessageForHeight] = useState(null);
   const [validationMessageForWeight, setValidationMessageForWeight] = useState(null);
 
-  const onInputHeight = ({ target: { value } }) => {
+  const onInputHeight = ({ target }) => {
     try {
-      setHeight(value);
+      dispatch(target);
 
-      const validatedHeight = validate.height(value);
+      const validatedHeight = validate.height(target.value);
 
       if (isError(validatedHeight)) {
         throw validatedHeight;
@@ -27,11 +26,11 @@ const Physical = () => {
     }
   };
 
-  const onInputWeight = ({ target: { value } }) => {
+  const onInputWeight = ({ target }) => {
     try {
-      setWeight(value);
+      dispatch(target);
 
-      const validatedWeight = validate.weight(value);
+      const validatedWeight = validate.weight(target.value);
 
       if (isError(validatedWeight)) {
         throw validatedWeight;
@@ -50,7 +49,8 @@ const Physical = () => {
       <InputUnderline
         inputAttr={{
           type: 'number',
-          name: '키 (cm)',
+          label: '키 (cm)',
+          name: 'height',
           min: 100,
           max: 250,
           required: true,
@@ -62,7 +62,8 @@ const Physical = () => {
       <InputUnderline
         inputAttr={{
           type: 'number',
-          name: '몸무게 (kg)',
+          label: '몸무게 (kg)',
+          name: 'weight',
           min: 30,
           max: 200,
           required: true,
@@ -73,6 +74,12 @@ const Physical = () => {
       />
     </div>
   );
+};
+
+Physical.propTypes = {
+  height: PropTypes.string.isRequired,
+  weight: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default Physical;

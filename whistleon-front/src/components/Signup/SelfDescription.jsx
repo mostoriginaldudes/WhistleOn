@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
-const SelfDescription = () => {
-  const [description, setDescription] = useState('');
+const SelfDescription = ({ description, dispatch }) => {
   const [validationMessage, setValidationMessage] = useState(null);
 
-  const onInput = ({ target: { value } }) => {
+  const onInput = ({ target }) => {
     try {
-      setDescription(value);
+      dispatch(target);
 
-      const validatedDescription = validate.description(value);
+      const validatedDescription = validate.description(target.value);
       if (isError(validatedDescription)) {
         throw validatedDescription;
       }
@@ -26,10 +26,15 @@ const SelfDescription = () => {
   return (
     <div style={{ width: '100%' }}>
       <h3 className="signup__info__input__guide">자기소개</h3>
-      <textarea className="signup__info__input__description" onInput={onInput} value={description} />
+      <textarea className="signup__info__input__description" name="description" onInput={onInput} value={description} />
       {validationMessage && <h6 className="signup__info__input__description__error">{validationMessage}</h6>}
     </div>
   );
+};
+
+SelfDescription.propTypes = {
+  description: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default React.memo(SelfDescription);

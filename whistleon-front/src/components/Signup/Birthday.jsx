@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import { today } from '@utils/date';
 import validate from './FormValidation';
 import { isError, isValidationError } from '@utils/error';
 
-const Birthday = () => {
-  const [birthday, setBirthday] = useState('');
+const Birthday = ({ birthday, dispatch }) => {
   const [validationMessage, setValidationMessage] = useState(null);
 
-  const onInput = ({ target: { value } }) => {
+  const onInput = ({ target }) => {
     try {
-      setBirthday(value);
+      dispatch(target);
 
-      const validatedBirthday = validate.birthday(value);
+      const validatedBirthday = validate.birthday(target.value);
       if (isError(validatedBirthday)) {
         throw validatedBirthday;
       }
@@ -29,7 +29,8 @@ const Birthday = () => {
     <InputUnderline
       inputAttr={{
         type: 'date',
-        name: '생년월일',
+        name: 'birthday',
+        label: '생년월일',
         min: '1950-01-01',
         max: today(),
         required: true,
@@ -39,6 +40,11 @@ const Birthday = () => {
       }}
     />
   );
+};
+
+Birthday.propTypes = {
+  birthday: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default React.memo(Birthday);

@@ -13,7 +13,6 @@ const Location = ({ location, onFocus }) => {
       if (isError(validatedLocation)) {
         throw validatedLocation;
       }
-
       setValidationMessage(null);
     } catch (error) {
       if (isValidationError(error)) {
@@ -21,11 +20,13 @@ const Location = ({ location, onFocus }) => {
       }
     }
   };
+
   return (
     <InputUnderline
       inputAttr={{
         type: 'text',
-        name: '연고지',
+        name: 'roadAddress',
+        label: '연고지',
         required: true,
         value: location,
         onFocus,
