@@ -14,14 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.lang.Nullable;
 
 @DynamicInsert
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @Getter
 @Entity(name = "team")
@@ -61,17 +64,6 @@ public class Team {
   @OneToMany(mappedBy = "team")
   private List<User> users = new ArrayList<>();
 
-  @Builder
-  public Team(String name, String sido, String sigungu, String email, String description, String logo,
-      LocalDate foundDate) {
-    this.name = name;
-    this.sido = sido;
-    this.sigungu = sigungu;
-    this.email = email;
-    this.description = description;
-    this.logo = logo;
-    this.foundDate = foundDate;
-  }
 
   public void addTeamStat(TeamStat teamStat) {
     this.teamStat = teamStat;
