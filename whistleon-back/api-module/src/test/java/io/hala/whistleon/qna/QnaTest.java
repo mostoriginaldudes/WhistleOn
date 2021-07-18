@@ -102,7 +102,7 @@ public class QnaTest {
     long qnaId = qnaService.registQna(QnaRegistRequestDto.builder()
         .title(title)
         .content(content)
-        .build()).getId();
+        .build()).getQnaId();
 
     Qna qna = qnaRepository.findById(qnaId)
         .orElseThrow(() -> new RuntimeException());
