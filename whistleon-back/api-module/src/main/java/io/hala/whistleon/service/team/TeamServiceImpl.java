@@ -3,6 +3,8 @@ package io.hala.whistleon.service.team;
 import io.hala.whistleon.controller.dto.TeamRegistRequestDto;
 import io.hala.whistleon.controller.dto.TeamUpdateRequestDto;
 import io.hala.whistleon.domain.team.Team;
+import io.hala.whistleon.domain.team.TeamMemberRequest;
+import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
 import io.hala.whistleon.domain.team.TeamRepository;
 import io.hala.whistleon.domain.team.TeamStat;
 import io.hala.whistleon.domain.team.UpdateTeamInfo;
@@ -11,6 +13,7 @@ import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.exception.ExceptionCode;
 import io.hala.whistleon.service.PrincipalHelper;
 import io.hala.whistleon.util.FileUtil;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,7 @@ public class TeamServiceImpl implements TeamService {
   private final String TEAM_LOGO_DIR = "/team";
   private final PrincipalHelper principalHelper;
   private final TeamRepository teamRepository;
+  private final TeamMemberRequestRepository teamMemberRequestRepository;
   private final FileUtil fileUtil;
 
   @Override
@@ -58,9 +62,33 @@ public class TeamServiceImpl implements TeamService {
     }
   }
 
+  @Transactional
+  @Override
+  public void registTeamMember(Long teamId) {
+    User loginUser = principalHelper.getLoginUser();
+    if (loginUser.hasNotTeam()) {
+      Team team = getTeamById(teamId);
+      TeamMemberRequest teamMemberRequest = createTeamMemberRequest(loginUser, team);
+      teamMemberRequestRepository.save(teamMemberRequest);
+    }
+  }
+
   /**
    * 이 아래로는 private method
    */
+
+  private TeamMemberRequest createTeamMemberRequest(User user, Team team) {
+    return TeamMemberRequest.builder()
+        .user(user)
+        .team(team)
+        .requestDate(LocalDateTime.now())
+        .build();
+  }
+
+  private Team getTeamById(Long teamId) {
+    return teamRepository.findById(teamId)
+        .orElseThrow(() -> new CustomException(ExceptionCode.TEAM_NOT_EXIST));
+  }
 
   private Team getTeamByEmail(String email) {
     return teamRepository.findByEmail(email)

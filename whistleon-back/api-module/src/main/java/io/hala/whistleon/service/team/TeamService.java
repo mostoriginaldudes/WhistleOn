@@ -10,4 +10,6 @@ public interface TeamService {
   void registTeam(TeamRegistRequestDto teamRegistRequestDto);
 
   void updateTeam(String email, TeamUpdateRequestDto teamUpdateRequestDto);
+
+  void registTeamMember(Long teamId);
 }
