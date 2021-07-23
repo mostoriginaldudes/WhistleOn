@@ -1,6 +1,7 @@
 package io.hala.whistleon.team.unit;
 
 import io.hala.whistleon.domain.team.Team;
+import io.hala.whistleon.domain.team.TeamMemberRequest;
 import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
 import io.hala.whistleon.domain.team.TeamRepository;
 import io.hala.whistleon.domain.user.User;
@@ -8,6 +9,8 @@ import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.service.PrincipalHelper;
 import io.hala.whistleon.service.team.TeamServiceImpl;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,6 +63,23 @@ public class RegistRequestTest {
 
     BDDMockito.given(principalHelper.getLoginUser())
         .willReturn(user);
+  }
+
+  @DisplayName("이미 해당하는 팀에 대한 요청이 존재하면, 팀 가입 요청 실패")
+  @Test
+  void alreadyRequestTargetTeamShouldThrowException() {
+    BDDMockito.given(teamRepository.findById(team.getTeamId()))
+        .willReturn(Optional.of(team));
+    BDDMockito.given(teamMemberRequestRepository.findByUserAndTeam(user, team))
+        .willReturn(Optional.of(TeamMemberRequest.builder()
+            .id(1L)
+            .team(team)
+            .user(user)
+            .requestDate(LocalDateTime.now())
+            .build()));
+
+    Assertions.assertThatThrownBy(() -> teamService.registTeamMember(team.getTeamId()))
+        .isInstanceOf(CustomException.class);
   }
 
   @DisplayName("이미 팀을 가지고 있다면, 팀 가입 요청 실패")
