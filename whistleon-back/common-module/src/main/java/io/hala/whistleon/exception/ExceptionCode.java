@@ -40,6 +40,7 @@ public enum ExceptionCode {
   HAS_TEAM(HttpStatus.CONFLICT, "이미 소속된 팀이 있습니다."),
   DUPLICATE_TEAM_EMAIL(HttpStatus.CONFLICT, "해당 이메일로 생성된 팀이 이미 존재합니다."),
   DUPLICATE_DATA(HttpStatus.CONFLICT, "해당하는 데이터가 이미 존재합니다");
+  DUPLICATE_TEAM_MEMBER_REQUEST(HttpStatus.CONFLICT, "해당하는 팀에 가입 요청을 이미 한 상태입니다");
 
   private final HttpStatus httpStatus;
   private final String message;
