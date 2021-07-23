@@ -68,6 +68,7 @@ public class TeamServiceImpl implements TeamService {
     User loginUser = principalHelper.getLoginUser();
     if (loginUser.hasNotTeam()) {
       Team team = getTeamById(teamId);
+      checkAlreadyExistRequest(loginUser, team);
       TeamMemberRequest teamMemberRequest = createTeamMemberRequest(loginUser, team);
       teamMemberRequestRepository.save(teamMemberRequest);
     }
@@ -77,6 +78,13 @@ public class TeamServiceImpl implements TeamService {
    * 이 아래로는 private method
    */
 
+  private void checkAlreadyExistRequest(User user, Team team) {
+    TeamMemberRequest data = teamMemberRequestRepository.findByUserAndTeam(user, team)
+        .orElse(null);
+    if (data != null) {
+      throw new CustomException(ExceptionCode.DUPLICATE_TEAM_MEMBER_REQUEST);
+    }
+  }
   private TeamMemberRequest createTeamMemberRequest(User user, Team team) {
     return TeamMemberRequest.builder()
         .user(user)
