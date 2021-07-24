@@ -13,6 +13,7 @@ public enum ExceptionCode {
    */
   INVALID_FORM_DATA(HttpStatus.BAD_REQUEST, "요청하신 정보가 유효하지 않습니다."),
   HAS_NOT_TEAM(HttpStatus.BAD_REQUEST, "팀을 가지고 있지 않은데, 팀에 대한 정보를 요청했습니다."),
+  BAD_REQUEST_DATA(HttpStatus.BAD_REQUEST, "요청하신 정보가 유효하지 않습니다"),
   FILE_UPLOAD_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드 과정 중에 실패하였습니다."),
   INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류"),
 
