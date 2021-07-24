@@ -39,15 +39,4 @@ public class TeamController {
     teamService.updateTeam(email, teamUpdateRequestDto);
     return ResponseEntity.status(HttpStatus.OK).body(null);
   }
-
-  @PostMapping("/{teamId}/request-team-member")
-  public ResponseEntity<?> requestTeamMember(@PathVariable Long teamId) {
-    teamService.registTeamMember(teamId);
-    return ResponseEntity.status(HttpStatus.CREATED).body(null);
-  }
-
-  @GetMapping("/{teamId}/request-team-member")
-  public ResponseEntity<?> findAllRegistTeamMember(@PathVariable Long teamId) {
-    return ResponseEntity.ok(teamService.findRequestTeamMembers(teamId));
-  }
 }

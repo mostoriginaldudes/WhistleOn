@@ -1,6 +1,5 @@
 package io.hala.whistleon.service.team;
 
-import io.hala.whistleon.controller.dto.RequestTeamMemberResponseDto;
 import io.hala.whistleon.controller.dto.TeamRegistRequestDto;
 import io.hala.whistleon.controller.dto.TeamUpdateRequestDto;
 
@@ -11,8 +10,4 @@ public interface TeamService {
   void registTeam(TeamRegistRequestDto teamRegistRequestDto);
 
   void updateTeam(String email, TeamUpdateRequestDto teamUpdateRequestDto);
-
-  void registTeamMember(Long teamId);
-
-  RequestTeamMemberResponseDto findRequestTeamMembers(Long teamId);
 }

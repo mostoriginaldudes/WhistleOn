@@ -8,6 +8,8 @@ import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.service.PrincipalHelper;
+import io.hala.whistleon.service.team.TeamMemberRequestService;
+import io.hala.whistleon.service.team.TeamMemberRequestServiceImpl;
 import io.hala.whistleon.service.team.TeamServiceImpl;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,15 +34,12 @@ public class RegistRequestTest {
   @Mock
   private PrincipalHelper principalHelper;
   @Mock
-  private UserRepository userRepository;
-  @Mock
   private TeamRepository teamRepository;
   @Mock
   private TeamMemberRequestRepository teamMemberRequestRepository;
 
   @InjectMocks
-  private TeamServiceImpl teamService;
-
+  private TeamMemberRequestServiceImpl teamMemberRequestService;
 
   private final String email = "test@test.com";
   private final String name = "테스트";
@@ -78,7 +77,7 @@ public class RegistRequestTest {
             .requestDate(LocalDateTime.now())
             .build()));
 
-    Assertions.assertThatThrownBy(() -> teamService.registTeamMember(team.getTeamId()))
+    Assertions.assertThatThrownBy(() -> teamMemberRequestService.registTeamMember(team.getTeamId()))
         .isInstanceOf(CustomException.class);
   }
 
@@ -87,7 +86,7 @@ public class RegistRequestTest {
   void teamRegistRequestFailTest() {
     user.createTeam(team);
 
-    Assertions.assertThatThrownBy(() -> teamService.registTeamMember(team.getTeamId()))
+    Assertions.assertThatThrownBy(() -> teamMemberRequestService.registTeamMember(team.getTeamId()))
         .isInstanceOf(CustomException.class);
   }
 
@@ -97,7 +96,7 @@ public class RegistRequestTest {
     BDDMockito.given(teamRepository.findById(1L))
         .willReturn(Optional.of(team));
 
-    Assertions.assertThatCode(() -> teamService.registTeamMember(team.getTeamId()))
+    Assertions.assertThatCode(() -> teamMemberRequestService.registTeamMember(team.getTeamId()))
         .doesNotThrowAnyException();
   }
 }

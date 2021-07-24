@@ -13,6 +13,8 @@ import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.service.PrincipalHelper;
+import io.hala.whistleon.service.team.TeamMemberRequestService;
+import io.hala.whistleon.service.team.TeamMemberRequestServiceImpl;
 import io.hala.whistleon.service.team.TeamServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +31,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class FindTeamMemberRequestTest {
 
+  @InjectMocks
+  private TeamMemberRequestServiceImpl teamMemberRequestService;
+
   @Mock
   private PrincipalHelper principalHelper;
-  @Mock
-  private UserRepository userRepository;
   @Mock
   private TeamRepository teamRepository;
   @Mock
   private TeamMemberRequestRepository teamMemberRequestRepository;
-
-  @InjectMocks
-  private TeamServiceImpl teamService;
 
   private Team team;
   private List<TeamMemberRequest> teamMemberRequests = new ArrayList<>();
@@ -64,7 +64,7 @@ public class FindTeamMemberRequestTest {
     User user = User.builder().userId(4L).name("test4").role(Role.NONE).build();
     BDDMockito.given(principalHelper.getLoginUser()).willReturn(user);
 
-    assertThatThrownBy(() -> teamService.findRequestTeamMembers(1L))
+    assertThatThrownBy(() -> teamMemberRequestService.findRequestTeamMembers(1L))
         .isInstanceOf(CustomException.class);
 
   }
@@ -75,7 +75,7 @@ public class FindTeamMemberRequestTest {
     User user = User.builder().userId(4L).name("test4").team(team).role(Role.MEMBER).build();
     BDDMockito.given(principalHelper.getLoginUser()).willReturn(user);
 
-    assertThatThrownBy(() -> teamService.findRequestTeamMembers(1L))
+    assertThatThrownBy(() -> teamMemberRequestService.findRequestTeamMembers(1L))
         .isInstanceOf(CustomException.class);
   }
 
@@ -87,7 +87,7 @@ public class FindTeamMemberRequestTest {
     BDDMockito.given(teamMemberRequestRepository.findAllByTeam(team))
         .willReturn(teamMemberRequests);
 
-    RequestTeamMemberResponseDto response = teamService.findRequestTeamMembers(1L);
+    RequestTeamMemberResponseDto response = teamMemberRequestService.findRequestTeamMembers(1L);
     assertThat(response.getRequestUsers().size()).isEqualTo(3);
   }
 }
