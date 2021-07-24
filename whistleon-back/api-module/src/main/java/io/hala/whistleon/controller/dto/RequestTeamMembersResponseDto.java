@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class RequestTeamMemberResponseDto {
+public class RequestTeamMembersResponseDto {
 
   private final List<RequestTeamMemberDto> requestUsers;
 }

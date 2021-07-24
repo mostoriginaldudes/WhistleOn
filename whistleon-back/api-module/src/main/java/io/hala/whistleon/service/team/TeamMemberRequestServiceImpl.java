@@ -1,7 +1,7 @@
 package io.hala.whistleon.service.team;
 
 import io.hala.whistleon.controller.dto.RequestTeamMemberDto;
-import io.hala.whistleon.controller.dto.RequestTeamMemberResponseDto;
+import io.hala.whistleon.controller.dto.RequestTeamMembersResponseDto;
 import io.hala.whistleon.domain.team.Team;
 import io.hala.whistleon.domain.team.TeamMemberRequest;
 import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
@@ -85,14 +85,14 @@ public class TeamMemberRequestServiceImpl implements TeamMemberRequestService {
   }
 
 
-  private RequestTeamMemberResponseDto createRequestTeamMemberResponse(
+  private RequestTeamMembersResponseDto createRequestTeamMemberResponse(
       List<TeamMemberRequest> teamMemberRequests) {
 
     List<RequestTeamMemberDto> requestUsers = teamMemberRequests.stream()
         .map(RequestTeamMemberDto::of)
         .collect(Collectors.toList());
 
-    return RequestTeamMemberResponseDto.builder()
+    return RequestTeamMembersResponseDto.builder()
         .requestUsers(requestUsers)
         .build();
   }

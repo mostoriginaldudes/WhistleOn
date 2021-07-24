@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.hala.whistleon.ObjectHelper;
-import io.hala.whistleon.controller.dto.RequestTeamMemberResponseDto;
+import io.hala.whistleon.controller.dto.RequestTeamMembersResponseDto;
 import io.hala.whistleon.domain.team.Team;
 import io.hala.whistleon.domain.team.TeamMemberRequest;
 import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
@@ -84,7 +84,7 @@ public class FindAllRequestTeamMembersTest {
     BDDMockito.given(teamMemberRequestRepository.findAllByTeam(team))
         .willReturn(teamMemberRequests);
 
-    RequestTeamMemberResponseDto response = teamMemberRequestService.findRequestTeamMembers(1L);
+    RequestTeamMembersResponseDto response = teamMemberRequestService.findRequestTeamMembers(1L);
     assertThat(response.getRequestUsers().size()).isEqualTo(3);
   }
 }
