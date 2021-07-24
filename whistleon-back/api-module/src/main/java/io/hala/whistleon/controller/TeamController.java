@@ -45,4 +45,9 @@ public class TeamController {
     teamService.registTeamMember(teamId);
     return ResponseEntity.status(HttpStatus.CREATED).body(null);
   }
+
+  @GetMapping("/{teamId}/request-team-member")
+  public ResponseEntity<?> findAllRegistTeamMember(@PathVariable Long teamId) {
+    return ResponseEntity.ok(teamService.findRequestTeamMembers(teamId));
+  }
 }
