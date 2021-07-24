@@ -24,7 +24,7 @@ public class TeamMemberRequestController {
   }
 
   @GetMapping("/team/{teamId}")
-  public ResponseEntity<?> findAllRegistTeamMember(@PathVariable Long teamId) {
+  public ResponseEntity<?> findAllRegistTeamMembers(@PathVariable Long teamId) {
     return ResponseEntity.ok(teamMemberRequestService.findRequestTeamMembers(teamId));
   }
 }
