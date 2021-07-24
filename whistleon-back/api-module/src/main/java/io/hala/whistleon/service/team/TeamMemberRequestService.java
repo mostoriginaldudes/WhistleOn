@@ -8,4 +8,6 @@ public interface TeamMemberRequestService {
   void registTeamMember(Long teamId);
 
   RequestTeamMembersResponseDto findRequestTeamMembers(Long teamId);
+
+  RequestTeamMemberInfoDto findOneRequestTeamMember(Long userId, Long teamId);
 }

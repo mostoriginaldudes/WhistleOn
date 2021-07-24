@@ -1,12 +1,14 @@
 package io.hala.whistleon.service.team;
 
 import io.hala.whistleon.controller.dto.RequestTeamMemberDto;
+import io.hala.whistleon.controller.dto.RequestTeamMemberInfoDto;
 import io.hala.whistleon.controller.dto.RequestTeamMembersResponseDto;
 import io.hala.whistleon.domain.team.Team;
 import io.hala.whistleon.domain.team.TeamMemberRequest;
 import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
 import io.hala.whistleon.domain.team.TeamRepository;
 import io.hala.whistleon.domain.user.User;
+import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.exception.ExceptionCode;
 import io.hala.whistleon.service.PrincipalHelper;
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TeamMemberRequestServiceImpl implements TeamMemberRequestService {
 
   private final PrincipalHelper principalHelper;
+  private final UserRepository userRepository;
   private final TeamRepository teamRepository;
   private final TeamMemberRequestRepository teamMemberRequestRepository;
 
@@ -40,7 +43,7 @@ public class TeamMemberRequestServiceImpl implements TeamMemberRequestService {
 
   @Transactional
   @Override
-  public RequestTeamMemberResponseDto findRequestTeamMembers(Long teamId) {
+  public RequestTeamMembersResponseDto findRequestTeamMembers(Long teamId) {
     User loginUser = principalHelper.getLoginUser();
     Team userTeam = loginUser.getTeam();
     checkValidTeam(userTeam, teamId);
@@ -53,7 +56,42 @@ public class TeamMemberRequestServiceImpl implements TeamMemberRequestService {
     return this.createRequestTeamMemberResponse(teamMemberRequests);
   }
 
+  @Transactional
+  @Override
+  public RequestTeamMemberInfoDto findOneRequestTeamMember(Long userId, Long teamId) {
+    User loginUser = principalHelper.getLoginUser();
+    User requestUser = getUserById(userId);
+    Team requestTeam = getTeamById(teamId);
+
+    checkSameTeam(loginUser.getTeam(), requestTeam);
+    
+    RequestTeamMemberInfoDto requestTeamMemberInfoDto = null;
+    if (loginUser.hasTeamAuth(requestTeam)
+        && isExistTeamMemberRequest(requestUser, requestTeam)) {
+      requestTeamMemberInfoDto = RequestTeamMemberInfoDto.of(requestUser);
+    }
+    return requestTeamMemberInfoDto;
+  }
+
   // 아래로는 private method
+  private void checkSameTeam(Team team1, Team team2) {
+    if (team1 != team2) {
+      throw new CustomException(ExceptionCode.BAD_REQUEST_DATA);
+    }
+  }
+
+  private User getUserById(Long userId) {
+    return userRepository.findById(userId)
+        .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+  }
+
+  private boolean isExistTeamMemberRequest(User user, Team team) {
+    teamMemberRequestRepository.findByUserAndTeam(user, team)
+        .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+
+    return true;
+  }
+
   private void checkAlreadyExistRequest(User user, Team team) {
     TeamMemberRequest data = teamMemberRequestRepository.findByUserAndTeam(user, team)
         .orElse(null);
