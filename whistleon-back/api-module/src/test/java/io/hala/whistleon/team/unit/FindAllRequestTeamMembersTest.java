@@ -1,6 +1,7 @@
 package io.hala.whistleon.team.unit;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.hala.whistleon.ObjectHelper;
 import io.hala.whistleon.controller.dto.RequestTeamMemberResponseDto;
@@ -10,15 +11,11 @@ import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
 import io.hala.whistleon.domain.team.TeamRepository;
 import io.hala.whistleon.domain.user.Role;
 import io.hala.whistleon.domain.user.User;
-import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.service.PrincipalHelper;
-import io.hala.whistleon.service.team.TeamMemberRequestService;
 import io.hala.whistleon.service.team.TeamMemberRequestServiceImpl;
-import io.hala.whistleon.service.team.TeamServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +26,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class FindTeamMemberRequestTest {
+public class FindAllRequestTeamMembersTest {
 
   @InjectMocks
   private TeamMemberRequestServiceImpl teamMemberRequestService;
