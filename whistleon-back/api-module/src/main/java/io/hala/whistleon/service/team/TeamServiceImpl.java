@@ -3,6 +3,7 @@ package io.hala.whistleon.service.team;
 import io.hala.whistleon.controller.dto.TeamRegistRequestDto;
 import io.hala.whistleon.controller.dto.TeamUpdateRequestDto;
 import io.hala.whistleon.domain.team.Team;
+import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
 import io.hala.whistleon.domain.team.TeamRepository;
 import io.hala.whistleon.domain.team.TeamStat;
 import io.hala.whistleon.domain.team.UpdateTeamInfo;

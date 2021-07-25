@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,8 @@ import org.springframework.lang.Nullable;
 
 @DynamicInsert
 @Getter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @Entity(name = "user")
 public class User {
@@ -97,28 +101,6 @@ public class User {
   @Column(name = "description")
   private String description;
 
-  @Builder
-  public User(String email, String name, String password, LocalDate birthday, String phoneNum,
-      String sido, String sigungu,
-      String zonecode, String roadAddress, Integer height, Integer weight, String nickname,
-      Position position1, Position position2, String description) {
-    this.email = email;
-    this.name = name;
-    this.password = password;
-    this.birthday = birthday;
-    this.phoneNum = phoneNum;
-    this.sido = sido;
-    this.role = Role.NONE;
-    this.sigungu = sigungu;
-    this.zonecode = zonecode;
-    this.roadAddress = roadAddress;
-    this.height = height;
-    this.weight = weight;
-    this.nickname = nickname;
-    this.position1 = position1;
-    this.position2 = position2;
-    this.description = description;
-  }
 
   public void addStat(UserStat userStat) {
     this.userStat = userStat;

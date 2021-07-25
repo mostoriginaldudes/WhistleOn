@@ -11,7 +11,9 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserInfoResponseDto {
+public class RequestTeamMemberInfoDto {
+
+  private Long userId;
 
   private String email;
 
@@ -41,8 +43,9 @@ public class UserInfoResponseDto {
 
   private String description;
 
-  public static UserInfoResponseDto of(User user) {
-    return UserInfoResponseDto.builder()
+  public static RequestTeamMemberInfoDto of(User user) {
+    return RequestTeamMemberInfoDto.builder()
+        .userId(user.getUserId())
         .email(user.getEmail())
         .name(user.getName())
         .birthday(user.getBirthday())
