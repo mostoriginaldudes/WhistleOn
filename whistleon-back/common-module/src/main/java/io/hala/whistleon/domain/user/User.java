@@ -140,4 +140,8 @@ public class User {
     this.team = team;
     this.role = Role.LEADER;
   }
+  public void joinTeam(Team team) {
+    this.team = team;
+    this.role = Role.MEMBER;
+  }
 }
