@@ -11,8 +11,10 @@ import io.hala.whistleon.domain.team.TeamMemberRequestRepository;
 import io.hala.whistleon.domain.team.TeamRepository;
 import io.hala.whistleon.domain.user.Role;
 import io.hala.whistleon.domain.user.User;
+import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.service.PrincipalHelper;
+import io.hala.whistleon.service.team.TeamMemberRequestService;
 import io.hala.whistleon.service.team.TeamMemberRequestServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +23,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class FindAllRequestTeamMembersTest {
 
-  @InjectMocks
-  private TeamMemberRequestServiceImpl teamMemberRequestService;
+  private TeamMemberRequestService teamMemberRequestService;
 
+  @Mock
+  private UserRepository userRepository;
   @Mock
   private PrincipalHelper principalHelper;
   @Mock
@@ -42,7 +44,10 @@ public class FindAllRequestTeamMembersTest {
   private List<TeamMemberRequest> teamMemberRequests = new ArrayList<>();
 
   @BeforeEach
-  void setDummyData() {
+  void setUp() {
+    teamMemberRequestService = new TeamMemberRequestServiceImpl(principalHelper, userRepository,
+        teamRepository, teamMemberRequestRepository);
+
     User user1 = ObjectHelper.getFakeUser();
     User user2 = ObjectHelper.getFakeUser();
     User user3 = ObjectHelper.getFakeUser();

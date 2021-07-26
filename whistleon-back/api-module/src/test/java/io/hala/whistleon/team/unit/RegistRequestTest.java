@@ -10,8 +10,6 @@ import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.service.PrincipalHelper;
 import io.hala.whistleon.service.team.TeamMemberRequestService;
 import io.hala.whistleon.service.team.TeamMemberRequestServiceImpl;
-import io.hala.whistleon.service.team.TeamServiceImpl;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
@@ -20,7 +18,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -28,9 +25,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class RegistRequestTest {
 
-  private User user;
-  private Team team;
+  private TeamMemberRequestService teamMemberRequestService;
 
+  @Mock
+  private UserRepository userRepository;
   @Mock
   private PrincipalHelper principalHelper;
   @Mock
@@ -38,15 +36,18 @@ public class RegistRequestTest {
   @Mock
   private TeamMemberRequestRepository teamMemberRequestRepository;
 
-  @InjectMocks
-  private TeamMemberRequestServiceImpl teamMemberRequestService;
+  private User user;
+  private Team team;
 
   private final String email = "test@test.com";
   private final String name = "테스트";
   private final String nickname = "테스트닉넴";
 
   @BeforeEach
-  void beforeTest() {
+  void setUp() {
+    teamMemberRequestService = new TeamMemberRequestServiceImpl(principalHelper, userRepository,
+        teamRepository, teamMemberRequestRepository);
+
     user = User.builder()
         .userId(1L)
         .email(email)
