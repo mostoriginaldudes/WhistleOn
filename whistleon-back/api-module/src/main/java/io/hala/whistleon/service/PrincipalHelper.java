@@ -22,6 +22,6 @@ public class PrincipalHelper {
   public io.hala.whistleon.domain.user.User getLoginUser() {
     String email = this.getName();
     return userRepository.findByEmail(email)
-        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER));
+        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHENTICATED_MEMBER));
   }
 }

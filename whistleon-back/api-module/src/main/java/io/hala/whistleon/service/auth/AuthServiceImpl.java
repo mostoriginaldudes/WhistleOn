@@ -54,9 +54,9 @@ public class AuthServiceImpl implements AuthService {
 
   private boolean isValidCode(String email, String code) {
     AuthCode authCode = authRepository.findAuthCodeByEmail(email)
-        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_AUTH_CODE));
+        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHENTICATED_AUTH_CODE));
     if (!code.equals(authCode.getCode())) {
-      throw new CustomException(ExceptionCode.UNAUTHORIZED_AUTH_CODE);
+      throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTH_CODE);
     }
     return true;
   }
@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public long getCodeId(String email) {
     AuthCode authCode = authRepository.findAuthCodeByEmail(email)
-        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_AUTH_CODE));
+        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHENTICATED_AUTH_CODE));
     return authCode.getId();
   }
 
@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
     TokenDto tokenDto = jwtTokenProvider.createToken(authentication);
 
     User user = userRepository.findByEmail(signinRequestDto.getEmail())
-        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHORIZED_MEMBER));
+        .orElseThrow(() -> new CustomException(ExceptionCode.UNAUTHENTICATED_MEMBER));
 
     return LoginResponseDto.builder()
         .email(user.getEmail())

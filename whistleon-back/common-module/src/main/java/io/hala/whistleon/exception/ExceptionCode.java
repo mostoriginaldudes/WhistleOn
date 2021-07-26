@@ -24,10 +24,10 @@ public enum ExceptionCode {
   TEAM_NOT_EXIST(HttpStatus.NOT_FOUND, "해당 팀이 존재하지 않습니다."),
 
   /**
-   * 401 UNAUTHORIZED
+   * 401 UNAUTHORIZED 인증 오류(Unauthenticated)
    */
-  UNAUTHORIZED_AUTH_CODE(HttpStatus.UNAUTHORIZED, "메일을 통한 인증정보 오류"),
-  UNAUTHORIZED_MEMBER(HttpStatus.UNAUTHORIZED, "계정 정보 오류"),
+  UNAUTHENTICATED_AUTH_CODE(HttpStatus.UNAUTHORIZED, "메일을 통한 인증정보 오류"),
+  UNAUTHENTICATED_MEMBER(HttpStatus.UNAUTHORIZED, "계정 정보 오류"),
 
   /**
    * 403 FORBIDDEN
