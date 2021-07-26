@@ -40,4 +40,11 @@ public class TeamMemberRequestController {
     teamMemberRequestService.approveTeamMember(teamId, userId);
     return ResponseEntity.status(HttpStatus.OK).body(null);
   }
+
+  @PostMapping("/team/{teamId}/user/{userId}/reject")
+  public ResponseEntity<?> rejectRequestTeamMember(@PathVariable Long teamId,
+      @PathVariable Long userId) {
+    teamMemberRequestService.rejectTeamMember(teamId, userId);
+    return ResponseEntity.status(HttpStatus.OK).body(null);
+  }
 }
