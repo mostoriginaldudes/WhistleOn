@@ -12,4 +12,6 @@ public interface TeamMemberRequestService {
   RequestTeamMemberInfoDto findOneRequestTeamMember(Long userId, Long teamId);
 
   void approveTeamMember(Long teamId, Long userId);
+
+  void rejectTeamMember(Long teamId, Long userId);
 }

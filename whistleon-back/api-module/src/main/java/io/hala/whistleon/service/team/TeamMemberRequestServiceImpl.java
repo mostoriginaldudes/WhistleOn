@@ -77,11 +77,23 @@ public class TeamMemberRequestServiceImpl implements TeamMemberRequestService {
   @Override
   public void approveTeamMember(Long teamId, Long userId) {
     User loginUser = principalHelper.getLoginUser();
-    User requestUser = getUserById(userId);
     Team requestTeam = getTeamById(teamId);
     if (loginUser.hasTeamAuth(requestTeam)) {
+      User requestUser = getUserById(userId);
       TeamMemberRequest teamMemberRequest = getTeamMemberRequest(requestUser, requestTeam);
       requestUser.joinTeam(requestTeam);
+      teamMemberRequestRepository.delete(teamMemberRequest);
+    }
+  }
+
+  @Transactional
+  @Override
+  public void rejectTeamMember(Long teamId, Long userId) {
+    User loginUser = principalHelper.getLoginUser();
+    Team requestTeam = getTeamById(teamId);
+    if (loginUser.hasTeamAuth(requestTeam)) {
+      User requestUser = getUserById(userId);
+      TeamMemberRequest teamMemberRequest = getTeamMemberRequest(requestUser, requestTeam);
       teamMemberRequestRepository.delete(teamMemberRequest);
     }
   }
