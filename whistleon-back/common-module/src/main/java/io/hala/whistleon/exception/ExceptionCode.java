@@ -32,7 +32,7 @@ public enum ExceptionCode {
   /**
    * 403 FORBIDDEN
    */
-  UNAUTHENTICATED_AUTHOR(HttpStatus.FORBIDDEN, "권한이 없습니다."),
+  UNAUTHORIZED_AUTHOR(HttpStatus.FORBIDDEN, "권한이 없습니다."),
   UNAUTHORIZED_TEAM_MANAGER(HttpStatus.FORBIDDEN, "팀 리더나 매니저가 아닙니다."),
   UNAUTHORIZED_TEAM(HttpStatus.FORBIDDEN, "해당 팀 소속이 아닙니다."),
 

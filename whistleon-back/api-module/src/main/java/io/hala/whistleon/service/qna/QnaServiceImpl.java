@@ -151,7 +151,7 @@ public class QnaServiceImpl implements QnaService {
 
   private boolean isQnaReplyAuthor(User loginUser) {
     if (loginUser.getRole() != Role.ADMIN) {
-      throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTHOR);
+      throw new CustomException(ExceptionCode.UNAUTHORIZED_AUTHOR);
     }
     return true;
   }
@@ -163,12 +163,12 @@ public class QnaServiceImpl implements QnaService {
     if (loginUser.getRole() == Role.ADMIN) {
       return true;
     }
-    throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTHOR);
+    throw new CustomException(ExceptionCode.UNAUTHORIZED_AUTHOR);
   }
 
   private boolean isQnaAuthor(User loginUser, User qnaAuthor) {
     if (loginUser != qnaAuthor) {
-      throw new CustomException(ExceptionCode.UNAUTHENTICATED_AUTHOR);
+      throw new CustomException(ExceptionCode.UNAUTHORIZED_AUTHOR);
     }
     return true;
   }
