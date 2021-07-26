@@ -12,6 +12,7 @@ import io.hala.whistleon.domain.user.User;
 import io.hala.whistleon.domain.user.UserRepository;
 import io.hala.whistleon.exception.CustomException;
 import io.hala.whistleon.service.PrincipalHelper;
+import io.hala.whistleon.service.team.TeamMemberRequestService;
 import io.hala.whistleon.service.team.TeamMemberRequestServiceImpl;
 import java.util.List;
 import java.util.Optional;
@@ -20,15 +21,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class FindOneRequestTeamMemberTest {
 
-  @InjectMocks
-  private TeamMemberRequestServiceImpl teamMemberRequestService;
+  private TeamMemberRequestService teamMemberRequestService;
 
   @Mock
   private UserRepository userRepository;
@@ -44,7 +43,10 @@ public class FindOneRequestTeamMemberTest {
   private List<TeamMemberRequest> teamMemberRequests;
 
   @BeforeEach
-  void setDummyData() {
+  void setUp() {
+    teamMemberRequestService = new TeamMemberRequestServiceImpl(principalHelper, userRepository,
+        teamRepository, teamMemberRequestRepository);
+
     user1 = ObjectHelper.getFakeUser();
     user2 = ObjectHelper.getFakeUser();
 
