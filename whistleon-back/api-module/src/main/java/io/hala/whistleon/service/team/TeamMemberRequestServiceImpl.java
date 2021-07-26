@@ -73,6 +73,19 @@ public class TeamMemberRequestServiceImpl implements TeamMemberRequestService {
     return requestTeamMemberInfoDto;
   }
 
+  @Transactional
+  @Override
+  public void approveTeamMember(Long teamId, Long userId) {
+    User loginUser = principalHelper.getLoginUser();
+    User requestUser = getUserById(userId);
+    Team requestTeam = getTeamById(teamId);
+    if (loginUser.hasTeamAuth(requestTeam)) {
+      TeamMemberRequest teamMemberRequest = getTeamMemberRequest(requestUser, requestTeam);
+      requestUser.joinTeam(requestTeam);
+      teamMemberRequestRepository.delete(teamMemberRequest);
+    }
+  }
+
   // 아래로는 private method
   private void checkSameTeam(Team team1, Team team2) {
     if (team1 != team2) {
@@ -82,6 +95,11 @@ public class TeamMemberRequestServiceImpl implements TeamMemberRequestService {
 
   private User getUserById(Long userId) {
     return userRepository.findById(userId)
+        .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
+  }
+
+  private TeamMemberRequest getTeamMemberRequest(User user, Team team) {
+    return teamMemberRequestRepository.findByUserAndTeam(user, team)
         .orElseThrow(() -> new CustomException(ExceptionCode.RESOURCES_NOT_EXIST));
   }
 
