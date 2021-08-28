@@ -14,7 +14,10 @@ module.exports = {
     extensions: ['.js', '.jsx', '.scss', '.css'],
     alias: {
       '@': path.resolve(__dirname, 'src/'),
-      '@utils': path.resolve(__dirname, 'src/utils/')
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@apis': path.resolve(__dirname, 'src/apis/'),
+      '@store': path.resolve(__dirname, 'src/store/'),
+      '@const': path.resolve(__dirname, 'src/store/constants')
     }
   },
   entry: {
@@ -49,7 +52,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               implementation: require('sass'),
-              additionalData: `@import '../../style/main';`
+              additionalData: `@import '../../style/_main';`
             }
           }
         ]

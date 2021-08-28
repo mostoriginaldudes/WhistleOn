@@ -1,7 +1,7 @@
 .event_button {
   @include size(190px, 50px);
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 1rem;
   margin: {
     top: 0;
     right: 10px;
@@ -10,11 +10,11 @@
   }
 
   &--yellow {
-    background-color: $pt-yellow;
-    color: $pt-gray;
+    background-color: $pt-yellow-5;
+    color: $pt-gray-6;
   }
   &--gray {
-    background-color: $pt-gray;
-    color: $pt-yellow;
+    background-color: $pt-gray-6;
+    color: $pt-yellow-5;
   }
 }

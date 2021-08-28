@@ -23,7 +23,7 @@ $address-popup-height: 650px;
       @include flex($jc: space-between, $ai: center);
       padding: 0 10px;
       color: #fff;
-      background: $pt-gray;
+      background: $pt-gray-6;
 
       &__btn {
         font-size: 2rem;

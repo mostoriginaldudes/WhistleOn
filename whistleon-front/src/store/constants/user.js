@@ -1,0 +1,15 @@
+export const USER_AUTH_TOKEN = 'user/AUTH_TOKEN';
+export const USER_EMAIL = 'user/USER_EMAIL';
+export const USER_NAME = 'user/USER_NAME';
+export const USER_NICKNAME = 'user/USER_NICKNAME';
+export const USER_BIRTHDAY = 'user/USER_BIRTHDAY';
+export const USER_SIDO = 'user/USER_SIDO';
+export const USER_SIGUNGU = 'user/USER_SIGUNGU';
+export const USER_ROAD_ADDRESS = 'user/USER_ROAD_ADDRESS';
+export const USER_ZONECODE = 'user/USER_ZONECODE';
+export const USER_PHONE_NUM = 'user/USER_PHONE_NUM';
+export const USER_HEIGHT = 'user/USER_HEIGHT';
+export const USER_WEIGHT = 'user/USER_WEIGHT';
+export const USER_POSITION1 = 'user/USER_POSITION1';
+export const USER_POSITION2 = 'user/USER_POSITION2';
+export const USER_DESCRIPTION = 'user/USER_DESCRIPTION';

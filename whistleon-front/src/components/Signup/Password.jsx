@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const Password = ({ password, passwordCheck, dispatch }) => {
@@ -14,8 +14,8 @@ const Password = ({ password, passwordCheck, dispatch }) => {
 
   const onInput = () => {
     try {
-      const validatedPassword = validate.password(password);
-      const validatedPasswordCheck = validate.passwordCheck(password, passwordCheck);
+      const validatedPassword = formValidationUtil.password(password);
+      const validatedPasswordCheck = formValidationUtil.passwordCheck(password, passwordCheck);
 
       if (isError(validatedPassword)) {
         throw validatedPassword;

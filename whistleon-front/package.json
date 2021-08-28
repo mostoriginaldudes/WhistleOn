@@ -64,6 +64,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "babel-plugin-react-scoped-css": "^1.1.1",
     "immer": "^9.0.5",
     "react": "^17.0.2",
@@ -72,6 +73,9 @@
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
-    "redux": "^4.1.0"
+    "react-spinners": "^0.11.0",
+    "redux": "^4.1.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   }
 }

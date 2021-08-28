@@ -1,0 +1,64 @@
+$width: 400px;
+$height: 500px;
+
+.modal {
+  &__wrapper {
+    @include card($width, $height, null, null);
+    position: absolute;
+    top: calc((100vh - 500px) / 2);
+    left: calc((100vw - 400px) / 2);
+    z-index: 12;
+    background: #fff;
+  }
+
+  &__header {
+    background: $pt-gray-6;
+    color: #fff;
+    margin: {
+      bottom: 50px;
+    }
+    padding: 20px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+
+    &__wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+
+    & > h3.modal__timer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $pt-gray-7;
+      margin: {
+        bottom: 20px;
+      }
+    }
+
+    & > button {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  &__mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+  }
+}

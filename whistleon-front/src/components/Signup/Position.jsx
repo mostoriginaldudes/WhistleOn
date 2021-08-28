@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const soccerPositions = ['GK', 'RW', 'CF', 'ST', 'LW', 'CAM', 'CM', 'CDM', 'CB', 'RWB', 'RB', 'LWB', 'LB'];
@@ -16,7 +16,7 @@ const Position = ({ position1, position2, dispatch }) => {
 
   const validatePosition = () => {
     try {
-      const validatedPosition = validate.position(position1, position2, soccerPositions);
+      const validatedPosition = formValidationUtil.position(position1, position2, soccerPositions);
       if (isError(validatedPosition)) {
         throw validatedPosition;
       }

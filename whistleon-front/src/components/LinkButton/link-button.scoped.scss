@@ -2,8 +2,8 @@
   &__btn {
     @include flex(row, center, center);
     @include size(150px, 50px);
-    background-color: $pt-yellow;
-    color: $pt-gray;
+    background-color: $pt-yellow-5;
+    color: $pt-gray-6;
     padding: 10px 15px;
     border-radius: 5px;
 
@@ -25,11 +25,11 @@
     @include flex(row, center, center);
     @include size();
     border-right: none;
-    border-left: 2px solid $pt-gray;
+    border-left: 2px solid $pt-gray-6;
 
     &--right {
       @include flex(row, flex-start, center);
-      border-right: 2px solid $pt-gray;
+      border-right: 2px solid $pt-gray-6;
       border-left: none;
     }
     &--left {

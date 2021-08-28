@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
 import { today } from '@utils/date';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const Birthday = ({ birthday, dispatch }) => {
@@ -12,7 +12,7 @@ const Birthday = ({ birthday, dispatch }) => {
     try {
       dispatch(target);
 
-      const validatedBirthday = validate.birthday(target.value);
+      const validatedBirthday = formValidationUtil.birthday(target.value);
       if (isError(validatedBirthday)) {
         throw validatedBirthday;
       }

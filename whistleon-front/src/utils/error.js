@@ -1,4 +1,4 @@
-import ValidationError from '@/components/Signup/ValidationError';
+import ValidationError from '@/errors/ValidationError';
 
 const isError = (arg) => arg instanceof Error;
 

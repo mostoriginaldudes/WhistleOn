@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const Physical = ({ height, weight, dispatch }) => {
@@ -12,7 +12,7 @@ const Physical = ({ height, weight, dispatch }) => {
     try {
       dispatch(target);
 
-      const validatedHeight = validate.height(target.value);
+      const validatedHeight = formValidationUtil.height(target.value);
 
       if (isError(validatedHeight)) {
         throw validatedHeight;
@@ -30,7 +30,7 @@ const Physical = ({ height, weight, dispatch }) => {
     try {
       dispatch(target);
 
-      const validatedWeight = validate.weight(target.value);
+      const validatedWeight = formValidationUtil.weight(target.value);
 
       if (isError(validatedWeight)) {
         throw validatedWeight;

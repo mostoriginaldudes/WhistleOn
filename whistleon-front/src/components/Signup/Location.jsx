@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const Location = ({ location, onFocus }) => {
@@ -9,7 +9,7 @@ const Location = ({ location, onFocus }) => {
 
   const onChange = ({ target: { value } }) => {
     try {
-      const validatedLocation = validate.location(value);
+      const validatedLocation = formValidationUtil.location(value);
       if (isError(validatedLocation)) {
         throw validatedLocation;
       }

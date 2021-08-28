@@ -8,8 +8,8 @@ const Buttons = () => {
 
   return (
     <>
-      <EventButton text="회원가입" color="yellow" />
-      <EventButton text="취소" color="gray" eventHandler={() => history.replace('/')} />
+      <EventButton type={'submit'} text="회원가입" color="yellow" />
+      <EventButton type={'submit'} text="취소" color="gray" eventHandler={() => history.replace('/')} />
     </>
   );
 };

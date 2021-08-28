@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const Name = ({ name, dispatch }) => {
@@ -11,7 +11,7 @@ const Name = ({ name, dispatch }) => {
     try {
       dispatch(target);
 
-      const validatedName = validate.name(target.value);
+      const validatedName = formValidationUtil.name(target.value);
       if (isError(validatedName)) throw validatedName;
 
       setValidationMessage(null);

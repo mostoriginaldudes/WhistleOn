@@ -31,7 +31,7 @@
       size: 5rem;
     }
     margin: 0 auto;
-    text-shadow: 3px 3px 10px $pt-gray;
+    text-shadow: 3px 3px 10px $pt-gray-6;
   }
 
   &__subtitle {
@@ -82,8 +82,8 @@
 
       &__btn--right-arrow {
         padding: 20px 30px;
-        background-color: $pt-yellow;
-        color: $pt-gray;
+        background-color: $pt-gray-5;
+        color: $pt-gray-6;
       }
     }
   }

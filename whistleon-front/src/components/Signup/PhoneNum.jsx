@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputUnderline from '../InputUnderline';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const PhoneNum = ({ phoneNum, dispatch }) => {
@@ -11,7 +11,7 @@ const PhoneNum = ({ phoneNum, dispatch }) => {
     try {
       dispatch(target);
 
-      const validatePhoneNum = validate.phoneNum(target.value);
+      const validatePhoneNum = formValidationUtil.phoneNum(target.value);
       if (isError(validatePhoneNum)) {
         throw validatePhoneNum;
       }

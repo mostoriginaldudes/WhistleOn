@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import validate from './FormValidation';
+import formValidationUtil from './Validate';
 import { isError, isValidationError } from '@utils/error';
 
 const SelfDescription = ({ description, dispatch }) => {
@@ -10,7 +10,7 @@ const SelfDescription = ({ description, dispatch }) => {
     try {
       dispatch(target);
 
-      const validatedDescription = validate.description(target.value);
+      const validatedDescription = formValidationUtil.description(target.value);
       if (isError(validatedDescription)) {
         throw validatedDescription;
       }

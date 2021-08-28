@@ -12,7 +12,7 @@ input {
       color: transparent;
     }
     &:focus::-webkit-datetime-edit {
-      color: $pt-gray !important;
+      color: $pt-gray-6 !important;
     }
   }
 
@@ -51,8 +51,11 @@ input {
     display: block;
     width: 100%;
     border: none;
-    border-bottom: 1px solid $pt-gray;
-    color: $pt-gray;
+    border-bottom: 1px solid $pt-gray-6;
+    color: $pt-gray-6;
+    &:focus {
+      border: none;
+    }
   }
 
   /* LABEL ======================================= */
@@ -74,7 +77,7 @@ input {
   &__input:valid ~ &__label {
     top: -2 * $gap;
     font-size: 14px;
-    color: $pt-yellow;
+    color: $pt-yellow-6;
   }
 
   /* BOTTOM BARS ================================= */
@@ -90,7 +93,7 @@ input {
       @include input-transition;
       bottom: 1px;
       position: absolute;
-      background: $pt-yellow;
+      background: $pt-yellow-6;
     }
     &::before {
       left: 50%;
@@ -142,7 +145,7 @@ input {
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
   from {
-    background: $pt-yellow;
+    background: $pt-yellow-6;
   }
   to {
     width: 0;
@@ -151,7 +154,7 @@ input {
 }
 @-moz-keyframes inputHighlighter {
   from {
-    background: $pt-yellow;
+    background: $pt-yellow-6;
   }
   to {
     width: 0;
@@ -160,7 +163,7 @@ input {
 }
 @keyframes inputHighlighter {
   from {
-    background: $pt-yellow;
+    background: $pt-yellow-6;
   }
   to {
     width: 0;
