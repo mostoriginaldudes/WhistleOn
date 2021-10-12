@@ -1,11 +1,9 @@
 node_modules/
-*.log
 dist/
 
-
-# OS generated files
+# OS
 .DS_Store
 
-# Editor generated files
+## IDE
 .vscode
 .idea
